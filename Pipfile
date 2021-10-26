@@ -23,6 +23,7 @@ djangorestframework = "*"
 markdown = "*"
 django-filter = "*"
 setuptools = "*"
+django-cms = "*"
 
 [requires]
 python_version = "3.9"
