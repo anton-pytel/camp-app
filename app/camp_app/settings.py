@@ -62,6 +62,33 @@ INSTALLED_APPS = [
     'menus',
     'treebeard',
     'sekizai',
+    'filer',
+    'easy_thumbnails',
+    'mptt',
+    'djangocms_text_ckeditor',
+    'djangocms_link',
+    'djangocms_file',
+    'djangocms_picture',
+    'djangocms_video',
+    'djangocms_googlemap',
+    'djangocms_snippet',
+    'djangocms_style',
+    'djangocms_icon',
+    'djangocms_bootstrap4',
+    'djangocms_bootstrap4.contrib.bootstrap4_alerts',
+    'djangocms_bootstrap4.contrib.bootstrap4_badge',
+    'djangocms_bootstrap4.contrib.bootstrap4_card',
+    'djangocms_bootstrap4.contrib.bootstrap4_carousel',
+    'djangocms_bootstrap4.contrib.bootstrap4_collapse',
+    'djangocms_bootstrap4.contrib.bootstrap4_content',
+    'djangocms_bootstrap4.contrib.bootstrap4_grid',
+    'djangocms_bootstrap4.contrib.bootstrap4_jumbotron',
+    'djangocms_bootstrap4.contrib.bootstrap4_link',
+    'djangocms_bootstrap4.contrib.bootstrap4_listgroup',
+    'djangocms_bootstrap4.contrib.bootstrap4_media',
+    'djangocms_bootstrap4.contrib.bootstrap4_picture',
+    'djangocms_bootstrap4.contrib.bootstrap4_tabs',
+    'djangocms_bootstrap4.contrib.bootstrap4_utilities',
 ]
 
 MIDDLEWARE = [
@@ -175,3 +202,12 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 CMS_TEMPLATES = [
     ('home.html', 'Home page template'),
 ]
+
+THUMBNAIL_HIGH_RESOLUTION = True
+
+THUMBNAIL_PROCESSORS = (
+    'easy_thumbnails.processors.colorspace',
+    'easy_thumbnails.processors.autocrop',
+    'filer.thumbnail_processors.scale_and_crop_with_subject_location',
+    'easy_thumbnails.processors.filters'
+)
