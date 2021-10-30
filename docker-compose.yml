@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  camp-app:
+    hostname: camp_app
+    container_name: camp_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gitlab.makers.sk:5005/makers/volunteering/camp-app:latest
+    networks:
+      - camp-app-network
+    ports:
+      - 127.0.0.1:${APP_GUNICORN_HOST_PORT:?Define a Gunicorn port in the .env project file}:${APP_GUNICORN_HOST_PORT:?Define a Gunicorn port in the .env project file}
+    environment:
+      # Always alfabeticaly sort the environment variables (commented out variables shall be sorted as uncommented)
+      ALLOWED_HOSTS: "${ALLOWED_HOSTS:?err}"
+      APP_GUNICORN_HOST_PORT: "${APP_GUNICORN_HOST_PORT:?Define a Gunicorn port in the .env project file}"
+      DATABASE_ENGINE: "${DATABASE_ENGINE:-django.db.backends.postgresql}"
+      DATABASE_HOST: "${DATABASE_HOST:-camp-app-db}"
+      DATABASE_NAME: "${DATABASE_NAME:-camp_app_db}"
+      DATABASE_PASSWORD: "${DATABASE_PASSWORD:-mKzFdUSCfUbq3TbWjDcQF9bXhhr354Wu}"
+      DATABASE_PORT: "${DATABASE_PORT:-5432}"
+      DATABASE_USERNAME: "${DATABASE_USERNAME:-postgres}"
+      DEBUG: "${DEBUG:-True}"
+      DJANGO_SECRET_KEY: "${DJANGO_SECRET_KEY:?Missing DJANGO_SECRET_KEY in the .env project file}"
+      HTTPS_ON: "${HTTPS_ON:-False}"
+  camp-app-db:
+    restart: always
+    hostname: camp-app-db
+    container_name: camp-app-db
+    ports:
+      - 127.0.0.1:${POSTGRES_PORT_OUT:-5432}:${POSTGRES_PORT:-5432}
+    networks:
+      - camp-app-network
+    image: 'docker.io/bitnami/postgresql:11.10.0'
+    environment:
+      # Always alfabeticaly sort the environment variables (commented out variables shall be sorted as uncommented)
+      POSTGRES_DB: "${POSTGRES_DB:-camp_app_db}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-mKzFdUSCfUbq3TbWjDcQF9bXhhr354Wu}"
+      POSTGRES_PORT: ${POSTGRES_PORT:-5432}
+      POSTGRES_USER: "${POSTGRES_USER:-postgres}"
+    volumes:
+      - camp-app-data:/bitnami/postgresql
+networks:
+  camp-app-network:
+    name: camp-app-network
+    driver: bridge
+
+volumes:
+  camp-app-data:

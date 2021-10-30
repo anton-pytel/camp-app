@@ -1,0 +1,42 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django-jazzmin = "==2.4.0"
+psycopg2-binary = "==2.8.*"
+python-decouple = "==3.3.*"
+uuid = "==1.30.*"
+django-countries = "==7.0.*"
+django-phonenumber-field = {version = "==5.0.*", extras = ["phonenumbers"]}
+requests = "==2.25.*"
+colorlog = "==4.6.*"
+pycountry = "==20.7.*"
+django-extensions = "==3.1.*"
+gspread = "==3.6.*"
+oauth2client = "==4.1.*"
+Django = "==3.1.*"
+gunicorn = "==20.0.*"
+pyjwt = "==2.1.*"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
+setuptools = "*"
+django-cms = "*"
+django-filer = "*"
+djangocms-text-ckeditor = "*"
+djangocms-link = "*"
+djangocms-file = "*"
+djangocms-picture = "*"
+djangocms-video = "*"
+djangocms-googlemap = "*"
+djangocms-snippet = "*"
+djangocms-style = "*"
+djangocms-bootstrap4 = "*"
+
+[requires]
+python_version = "3.9"
+
+[dev-packages]
+commitizen = "*"
