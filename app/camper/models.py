@@ -59,7 +59,7 @@ class GroupAnimator(models.Model):
     group = models.ForeignKey(ChildGroup, on_delete=models.CASCADE)
 
 
-class GroupChildren(models.Model):
+class GroupChild(models.Model):
     child = models.ForeignKey(Child, on_delete=models.CASCADE)
     group = models.ForeignKey(ChildGroup, on_delete=models.CASCADE)
 
