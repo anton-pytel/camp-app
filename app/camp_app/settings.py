@@ -48,8 +48,8 @@ SITE_ID = 1
 # Application definition
 
 INSTALLED_APPS = [
-    # 'jazzmin',
-    'djangocms_admin_style',
+    'jazzmin',
+    #'djangocms_admin_style',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
