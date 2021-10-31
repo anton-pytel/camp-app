@@ -49,7 +49,7 @@ SITE_ID = 1
 
 INSTALLED_APPS = [
     'jazzmin',
-    #'djangocms_admin_style',
+    'djangocms_admin_style',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -89,6 +89,7 @@ INSTALLED_APPS = [
     'djangocms_bootstrap4.contrib.bootstrap4_picture',
     'djangocms_bootstrap4.contrib.bootstrap4_tabs',
     'djangocms_bootstrap4.contrib.bootstrap4_utilities',
+    'nested_inline',
 ]
 
 MIDDLEWARE = [
