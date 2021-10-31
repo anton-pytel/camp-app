@@ -19,7 +19,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-
 urlpatterns = [
     path('camp-admin/', admin.site.urls),
     re_path(r'^', include('cms.urls')),

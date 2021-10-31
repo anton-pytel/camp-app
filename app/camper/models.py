@@ -13,10 +13,16 @@ class Registration(models.Model):
 
 class Parent(User):
     consent = models.BooleanField(default=False)
+    contanct_phone = models.CharField(max_length=17)
+    contanct_email = models.CharField(max_length=128)
+
+    class Meta:
+        verbose_name = 'Parent'
 
 
 class Animator(User):
-    pass
+    class Meta:
+        verbose_name = 'Animator'
 
 
 class Child(User):
@@ -31,9 +37,13 @@ class Child(User):
     state = models.CharField(blank=False, unique=True, max_length=100)
     swim = models.CharField(max_length=4, choices=SwimStatus.choices, default=SwimStatus.NO)
 
+    class Meta:
+        verbose_name = 'Child'
+        verbose_name_plural = 'Children'
+
 
 class ChildHealth(models.Model):
-    name = models.CharField(default="name", blank=False, unique=True, max_length=100)
+    disease_name = models.CharField(blank=False, unique=True, max_length=100)
     child = models.ForeignKey(Child, on_delete=models.CASCADE)
 
 
@@ -47,6 +57,9 @@ class Participant(models.Model):
     child = models.ForeignKey(Child, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=4, decimal_places=2)
     paid = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = 'Participation'
 
 
 class ChildGroup(models.Model):
@@ -63,3 +76,5 @@ class GroupChild(models.Model):
     child = models.ForeignKey(Child, on_delete=models.CASCADE)
     group = models.ForeignKey(ChildGroup, on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name_plural = 'Group Children'
