@@ -14655,7 +14655,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   color: #3C4858;
   padding-left: 10px;
   padding-right: 10px;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
   font-size: 13px;
   padding: 10px 15px;
 }
@@ -16310,12 +16310,12 @@ legend {
 }
 
 a {
-  color: #9c27b0;
+  color: black;
 }
 
 a:hover,
 a:focus {
-  color: #89229b;
+  color: black;
   text-decoration: none;
 }
 
