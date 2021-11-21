@@ -1,0 +1,43 @@
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="/static/assets/img/sidebar-1.jpg">
+      <div class="logo">
+        <a target="_blank" rel="noopener noreferrer"
+           target="_blank" rel="noopener noreferrer"
+           href="/" class="simple-text logo-normal">
+          Tábor 2021
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+         <ul class="nav">
+          <li class="nav-item {% if 'index' == segment %} active {% endif %}">
+            <a class="nav-link" href="/">
+              <i class="material-icons">description</i>
+              <p>Základné informácie</p>
+            </a>
+          </li>
+          <li class="nav-item {% if 'neighbors' == segment %} active {% endif %}">
+            <a class="nav-link" href="/neighbors">
+              <i class="material-icons">rocket_launch</i>
+              <p>Pripravujeme</p>
+            </a>
+          </li>
+          <li class="nav-item {% if 'gardens' == segment %} active {% endif %}">
+            <a class="nav-link" href="/gardens">
+              <i class="material-icons">collections</i>
+              <p>Galéria</p>
+            </a>
+          </li>
+           <li class="nav-item {% if 'join-us' == segment %} active {% endif %}">
+            <a class="nav-link" href="/join-us">
+              <i class="material-icons">group</i>
+              <p>Kontakty</p>
+            </a>
+          </li>
+          <li class="nav-item {% if 'join-us' == segment %} active {% endif %}">
+            <a class="nav-link" href="/join-us">
+              <i class="material-icons">person_add</i>
+              <p>Registrácia</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
