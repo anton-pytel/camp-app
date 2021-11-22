@@ -19,9 +19,17 @@ from django.conf import settings
 from django.conf.urls.static import static
 from camper.views import index
 
+from camper.views import login_view, register_user_view, register_child_view
+from django.contrib.auth.views import LogoutView
+
+
 urlpatterns = [
     path('camp-admin/', admin.site.urls),
     path('camp/', index, name='tabor home'),
+    path('login/', login_view, name="login"),
+    path('register-user/', register_user_view, name="register"),
+    path('register/', register_child_view, name="register-child"),
+    path("logout/", LogoutView.as_view(next_page='login'), name="logout"),
     re_path(r'^', include('cms.urls')),
 ] \
               + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \

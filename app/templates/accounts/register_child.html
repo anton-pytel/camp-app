@@ -12,7 +12,7 @@
       <div class="card">
         <div class="card-header card-header-primary">
           <h4 class="card-title">
-            Registrácia používateľa
+            Registrácia na tábor
           </h4>
         </div>
         <div class="card-body">
@@ -28,7 +28,7 @@
           {% if success %}
 
             <p class="">
-              Please <a href={% url 'login' %} class="text-black text-small">authenticate</a> using the new account.
+              Skontrolujte <a href={% url 'profile' %} class="text-black text-small">zadané údaje</a>.
             </p>  
 
           {% else %}
@@ -39,50 +39,80 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label class="bmd-label-floating">Username</label>
-                    {{ form.username }}
+                    <label class="bmd-label">Krstné meno</label>
+                      <br />
+                    {{ form.first_name }}
                   </div>
                 </div>
               </div>
-              <span class="text-danger">{{ form.username.errors }}</span>
+              <span class="text-danger">{{ form.first_name.errors }}</span>
+
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="bmd-label">Priezvisko</label>
+                      <br />
+                    {{ form.last_name }}
+                  </div>
+                </div>
+              </div>
+              <span class="text-danger">{{ form.last_name.errors }}</span>
 
               <br />
 
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label class="bmd-label-floating">Email</label>
-                    {{ form.email }}
+                    <label class="bmd-label">Rodné číslo</label>
+                      <br />
+                    {{ form.birth_number }}
                   </div>
                 </div>
               </div>
-              <span class="text-danger">{{ form.email.errors }}</span>
+              <span class="text-danger">{{ form.birth_number.errors }}</span>
 
               <br />
 
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label class="bmd-label-floating">Password</label>
-                    {{ form.password1 }}
+                    <label class="bmd-label">Ulica a číslo </label>
+                      <br />
+                    {{ form.address }}
                   </div>
                 </div>
               </div>
-              <span class="text-danger">{{ form.password1.errors }}</span>
+              <span class="text-danger">{{ form.address.errors }}</span>
 
               <br />
 
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label class="bmd-label-floating">Password Check</label>
-                    {{ form.password2 }}
+                    <label class="bmd-label">Mesto </label>
+                      <br />
+                    {{ form.city }}
                   </div>
                 </div>
               </div>
-              <span class="text-danger">{{ form.password2.errors }}</span>
+              <span class="text-danger">{{ form.city.errors }}</span>
 
               <br />
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="bmd-label">Štát </label>
+                      <br />
+                    {{ form.state }}
+                  </div>
+                </div>
+              </div>
+              <span class="text-danger">{{ form.state.errors }}</span>
+
+              <br />
+
 
               <button type="submit" name="register" class="btn btn-primary pull-left">Register</button>
 
