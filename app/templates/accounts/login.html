@@ -12,7 +12,7 @@
       <div class="card">
         <div class="card-header card-header-primary">
           <h4 class="card-title">
-            Login
+            Prihlásenie
           </h4>
         </div>
         <div class="card-body">
@@ -20,8 +20,6 @@
           <h6 class="card-category">
               {% if msg %}
                 <span class="text-danger">{{ msg }}</span>
-              {% else %}
-                  Use default credentials: test / ApS12_ZZs8
               {% endif %}  
           </h6>
           
@@ -34,7 +32,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <label class="bmd-label-floating">Username</label>
+                  <label class="bmd-label-floating">Prihlasovacie meno</label>
                   {{ form.username }}
                 </div>
               </div>
@@ -45,7 +43,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <label class="bmd-label-floating">Password</label>
+                  <label class="bmd-label-floating">Heslo</label>
                   {{ form.password }}
                 </div>
               </div>
@@ -55,10 +53,11 @@
 
             <button type="submit" name="login" class="btn btn-primary pull-left">Login</button>
 
-            &nbsp; &nbsp; 
+            &nbsp; <!--
             <span class="pull-right">
               Don't have an account? <a href="{% url 'register' %}" class="text-primary">Create</a>
             </span>
+            -->
 
             <div class="clearfix"></div>
 
