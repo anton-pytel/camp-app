@@ -3,7 +3,7 @@
         <a target="_blank" rel="noopener noreferrer"
            target="_blank" rel="noopener noreferrer"
            href="/" class="simple-text logo-normal">
-          Tábor 2021
+          Detský Tábor 2022
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -15,13 +15,13 @@
             </a>
           </li>
           <li class="nav-item {% if 'neighbors' == segment %} active {% endif %}">
-            <a class="nav-link" href="/neighbors">
+            <a class="nav-link" href="/static/tabor/nextevent.html">
               <i class="material-icons">rocket_launch</i>
               <p>Pripravujeme</p>
             </a>
           </li>
           <li class="nav-item {% if 'gardens' == segment %} active {% endif %}">
-            <a class="nav-link" href="/gardens">
+            <a class="nav-link" href="/static/tabor/gallery.html">
               <i class="material-icons">collections</i>
               <p>Galéria</p>
             </a>
@@ -32,12 +32,20 @@
               <p>Kontakty</p>
             </a>
           </li>
-          <li class="nav-item {% if 'join-us' == segment %} active {% endif %}">
+          <li class="nav-item {% if 'register-child' == segment %} active {% endif %}">
             <a class="nav-link" href="/register">
               <i class="material-icons">person_add</i>
               <p>Registrácia</p>
             </a>
           </li>
+         {% if user.is_authenticated %}
+          <li class="nav-item {% if 'profil' == segment %} active {% endif %}">
+            <a class="nav-link" href="/profile">
+              <i class="material-icons">person</i>
+              <p>Profil</p>
+            </a>
+          </li>
+         {% endif%}
         </ul>
       </div>
     </div>

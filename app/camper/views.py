@@ -4,7 +4,10 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.forms.utils import ErrorList
 from django.http import HttpResponse
-from camper.form import LoginForm, RegisterUserForm, RegisterChildForm
+from camper.form import (
+    LoginForm, RegisterUserForm, RegisterChildForm,
+    ProfileForm
+)
 
 # Create your views here.
 
@@ -33,11 +36,34 @@ def login_view(request):
                 login(request, user)
                 return redirect("/camp")
             else:
-                msg = 'Invalid credentials'
+                msg = 'Neplatné prihlasovacie údaje'
         else:
-            msg = 'Error validating the form'
+            msg = 'Chyba pri validácii'
     return render(request, "accounts/login.html", {"form": form, "msg": msg, 'segment': 'login'})
 
+
+def profile_view(request):
+    if not request.user.is_authenticated:
+        return redirect("/login")
+    form = ProfileForm(request=request)
+    msg = None
+    success = False
+
+    if request.method == "POST":
+        # TODO: add/remove child
+        #
+        pass
+
+    return render(
+        request,
+        "accounts/profile.html",
+        {
+            "form": form,
+            "msg": msg,
+            "success": success,
+            "segment": "profile"
+        }
+    )
 
 def register_child_view(request):
     form = RegisterChildForm(request.POST or None)
@@ -47,6 +73,10 @@ def register_child_view(request):
     if request.method == "POST":
 
         if form.is_valid():
+            # TODO: spracovanie
+            # vytvorit dieta (vygenerovat heslo a username)
+            # vytvorenie rodica ak rovnaky email priradit dieta k tomu istemu
+            # prihlasenie do platnej registracie
             username = form.cleaned_data.get("username")
             password = form.cleaned_data.get("password")
             user = authenticate(username=username, password=password)
@@ -56,7 +86,7 @@ def register_child_view(request):
             else:
                 msg = 'Invalid credentials'
         else:
-            msg = 'Error validating the form'
+            msg = 'Nesprávne zadané údaje'
     return render(
         request,
         "accounts/register_child.html",

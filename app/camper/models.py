@@ -18,8 +18,8 @@ class Parent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     consent_agreement = models.BooleanField(default=False)
     consent_photo = models.BooleanField(default=False)
-    contanct_phone = models.CharField(max_length=17)
-    contanct_email = models.CharField(max_length=128)
+    contact_phone = models.CharField(max_length=17)
+    contact_email = models.CharField(max_length=128)
 
     class Meta:
         verbose_name = 'Parent'
