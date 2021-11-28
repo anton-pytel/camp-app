@@ -2,7 +2,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from camper.models import Child, ChildHealth, Parent, ChildParent
+from camper.models import Child, ChildHealth, Parent, ChildParent, Participant
+from phonenumber_field.formfields import PhoneNumberField
 
 
 class LoginForm(forms.Form):
@@ -70,11 +71,66 @@ class RegisterChildForm(forms.ModelForm):
             }
         ))
 
-    swim = forms.ChoiceField(choices=(
-        (Child.SwimStatus.NO, "Nie"),
-        (Child.SwimStatus.YES, "Áno"),
-        (Child.SwimStatus.ABIT, "Trochu")
-    ))
+    swim = forms.CharField(
+        widget=forms.Select(
+            attrs={
+                "class": "form-control"
+            },
+            choices=(
+                (Child.SwimStatus.NO, "Nie"),
+                (Child.SwimStatus.YES, "Áno"),
+                (Child.SwimStatus.ABIT, "Trochu")
+            ),
+        ),
+    )
+
+    p_first_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Meno",
+                "class": "form-control"
+            }
+        ))
+    p_last_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Priezvisko",
+                "class": "form-control"
+            }
+        ))
+
+    p_email = forms.EmailField(
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "meno.priezvisko@mail.sk",
+                "class": "form-control"
+            }
+        )
+    )
+    p_number = PhoneNumberField(
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "+421 901 234 567",
+                "class": "form-control"
+            }
+        )
+    )
+
+    consent_photo = forms.BooleanField(
+        required=False,
+        widget=forms.CheckboxInput(
+            attrs={
+                "class": "form-check-input"
+            }
+        )
+    )
+    consent_agreement = forms.BooleanField(
+        widget=forms.CheckboxInput(
+            attrs={
+                "class": "form-check-input"
+            }
+        )
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -83,9 +139,16 @@ class RegisterChildForm(forms.ModelForm):
         )
         for i in range(len(diseases) + 1):
             field_name = 'disease_%s' % (i,)
-            self.fields[field_name] = forms.CharField(required=False)
+            self.fields[field_name] = forms.CharField(
+                required=False,
+                widget=forms.TextInput(
+                    attrs={
+                        "class": "form-control disease_new",
+                    }
+                )
+            )
             try:
-                self.initial[field_name] = diseases[i].interest
+                self.initial[field_name] = diseases[i].disease_name
             except IndexError:
                 self.initial[field_name] = ""
                 # create an extra blank field
@@ -112,7 +175,7 @@ class RegisterChildForm(forms.ModelForm):
         child.first_name = self.cleaned_data["first_name"]
         child.last_name = self.cleaned_data["last_name"]
 
-        child.interest_set.all().delete()
+        child.childhealth_set.all().delete()
         for disease in self.cleaned_data["diseases"]:
             ChildHealth.objects.create(
                 child=child,
@@ -132,6 +195,66 @@ class RegisterChildForm(forms.ModelForm):
             "city",
             "state",
             "swim",
+        ]
+
+
+class ProfileForm(forms.ModelForm):
+
+    p_first_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Meno",
+                "class": "form-control"
+            }
+        ))
+    p_last_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Priezvisko",
+                "class": "form-control"
+            }
+        ))
+
+    p_email = forms.EmailField(
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "meno.priezvisko@mail.sk",
+                "class": "form-control"
+            }
+        )
+    )
+    p_number = PhoneNumberField(
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "+421 901 234 567",
+                "class": "form-control"
+            }
+        )
+    )
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
+        super().__init__(*args, **kwargs)
+        self.children = []
+        if self.request.user.is_authenticated:
+            try:
+                p = Parent.objects.get(user=self.request.user)
+                self.children = Child.objects.filter(childparent__parent=p)
+
+                self.initial["p_first_name"] = p.user.first_name
+                self.initial["p_last_name"] = p.user.last_name
+                self.initial["p_number"] = p.contact_phone
+                self.initial["p_email"] = p.contact_email
+            except Parent.DoesNotExist:
+                pass
+
+    def get_children(self):
+        return self.children
+
+    class Meta:
+        model = Participant
+        fields = [
+            "price",
         ]
 
 
