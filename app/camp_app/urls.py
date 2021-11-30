@@ -28,13 +28,13 @@ from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('camp-admin/', admin.site.urls),
-    path('camp/', index, name='tabor home'),
+    path('/', index, name='tabor home'),
     path('login/', login_view, name="login"),
     path('register-user/', register_user_view, name="register"),
     path('register/', register_child_view, name="register-child"),
     path('profile/', profile_view, name="profile"),
     path("logout/", LogoutView.as_view(next_page='login'), name="logout"),
-    re_path(r'^', include('cms.urls')),
+    re_path(r'^cms/', include('cms.urls')),
 ] \
               + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
               + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
