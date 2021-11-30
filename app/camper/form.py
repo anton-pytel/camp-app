@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from camper.models import Child, ChildHealth, Parent, ChildParent, Participant
 from phonenumber_field.formfields import PhoneNumberField
-
+from copy import deepcopy
 
 class LoginForm(forms.Form):
     username = forms.CharField(
@@ -239,12 +239,27 @@ class ProfileForm(forms.ModelForm):
         if self.request.user.is_authenticated:
             try:
                 p = Parent.objects.get(user=self.request.user)
-                self.children = Child.objects.filter(childparent__parent=p)
+                self.children = list(Child.objects.filter(childparent__parent=p))
 
                 self.initial["p_first_name"] = p.user.first_name
                 self.initial["p_last_name"] = p.user.last_name
                 self.initial["p_number"] = p.contact_phone
                 self.initial["p_email"] = p.contact_email
+                i_idx = 0
+                reg_form = RegisterChildForm()
+                for ch in self.children:
+                    idx = str(i_idx)
+                    for itm in ["first_name", "last_name"]:
+                        self.fields[itm + "_" +idx] = deepcopy(reg_form.fields[itm])
+                        self.initial[itm + "_" + idx] = getattr(ch.user, itm)
+                        setattr(ch, "field_" + itm, self[itm + "_" + idx])
+                    for itm in ["birth_number", "address", "city", "state", "swim"]:
+                        self.fields[itm + "_" + idx] = deepcopy(reg_form.fields[itm])
+                        self.initial[itm + "_" +idx] = getattr(ch, itm)
+                        setattr(ch, "field_" + itm, self[itm + "_" + idx])
+                    ch.idx = i_idx
+
+                    i_idx = i_idx + 1
             except Parent.DoesNotExist:
                 pass
 

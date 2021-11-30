@@ -9,7 +9,7 @@
       <div class="sidebar-wrapper">
          <ul class="nav">
           <li class="nav-item {% if 'index' == segment %} active {% endif %}">
-            <a class="nav-link" href="/camp">
+            <a class="nav-link" href="/">
               <i class="material-icons">description</i>
               <p>Základné informácie</p>
             </a>
@@ -27,7 +27,7 @@
             </a>
           </li>
            <li class="nav-item {% if 'join-us' == segment %} active {% endif %}">
-            <a class="nav-link" href="/join-us">
+            <a class="nav-link" href="/cms">
               <i class="material-icons">group</i>
               <p>Kontakty</p>
             </a>
@@ -39,7 +39,7 @@
             </a>
           </li>
          {% if user.is_authenticated %}
-          <li class="nav-item {% if 'profil' == segment %} active {% endif %}">
+          <li class="nav-item {% if 'profile' == segment %} active {% endif %}">
             <a class="nav-link" href="/profile">
               <i class="material-icons">person</i>
               <p>Profil</p>
