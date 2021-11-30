@@ -1,0 +1,321 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Login {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  <div class="row">
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-header card-header-tabs card-header-primary">
+            <div class="nav-tabs-navigation">
+              <div class="nav-tabs-wrapper">
+                <span class="nav-tabs-title">Registrácia na tábor</span>
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="#child" data-toggle="tab">
+                      <i class="material-icons">mood</i> Účastník
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#parent" data-toggle="tab">
+                      <i class="material-icons">supervised_user_circle</i> Rodič
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#others" data-toggle="tab">
+                      <i class="material-icons">add_circle</i> Doplňujúce
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+        </div>
+        <div class="card-body">
+
+          <h6 class="card-category">
+              {% if msg %}
+                <span class="text-danger">{{ msg }}</span>
+              {% endif %}  
+          </h6>
+          
+          <br />
+
+          {% if success %}
+
+            <p class="">
+              Skontrolujte <a href={% url 'profile' %} class="text-black text-small">zadané údaje</a>.
+            </p>  
+
+          {% else %}
+            <form role="form" method="post" action="">
+                
+              {% csrf_token %}
+                <div class="tab-content">
+                    <div class="tab-pane active" id="child">
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label">Krstné meno</label>
+                                  <br />
+                                {{ form.first_name }}
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ form.first_name.errors }}</span>
+
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label">Priezvisko</label>
+                                  <br />
+                                {{ form.last_name }}
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ form.last_name.errors }}</span>
+
+                          <br />
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label">Rodné číslo</label>
+                                  <br />
+                                {{ form.birth_number }}
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ form.birth_number.errors }}</span>
+
+                          <br />
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label">Ulica a číslo </label>
+                                  <br />
+                                {{ form.address }}
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ form.address.errors }}</span>
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label">Mesto </label>
+                                  <br />
+                                {{ form.city }}
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ form.city.errors }}</span>
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label">Štát </label>
+                                  <br />
+                                {{ form.state }}
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ form.state.errors }}</span>
+
+                          <br />
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label">Schopnosť plávať</label>
+                                  <br />
+                                {{ form.swim }}
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ form.swim.errors }}</span>
+
+                          <br />
+                    </div>
+                    <div class="tab-pane" id="parent">
+                        <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label">Krstné meno</label>
+                                  <br />
+                                {{ form.p_first_name }}
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ form.p_first_name.errors }}</span>
+
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label">Priezvisko</label>
+                                  <br />
+                                {{ form.p_last_name }}
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ form.p_last_name.errors }}</span>
+
+                          <br />
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label">Kontaktný e-mail</label>
+                                  <br />
+                                {{ form.p_email }}
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ form.p_email.errors }}</span>
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label">Kontaktné tel. číslo </label>
+                                  <br />
+                                {{ form.p_number }}
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ form.p_number.errors }}</span>
+                    </div>
+                    <div class="tab-pane" id="others">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label class="bmd-label">Alergie </label>
+                              <br />
+                             {{ form.disease_0 }}
+
+                          </div>
+                        </div>
+                      </div>
+                      <span class="text-danger">{{ form.state.errors }}</span>
+                        <div class="row">
+                            <div class="col-md-7">
+                              <div class="form-group">
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                              <label class="form-check-label">
+                                               {{ form.consent_photo }}
+                                                <span class="form-check-sign">
+                                                  <span class="check"></span>
+                                                </span>
+                                              </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label class="bmd-label">Súhlas s fotením </label>
+                                        </td>
+                                        <td>
+                                            <span class="text-danger">{{ form.consent_photo.errors }}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                              <label class="form-check-label">
+                                               {{ form.consent_agreement }}
+                                                <span class="form-check-sign">
+                                                  <span class="check"></span>
+                                                </span>
+                                              </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label class="bmd-label">Súhlas so <a href="">Všeobecnými podmienkami</a>  </label>
+                                        </td>
+                                        <td>
+                                            <span class="text-danger">{{ form.consent_agreement.errors }}</span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                              </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+              <button type="button" name="frm_back" id="frm_back" class="btn btn-primary pull-left">Späť</button>
+              <button type="button" name="frm_next" id="frm_next" class="btn btn-primary pull-left">Ďalej</button>
+              <button type="submit" name="frm_register" id="frm_register" class="btn btn-primary pull-left">Registruj</button>
+
+              <!--&nbsp; &nbsp;
+              <span class="pull-right">
+                Have an account? <a href="{% url 'login' %}" class="text-primary">Login</a>
+              </span>
+              -->
+
+              <div class="clearfix"></div>
+
+            </form>
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+ <script type="text/javascript">
+            $(document).ready(function(){
+                // alergies adding new
+                $('.disease_new').on('input', function() {
+                    let $this = $(this)
+                    let $clone = $this.clone()
+                    let name = $clone.attr('name')
+                    let n = parseInt(name.split('_')[1]) + 1
+                    name = 'disease_' + n
+                    $clone.val('')
+                    $clone.attr('name', name)
+                    $clone.appendTo($this.parent())
+                    $this.removeClass('disease_new')
+                    $this.off('input', arguments.callee)
+                    $clone.on('input', arguments.callee)
+                })
+                // TODO: previous next javascript
+
+                /*
+                if (!$('#frm_next').is(':checked')){
+                    $('#id_send_activation_email').prop('disabled', true);
+                }
+                $('#id_role').on('change', function () {
+
+                });
+                $('#id_provision').on('change', function () {
+                    if($(this).is(':checked')) {
+                        $('#id_send_activation_email').prop('disabled', false);
+                    }
+                    else {
+                        $('#id_send_activation_email').prop('checked', false);
+                        $('#id_send_activation_email').prop('disabled', true);
+                    }
+                });
+                */
+            });
+    </script>
+{% endblock javascripts %}

@@ -1,0 +1,187 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Profil {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+    <form role="form" method="post" action="">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">Upraviť Profil</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Prihlasovacie meno</label>
+                                    <input type="text" class="form-control" value="{{ request.user.username }}"
+                                           disabled="disabled"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">E-mail</label>
+                                    {{ form.p_email }}
+                                </div>
+                            </div>
+                            <span class="text-danger">{{ form.p_email.errors }}</span>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Telefón</label>
+                                    {{ form.p_number }}
+                                </div>
+                            </div>
+                            <span class="text-danger">{{ form.p_number.errors }}</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Meno</label>
+                                    {{ form.p_first_name }}
+                                </div>
+                            </div>
+                            <span class="text-danger">{{ form.p_first_name.errors }}</span>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Priezvisko</label>
+                                    {{ form.p_last_name }}
+                                </div>
+                            </div>
+                            <span class="text-danger">{{ form.p_last_name.errors }}</span>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Stav registrácie
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% for child in form.get_children %}
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label">Krstné meno</label>
+                                  <br />
+                                {{ child.field_first_name }}
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ child.field_first_name.errors }}</span>
+
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label">Priezvisko</label>
+                                  <br />
+                                {{ child.field_last_name }}
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ child.field_last_name.errors }}</span>
+
+                          <br />
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label">Rodné číslo</label>
+                                  <br />
+                                {{ child.field_birth_number }}
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ child.field_birth_number.errors }}</span>
+
+                          <br />
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label">Ulica a číslo </label>
+                                  <br />
+                                {{ child.field_address }}
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ child.field_address.errors }}</span>
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label">Mesto </label>
+                                  <br />
+                                {{ child.field_city }}
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ child.field_city.errors }}</span>
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label">Štát </label>
+                                  <br />
+                                {{ child.field_state }}
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ child.field_state.errors }}</span>
+
+                          <br />
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label">Schopnosť plávať</label>
+                                  <br />
+                                {{ child.field_swim }}
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ child.field_swim.errors }}</span>
+
+                          <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <button type="submit" class="btn btn-primary pull-right">Upraviť profil</button>
+                        <a href="/register" class="btn btn-primary pull-right" >Pridať dieťa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
