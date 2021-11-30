@@ -28,7 +28,7 @@ from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('camp-admin/', admin.site.urls),
-    path('/', index, name='tabor home'),
+    path('', index, name='tabor home'),
     path('login/', login_view, name="login"),
     path('register-user/', register_user_view, name="register"),
     path('register/', register_child_view, name="register-child"),
