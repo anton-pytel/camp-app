@@ -48,7 +48,7 @@ SITE_ID = 1
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',
+    # 'jazzmin',
     'djangocms_admin_style',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -203,7 +203,12 @@ LANGUAGES = [
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 CMS_TEMPLATES = [
-    ('home.html', 'Home page template'),
+    # ('home.html', 'Home page template'),
+    # ('base.html', 'Base'),
+    ('feature.html', 'Fullwidth'),
+    # ('menu.html', 'Menu'),
+    # ('page.html', 'Page')
+
 ]
 
 THUMBNAIL_HIGH_RESOLUTION = True
@@ -214,3 +219,4 @@ THUMBNAIL_PROCESSORS = (
     'filer.thumbnail_processors.scale_and_crop_with_subject_location',
     'easy_thumbnails.processors.filters'
 )
+
