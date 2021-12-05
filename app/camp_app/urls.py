@@ -34,6 +34,8 @@ urlpatterns = [
     path('register/', register_child_view, name="register-child"),
     path('profile/', profile_view, name="profile"),
     path("logout/", LogoutView.as_view(next_page='login'), name="logout"),
+    path("change-pass/", LogoutView.as_view(next_page='login'), name="change_pass"),
+
     re_path(r'^cms/', include('cms.urls')),
 ] \
               + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
