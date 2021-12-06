@@ -107,7 +107,7 @@ def profile_view(request):
 def register_child_view(request):
     form = RegisterChildForm(request.POST or None)
     parent = None
-    if request.user:
+    if request.user.is_authenticated:
         try:
             parent = Parent.objects.get(user=request.user)
             form.initial["p_first_name"] = parent.user.first_name
@@ -195,11 +195,13 @@ def register_child_view(request):
                             "swim": form.cleaned_data.get("swim"),
                         }
                     )
-                    for disease in form.cleaned_data["diseases"]:
-                        ChildHealth.objects.get_or_create(
-                            disease_name=disease,
-                            child=child
-                        )
+                    for key in form.data.items():
+                        if 'disease_' in key[0]:
+                            label = form.data.get(key[0])
+                            ChildHealth.objects.get_or_create(
+                                disease_name=label,
+                                child=child
+                            )
                     ChildParent.objects.get_or_create(
                         parent=parent,
                         child=child
@@ -218,7 +220,7 @@ def register_child_view(request):
                                       f'<span class="text-primary">{parent.user.username}</span</li>' + \
                                       f'<li>heslo: <span class="text-primary">{p_pass}</span></li>' + \
                                       f'<li>Prihlasovacie údaje si uložte, heslo si môžete zmeniť ' + \
-                                      f'<a href="{reverse("change_pass")}" class="text-primary">tu</a></li>' + \
+                                      f'<a href="{reverse("password_change")}" class="text-primary">tu</a></li>' + \
                                       f'<li>Údaje o registrácii je možné skontrolovať ' + \
                                       f'<a href="{reverse("profile")}" class="text-primary" >tu</a></li></ul></div>'
 
