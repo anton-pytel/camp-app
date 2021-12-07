@@ -3,11 +3,19 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.forms.utils import ErrorList
+from django.utils.safestring import mark_safe
 from django.http import HttpResponse
+from django.urls import reverse
 from camper.form import (
     LoginForm, RegisterUserForm, RegisterChildForm,
     ProfileForm
 )
+from camper.utils import generate_random_password, get_username
+from camper.models import (
+    Child, Parent, Participant, ChildHealth, ChildParent,
+    Registration
+)
+from camp_app import settings
 
 # Create your views here.
 
@@ -45,14 +53,44 @@ def login_view(request):
 def profile_view(request):
     if not request.user.is_authenticated:
         return redirect("/login")
-    form = ProfileForm(request=request)
+    form = ProfileForm(request.POST or None, request=request)
     msg = None
     success = False
 
     if request.method == "POST":
-        # TODO: add/remove child
-        #
-        pass
+        if form.is_valid():
+            p = form.parent
+            p.contact_email = form.cleaned_data.get("p_email")
+            p.contact_phone = form.cleaned_data.get("p_number").as_international
+            p.user.first_name = form.cleaned_data.get("p_first_name")
+            p.user.last_name = form.cleaned_data.get("p_last_name")
+            p.user.email = form.cleaned_data.get("p_email")
+            p.user.save()
+            p.save()
+            for child in form.children:
+                idx = str(child.idx)
+                child.user.first_name = form.cleaned_data.get("first_name_"+idx)
+                child.user.last_name = form.cleaned_data.get("last_name_" + idx)
+                child.birth_number = form.cleaned_data.get("birth_number_" + idx)
+                child.address = form.cleaned_data.get("address_" + idx)
+                child.city = form.cleaned_data.get("city_" + idx)
+                child.state = form.cleaned_data.get("state_" + idx)
+                child.swim = form.cleaned_data.get("swim_" + idx)
+                ChildHealth.objects.filter(child=child).delete()
+                child.save()
+                for key in form.data.items():
+                    if 'disease_' + str(idx) + '_' in key[0]:
+                        label = form.data.get(key[0])
+                        if label:
+                            ChildHealth.objects.create(
+                                child=child,
+                                disease_name=label
+                            )
+
+            return redirect("/profile")
+
+        else:
+            msg = "Skontrolujte vstupné dáta"
 
     return render(
         request,
@@ -65,26 +103,131 @@ def profile_view(request):
         }
     )
 
+
 def register_child_view(request):
     form = RegisterChildForm(request.POST or None)
+    parent = None
+    if request.user.is_authenticated:
+        try:
+            parent = Parent.objects.get(user=request.user)
+            form.initial["p_first_name"] = parent.user.first_name
+            form.initial["p_last_name"] = parent.user.last_name
+            form.initial["p_email"] = parent.contact_email
+            form.initial["p_number"] = parent.contact_phone
+            form.initial["consent_photo"] = parent.consent_photo
+        except Parent.DoesNotExist:
+            pass
     msg = None
     success = False
+    success_msg = ""
 
     if request.method == "POST":
 
         if form.is_valid():
-            # TODO: spracovanie
             # vytvorit dieta (vygenerovat heslo a username)
             # vytvorenie rodica ak rovnaky email priradit dieta k tomu istemu
             # prihlasenie do platnej registracie
-            username = form.cleaned_data.get("username")
-            password = form.cleaned_data.get("password")
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect("/profile")
-            else:
-                msg = 'Invalid credentials'
+            try:
+                registration = Registration.objects.get(
+                    label=settings.VALID_REGISTRATION
+                )
+                child = Child.objects.filter(
+                    birth_number=form.cleaned_data.get("birth_number"),
+                )
+                sfx = generate_random_password(1).lower()
+                participation = []
+                if len(child) > 0:
+                    participation = Participant.objects.filter(
+                        child=child[0],
+                        registration=registration
+                    )
+                    u_child = child[0].user
+                else:
+                    c_pass = generate_random_password(8)
+
+                    u_child = User.objects.create(
+                        first_name=form.cleaned_data.get("first_name"),
+                        last_name=form.cleaned_data.get("last_name"),
+                        username=get_username(
+                            form.cleaned_data.get("first_name"),
+                            form.cleaned_data.get("last_name")
+                        ) + f"-{sfx}",
+                        password=c_pass,
+                    )
+
+                if len(participation) > 0:
+                    msg = "Účastník je už registrovaný"
+                else:
+                    p_pass = generate_random_password(8)
+                    p_created = False
+                    if not parent:
+                        u_parent, p_created = User.objects.get_or_create(
+                            email=form.cleaned_data.get("p_email"),
+                            defaults={
+                                "first_name": form.cleaned_data.get("p_first_name"),
+                                "last_name": form.cleaned_data.get("p_last_name"),
+                                "username": get_username(
+                                    form.cleaned_data.get("p_first_name"),
+                                    form.cleaned_data.get("p_last_name")
+                                ) + f"-{sfx}",
+                                "password": p_pass,
+                            }
+                        )
+                        if p_created:
+                            parent = Parent.objects.create(
+                                user=u_parent,
+                                consent_photo=form.cleaned_data.get("consent_photo"),
+                                consent_agreement=form.cleaned_data.get("consent_agreement"),
+                                contact_phone=form.cleaned_data.get("p_number").as_international,
+                                contact_email=form.cleaned_data.get("p_email"),
+                            )
+                            login(request, u_parent)
+                        else:
+                            parent = Parent.objects.get(user=u_parent)
+
+                    child, _ = Child.objects.get_or_create(
+                        birth_number=form.cleaned_data.get("birth_number"),
+                        defaults={
+                            "user": u_child,
+                            "address": form.cleaned_data.get("address"),
+                            "city": form.cleaned_data.get("city"),
+                            "state": form.cleaned_data.get("state"),
+                            "swim": form.cleaned_data.get("swim"),
+                        }
+                    )
+                    for key in form.data.items():
+                        if 'disease_' in key[0]:
+                            label = form.data.get(key[0])
+                            ChildHealth.objects.get_or_create(
+                                disease_name=label,
+                                child=child
+                            )
+                    ChildParent.objects.get_or_create(
+                        parent=parent,
+                        child=child
+                    )
+                    Participant.objects.get_or_create(
+                        registration=registration,
+                        child=child,
+                        price=registration.price
+                    )
+                    success_msg = '<div class="alert alert-success">Účastník úspešne zaregistrovaný</div>'
+                    success = True
+                    if p_created:
+                        success_msg = success_msg + \
+                                      f'<div class="alert alert-success">Rodičovský profil vytvorený, ' + \
+                                      f'<ul><li>prihlasovacie meno: ' + \
+                                      f'<span class="text-primary">{parent.user.username}</span</li>' + \
+                                      f'<li>heslo: <span class="text-primary">{p_pass}</span></li>' + \
+                                      f'<li>Prihlasovacie údaje si uložte, heslo si môžete zmeniť ' + \
+                                      f'<a href="{reverse("password_change")}" class="text-primary">tu</a></li>' + \
+                                      f'<li>Údaje o registrácii je možné skontrolovať ' + \
+                                      f'<a href="{reverse("profile")}" class="text-primary" >tu</a></li></ul></div>'
+
+                    success_msg = mark_safe(success_msg)
+
+            except Registration.DoesNotExist:
+                msg = "Aplikácia nie je pripravená na používanie, kontaktujte administrátora"
         else:
             msg = 'Nesprávne zadané údaje'
     return render(
@@ -94,6 +237,7 @@ def register_child_view(request):
             "form": form,
             "msg": msg,
             "success": success,
+            "success_msg": success_msg,
             "segment": "register-child"
         }
     )

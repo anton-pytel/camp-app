@@ -233,12 +233,17 @@ class ProfileForm(forms.ModelForm):
     )
 
     def __init__(self, *args, **kwargs):
+        def get_diseases(self):
+            return self.diseases
+
+        setattr(Child, 'get_diseases', get_diseases)
         self.request = kwargs.pop("request")
         super().__init__(*args, **kwargs)
         self.children = []
         if self.request.user.is_authenticated:
             try:
                 p = Parent.objects.get(user=self.request.user)
+                self.parent = p
                 self.children = list(Child.objects.filter(childparent__parent=p))
 
                 self.initial["p_first_name"] = p.user.first_name
@@ -258,6 +263,34 @@ class ProfileForm(forms.ModelForm):
                         self.initial[itm + "_" +idx] = getattr(ch, itm)
                         setattr(ch, "field_" + itm, self[itm + "_" + idx])
                     ch.idx = i_idx
+                    diseases = list(ch.childhealth_set.all())
+                    ch.diseases = diseases
+                    dis_i = 0
+                    for dis in diseases:
+                        field_name = f'disease_{i_idx}_{dis_i}'
+                        self.fields[field_name] = forms.CharField(
+                            required=False,
+                            widget=forms.TextInput(
+                                attrs={
+                                    "class": "form-control remove-empty",
+                                }
+                            )
+                        )
+                        self.initial[field_name] = dis.disease_name
+                        setattr(dis, 'field_label_name', self[field_name])
+                        dis_i = dis_i + 1
+                    field_name = f'disease_{i_idx}_{dis_i}'
+                    dis = ChildHealth()
+                    self.fields[field_name] = forms.CharField(
+                        required=False,
+                        widget=forms.TextInput(
+                            attrs={
+                                "class": "form-control disease_new remove-empty",
+                            }
+                        )
+                    )
+                    setattr(dis, 'field_label_name', self[field_name])
+                    ch.diseases.append(dis)
 
                     i_idx = i_idx + 1
             except Parent.DoesNotExist:
@@ -269,7 +302,6 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Participant
         fields = [
-            "price",
         ]
 
 

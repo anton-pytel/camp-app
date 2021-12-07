@@ -9,6 +9,7 @@ class Registration(models.Model):
     registration_end = models.DateField()
     camp_start_date = models.DateField()
     camp_start_end = models.DateField()
+    price = models.DecimalField(max_digits=4, decimal_places=2, default=5)
 
     def __str__(self):
         return self.label
@@ -46,9 +47,9 @@ class Child(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birth_number = models.CharField(blank=False, unique=True, max_length=10)
-    address = models.CharField(blank=False, unique=True, max_length=100)
-    city = models.CharField(blank=False, unique=True, max_length=100)
-    state = models.CharField(blank=False, unique=True, max_length=100)
+    address = models.CharField(blank=False, max_length=100)
+    city = models.CharField(blank=False, max_length=100)
+    state = models.CharField(blank=False, max_length=100)
     swim = models.CharField(max_length=4, choices=SwimStatus.choices, default=SwimStatus.NO)
 
     class Meta:
@@ -60,8 +61,11 @@ class Child(models.Model):
 
 
 class ChildHealth(models.Model):
-    disease_name = models.CharField(blank=False, unique=True, max_length=100)
+    disease_name = models.CharField(blank=False, max_length=100)
     child = models.ForeignKey(Child, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ['disease_name', 'child']
 
 
 class ChildParent(models.Model):
