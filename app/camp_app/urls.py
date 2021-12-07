@@ -23,7 +23,9 @@ from camper.views import (
     login_view, register_user_view, register_child_view,
     profile_view
 )
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth.views import (
+    LogoutView, PasswordChangeView, PasswordChangeDoneView
+)
 
 
 urlpatterns = [
@@ -34,6 +36,10 @@ urlpatterns = [
     path('register/', register_child_view, name="register-child"),
     path('profile/', profile_view, name="profile"),
     path("logout/", LogoutView.as_view(next_page='login'), name="logout"),
+    path('password_change/', PasswordChangeView.as_view(), name='password_change'),
+    path('password_change/done/', PasswordChangeDoneView.as_view(), name='password_change_done'),
+
+
     re_path(r'^cms/', include('cms.urls')),
 ] \
               + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \

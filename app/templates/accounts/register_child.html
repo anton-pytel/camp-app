@@ -50,7 +50,7 @@
           {% if success %}
 
             <p class="">
-              Skontrolujte <a href={% url 'profile' %} class="text-black text-small">zadané údaje</a>.
+                {{ success_msg }}
             </p>  
 
           {% else %}
@@ -284,6 +284,16 @@
  <script type="text/javascript">
             $(document).ready(function(){
                 // alergies adding new
+                $('.remove-empty').parent().attr('last_max', $(".remove-empty").length)
+                 let remove_empty = function () {
+                    let $this = $(this)
+                    let last_value = $this.attr('last_value')
+                    if (last_value !== '' && $this.val() === '') {
+                        $this.remove()
+                    }
+                    $this.attr('last_value', $this.val())
+                }
+                $('.remove-empty').on('input', remove_empty)
                 $('.disease_new').on('input', function() {
                     let $this = $(this)
                     let $clone = $this.clone()
@@ -296,6 +306,7 @@
                     $this.removeClass('disease_new')
                     $this.off('input', arguments.callee)
                     $clone.on('input', arguments.callee)
+                    $this.on('input', remove_empty)
                 })
                 // TODO: previous next javascript
 

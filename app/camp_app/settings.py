@@ -220,3 +220,4 @@ THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.filters'
 )
 
+VALID_REGISTRATION = config("VALID_REGISTRATION", default="tabor2022")
