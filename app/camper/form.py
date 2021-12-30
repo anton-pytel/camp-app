@@ -42,7 +42,7 @@ class RegisterChildForm(forms.ModelForm):
     birth_number = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                "placeholder": "010203/1234",
+                "placeholder": "0102031234",
                 "class": "form-control"
             }
         ))
@@ -115,6 +115,7 @@ class RegisterChildForm(forms.ModelForm):
             }
         )
     )
+    p_number.error_messages['invalid'] = "Zadajte telefónne číslo v správnom tvare (napr. +421911 111 111)"
 
     consent_photo = forms.BooleanField(
         required=False,
@@ -231,6 +232,7 @@ class ProfileForm(forms.ModelForm):
             }
         )
     )
+    p_number.error_messages['invalid'] = "Zadajte telefónne číslo v správnom tvare (napr. +421911 111 111)"
 
     def __init__(self, *args, **kwargs):
         def get_diseases(self):

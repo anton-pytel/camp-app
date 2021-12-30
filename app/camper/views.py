@@ -58,7 +58,12 @@ def profile_view(request):
     success = False
 
     if request.method == "POST":
-        if form.is_valid():
+        if 'delete-btn' in request.POST:
+            child_id = request.POST["delete-btn"]
+            msg = "Záznam vymazaný"
+            Child.objects.filter(id=child_id).delete()
+            form = ProfileForm(None, request=request)
+        elif form.is_valid():
             p = form.parent
             p.contact_email = form.cleaned_data.get("p_email")
             p.contact_phone = form.cleaned_data.get("p_number").as_international
@@ -87,7 +92,8 @@ def profile_view(request):
                                 disease_name=label
                             )
 
-            return redirect("/profile")
+            form = ProfileForm(None, request=request)
+            msg = "Zmeny uložené"
 
         else:
             msg = "Skontrolujte vstupné dáta"
@@ -134,7 +140,8 @@ def register_child_view(request):
                 child = Child.objects.filter(
                     birth_number=form.cleaned_data.get("birth_number"),
                 )
-                sfx = generate_random_password(1).lower()
+                sfx1 = generate_random_password(3).lower()
+                sfx2 = generate_random_password(3).lower()
                 participation = []
                 if len(child) > 0:
                     participation = Participant.objects.filter(
@@ -150,8 +157,9 @@ def register_child_view(request):
                         last_name=form.cleaned_data.get("last_name"),
                         username=get_username(
                             form.cleaned_data.get("first_name"),
-                            form.cleaned_data.get("last_name")
-                        ) + f"-{sfx}",
+                            form.cleaned_data.get("last_name"),
+                            sfx1
+                        ),
                         password=c_pass,
                     )
 
@@ -168,8 +176,9 @@ def register_child_view(request):
                                 "last_name": form.cleaned_data.get("p_last_name"),
                                 "username": get_username(
                                     form.cleaned_data.get("p_first_name"),
-                                    form.cleaned_data.get("p_last_name")
-                                ) + f"-{sfx}",
+                                    form.cleaned_data.get("p_last_name"),
+                                    sfx2
+                                ),
                                 "password": p_pass,
                             }
                         )
@@ -229,7 +238,7 @@ def register_child_view(request):
             except Registration.DoesNotExist:
                 msg = "Aplikácia nie je pripravená na používanie, kontaktujte administrátora"
         else:
-            msg = 'Nesprávne zadané údaje'
+            msg = 'Nesprávne zadané údaje - skontrolujte všetky záložky'
     return render(
         request,
         "accounts/register_child.html",
