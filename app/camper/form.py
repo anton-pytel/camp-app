@@ -146,6 +146,12 @@ class RegisterChildForm(forms.ModelForm):
                     attrs={
                         "class": "form-control disease_new",
                     }
+                ),
+                help_text="".join((
+                    "Zadajte alergie, intolerancie, "
+                    "prípadne iné dôležité informácie. ",
+                    "Napíšte \"zdravý/á\", ak nie je nič, na čo by sme mali ",
+                    "v jedálničku a pri aktivitách dávať pozor.")
                 )
             )
             try:
@@ -163,12 +169,13 @@ class RegisterChildForm(forms.ModelForm):
         while self.cleaned_data.get(field_name):
             disease = self.cleaned_data[field_name]
             if disease in diseases:
-                self.add_error(field_name, 'Duplicate')
+                self.add_error(field_name, 'Duplicita')
             else:
                 diseases.add(disease)
             i += 1
             field_name = 'disease_%s' % (i,)
-
+        if len(diseases) == 0:
+            self.add_error("disease_0", "Zdravotný stav musí byť vyplnený")
         self.cleaned_data["diseases"] = diseases
 
     def save(self):
