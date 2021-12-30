@@ -21,5 +21,5 @@ def generate_random_password(length):
     return "".join(password)
 
 
-def get_username(p_name, l_name):
-    return p_name + "." + l_name
+def get_username(p_name, l_name, sfx):
+    return f"{p_name.lower()}.{l_name.lower()}-{sfx}"
