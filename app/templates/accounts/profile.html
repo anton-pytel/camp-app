@@ -12,15 +12,14 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title">Upraviť Profil</h4>
-                    </div>
-                    <div class="card-body">
-                        <h6 class="card-category">
+                        <h4 class="card-title">Upraviť Profil Rodiča</h4>
+                          <h6 class="card-category">
                               {% if msg %}
                                 <span class="text-danger">{{ msg }}</span>
                               {% endif %}
                           </h6>
-
+                    </div>
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
@@ -70,7 +69,7 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
-                    <h4 class="card-title alert alert-info">Stav registrácie</h4>
+                    <h4 class="card-title alert alert-info">Stav registrácie dieťaťa/detí</h4>
                 </div>
             </div>
         </div>
@@ -79,7 +78,21 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
-
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h4 class="card-title alert alert-success">
+                                    {{ child.field_first_name.value }} {{ child.field_last_name.value }}
+                                </h4>
+                            </div>
+                            <div>
+                                <button type="submit" name="delete-btn" value="{{ child.id }}"
+                                        class="btn btn-primary pull-right delete-btn">
+                                    Odstrániť dieťa z registrácie
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
@@ -187,8 +200,9 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <button type="submit" class="btn btn-primary pull-right">Upraviť profil</button>
                         <a href="/register" class="btn btn-primary pull-right" >Pridať dieťa</a>
+                        <button type="submit" class="btn btn-primary pull-right">Potvrdiť zmeny v profile</button>
+
                     </div>
                 </div>
             </div>
@@ -200,6 +214,17 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
+    <!-- JavaScript -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
     <script type="text/javascript">
             $(document).ready(function(){
                 // alergies adding new
@@ -232,6 +257,17 @@
                     $clone.on('input', arguments.callee)
                     $this.on('input', remove_empty)
                 })
+                $('.delete-btn').click(function(event) {
+                    event.preventDefault();
+                    var $this = $(this);
+                    alertify.confirm('', 'Naozaj chcete vymazať?',
+                        function(){
+                            $this.unbind('click').click()
+                        },
+                        function(){
+                        },
+                    )
+                });
 
 
             });

@@ -1,6 +1,23 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ValidationError
+
+
+def validate_rc(value):
+    try:
+        num = int(value)
+        p1 = num % 11 == 0
+        m = int(value[2:4])
+        if m > 50:
+            m = m - 50
+        if not (1 <= m <= 12 and len(value) == 10 and p1):
+            raise
+    except Exception:
+        raise ValidationError(
+            _('Neplatné rodné číslo'),
+        )
+
 
 
 class Registration(models.Model):
@@ -46,7 +63,7 @@ class Child(models.Model):
         ABIT = "ABIT", _("a little bit")
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    birth_number = models.CharField(blank=False, unique=True, max_length=10)
+    birth_number = models.CharField(blank=False, unique=True, max_length=10, validators=[validate_rc])
     address = models.CharField(blank=False, max_length=100)
     city = models.CharField(blank=False, max_length=100)
     state = models.CharField(blank=False, max_length=100)

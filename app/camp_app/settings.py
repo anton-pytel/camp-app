@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 from decouple import config
+from django.utils.translation import gettext_lazy as _
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -48,8 +49,8 @@ SITE_ID = 1
 # Application definition
 
 INSTALLED_APPS = [
-    # 'jazzmin',
-    'djangocms_admin_style',
+    'jazzmin',
+    #'djangocms_admin_style',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -169,7 +170,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'sk'
 
 TIME_ZONE = 'Europe/Bratislava'
 
@@ -196,8 +197,8 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 LANGUAGES = [
-    ('en-us', 'English'),
-    ('sk', 'Slovak'),
+    # ('en-us', _('English')),
+    ('sk', _('Slovak')),
 ]
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'

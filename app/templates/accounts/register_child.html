@@ -8,7 +8,7 @@
 {% block content %}
 
   <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-8">
       <div class="card">
         <div class="card-header card-header-tabs card-header-primary">
             <div class="nav-tabs-navigation">
@@ -42,7 +42,7 @@
           <h6 class="card-category">
               {% if msg %}
                 <span class="text-danger">{{ msg }}</span>
-              {% endif %}  
+              {% endif %}
           </h6>
           
           <br />
@@ -54,7 +54,7 @@
             </p>  
 
           {% else %}
-            <form role="form" method="post" action="">
+            <form role="form" id="main_form" method="post" action="">
                 
               {% csrf_token %}
                 <div class="tab-content">
@@ -198,7 +198,7 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
-                            <label class="bmd-label">Alergie </label>
+                            <label class="bmd-label">Zdravotný stav </label>
                               <br />
                              {{ form.disease_0 }}
 
@@ -257,8 +257,6 @@
                     </div>
                 </div>
 
-              <button type="button" name="frm_back" id="frm_back" class="btn btn-primary pull-left">Späť</button>
-              <button type="button" name="frm_next" id="frm_next" class="btn btn-primary pull-left">Ďalej</button>
               <button type="submit" name="frm_register" id="frm_register" class="btn btn-primary pull-left">Registruj</button>
 
               <!--&nbsp; &nbsp;
@@ -308,25 +306,16 @@
                     $clone.on('input', arguments.callee)
                     $this.on('input', remove_empty)
                 })
-                // TODO: previous next javascript
-
-                /*
-                if (!$('#frm_next').is(':checked')){
-                    $('#id_send_activation_email').prop('disabled', true);
-                }
-                $('#id_role').on('change', function () {
-
-                });
-                $('#id_provision').on('change', function () {
-                    if($(this).is(':checked')) {
-                        $('#id_send_activation_email').prop('disabled', false);
-                    }
-                    else {
-                        $('#id_send_activation_email').prop('checked', false);
-                        $('#id_send_activation_email').prop('disabled', true);
+                let mf = $('form#main_form')
+                let req = []
+                mf.find('input').each(function(){
+                    if($(this).prop('required')){
+                        req.push($(this))
+                        $(this).prop({ required: false })
                     }
                 });
-                */
+                mf.on("submit")
+
             });
     </script>
 {% endblock javascripts %}
