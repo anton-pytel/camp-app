@@ -79,6 +79,8 @@ class ChildGroupAdmin(NestedModelAdmin):
 
 class ParticipantAdmin(NestedModelAdmin):
     model = Participant
+    list_display = ["registration", "child", "price", "paid"]
+    list_filter = ["registration", "paid"]
 
 
 admin.site.unregister(User)
