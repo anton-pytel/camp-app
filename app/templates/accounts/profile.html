@@ -86,14 +86,67 @@
                                 </h4>
                             </div>
                             <div>
+                                {% if child.part_len == 0 %}
+                                    <button type="submit" name="register-btn" value="{{ child.id }}"
+                                            class="btn btn-primary pull-right">
+                                        Zaregistrovať
+                                    </button>
+                                {% endif %}
                                 <button type="submit" name="delete-btn" value="{{ child.id }}"
                                         class="btn btn-primary pull-right delete-btn">
-                                    Odstrániť dieťa z registrácie
+                                    Odstrániť záznam
                                 </button>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
+                        <div class="row">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th>Názov registrácie</th>
+                                        <th>Celková cena</th>
+                                        <th>Zálohová platba</th>
+                                        <th>Stav zálohovej platby</th>
+                                        <th>Doplatok do celkovej ceny</th>
+                                        <th>Stav platby</th>
+                                        <th>Zrušiť registráciu</th>
+                                    </tr>
+                                    {% for particip in child.get_participation %}
+                                        <tr>
+                                            <td>{{ particip.registration.label }}</td>
+                                            <td>{{ particip.price }}€</td>
+                                            <td>{{ particip.advance_price }}€</td>
+                                            <td>
+                                                {% if particip.advance_paid %}
+                                                   <span class="material-icons">check</span>
+                                                {% else %}
+                                                    <img src="{{ particip.qr_advance }}" width="150" height="160" />
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ particip.price_diff }}€</td>
+                                            <td>
+                                                {% if particip.paid %}
+                                                    <span class="material-icons">check</span>
+                                                {% elif particip.advance_paid %}
+                                                    <img src="{{ particip.qr_diff }}" width="150" height="160" />
+                                                {% else %}
+                                                    Čaká sa na zálohovú platbu
+                                                {% endif %}
+                                            </td>
+                                            <td class="td-actions">
+                                                <button type=submit" rel="tooltip" title="Zrušiť registráciu"
+                                                        class="btn btn-danger btn-link btn-sm delete-btn"
+                                                        name="delete-part-btn" value="{{ particip.id }}"
+                                                >
+                                                  <i class="material-icons">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                              </tbody>
+                            </table>
+                        </div>
                         <div class="row">
                             <div class="col-md-12">
                               <div class="form-group">
@@ -260,7 +313,7 @@
                 $('.delete-btn').click(function(event) {
                     event.preventDefault();
                     var $this = $(this);
-                    alertify.confirm('', 'Naozaj chcete vymazať?',
+                    alertify.confirm('', 'Naozaj chcete pokračovať?',
                         function(){
                             $this.unbind('click').click()
                         },

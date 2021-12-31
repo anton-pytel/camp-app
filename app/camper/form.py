@@ -6,6 +6,7 @@ from camper.models import Child, ChildHealth, Parent, ChildParent, Participant
 from phonenumber_field.formfields import PhoneNumberField
 from copy import deepcopy
 
+
 class LoginForm(forms.Form):
     username = forms.CharField(
         widget=forms.TextInput(
@@ -146,6 +147,12 @@ class RegisterChildForm(forms.ModelForm):
                     attrs={
                         "class": "form-control disease_new",
                     }
+                ),
+                help_text="".join((
+                    "Zadajte alergie, intolerancie, "
+                    "prípadne iné dôležité informácie. ",
+                    "Napíšte \"zdravý/á\", ak nie je nič, na čo by sme mali ",
+                    "v jedálničku a pri aktivitách dávať pozor.")
                 )
             )
             try:
@@ -163,12 +170,13 @@ class RegisterChildForm(forms.ModelForm):
         while self.cleaned_data.get(field_name):
             disease = self.cleaned_data[field_name]
             if disease in diseases:
-                self.add_error(field_name, 'Duplicate')
+                self.add_error(field_name, 'Duplicita')
             else:
                 diseases.add(disease)
             i += 1
             field_name = 'disease_%s' % (i,)
-
+        if len(diseases) == 0:
+            self.add_error("disease_0", "Zdravotný stav musí byť vyplnený")
         self.cleaned_data["diseases"] = diseases
 
     def save(self):
@@ -238,7 +246,11 @@ class ProfileForm(forms.ModelForm):
         def get_diseases(self):
             return self.diseases
 
+        def get_participation(self):
+            return self.participation
+
         setattr(Child, 'get_diseases', get_diseases)
+        setattr(Child, 'get_participation', get_participation)
         self.request = kwargs.pop("request")
         super().__init__(*args, **kwargs)
         self.children = []
@@ -267,6 +279,10 @@ class ProfileForm(forms.ModelForm):
                     ch.idx = i_idx
                     diseases = list(ch.childhealth_set.all())
                     ch.diseases = diseases
+                    ch.participation = list(ch.participant_set.filter(valid_participant=True))
+                    for p in ch.participation:
+                        p.price_diff = p.price - p.advance_price
+                    ch.part_len = len(ch.participation)
                     dis_i = 0
                     for dis in diseases:
                         field_name = f'disease_{i_idx}_{dis_i}'
