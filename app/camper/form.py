@@ -6,6 +6,7 @@ from camper.models import Child, ChildHealth, Parent, ChildParent, Participant
 from phonenumber_field.formfields import PhoneNumberField
 from copy import deepcopy
 
+
 class LoginForm(forms.Form):
     username = forms.CharField(
         widget=forms.TextInput(
@@ -245,7 +246,11 @@ class ProfileForm(forms.ModelForm):
         def get_diseases(self):
             return self.diseases
 
+        def get_participation(self):
+            return self.participation
+
         setattr(Child, 'get_diseases', get_diseases)
+        setattr(Child, 'get_participation', get_participation)
         self.request = kwargs.pop("request")
         super().__init__(*args, **kwargs)
         self.children = []
@@ -274,6 +279,10 @@ class ProfileForm(forms.ModelForm):
                     ch.idx = i_idx
                     diseases = list(ch.childhealth_set.all())
                     ch.diseases = diseases
+                    ch.participation = list(ch.participant_set.filter(valid_participant=True))
+                    for p in ch.participation:
+                        p.price_diff = p.price - p.advance_price
+                    ch.part_len = len(ch.participation)
                     dis_i = 0
                     for dis in diseases:
                         field_name = f'disease_{i_idx}_{dis_i}'

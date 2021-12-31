@@ -1,7 +1,10 @@
+from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
+from .utils import get_qr
+
 
 
 def validate_rc(value):
@@ -19,7 +22,6 @@ def validate_rc(value):
         )
 
 
-
 class Registration(models.Model):
     label = models.CharField(default="tabor2022", max_length=100)
     registration_start = models.DateField()
@@ -27,6 +29,8 @@ class Registration(models.Model):
     camp_start_date = models.DateField()
     camp_start_end = models.DateField()
     price = models.DecimalField(max_digits=4, decimal_places=2, default=5)
+    advance_price = models.DecimalField(max_digits=4, decimal_places=2, default=3)
+    bank_account = models.CharField(default="SK31 8330 0000 0024 0188 0167", max_length=100)
 
     def __str__(self):
         return self.label
@@ -97,7 +101,27 @@ class Participant(models.Model):
     registration = models.ForeignKey(Registration, on_delete=models.CASCADE)
     child = models.ForeignKey(Child, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=4, decimal_places=2)
+    advance_price = models.DecimalField(max_digits=4, decimal_places=2)
     paid = models.BooleanField(default=False)
+    advance_paid = models.BooleanField(default=False)
+    valid_participant = models.BooleanField(default=True)
+    qr_diff = models.CharField(max_length=1000000, blank=True, null=True)
+    qr_advance = models.CharField(max_length=1000000, blank=True, null=True)
+
+    def generate_qr(self, due_date=datetime.now()):
+        self.qr_advance = get_qr(
+            iban=self.registration.bank_account,
+            amount=self.advance_price,
+            due_date=due_date,
+            msg=f'{self.child.user.last_name} {self.child.user.first_name} zaloha {self.registration.label}'
+        )
+        self.qr_diff = get_qr(
+            iban=self.registration.bank_account,
+            amount=self.price - self.advance_price,
+            due_date=self.registration.registration_end,
+            msg=f'{self.child.user.last_name} {self.child.user.first_name} doplatok {self.registration.label}'
+        )
+        self.save()
 
     class Meta:
         verbose_name = 'Participation'
