@@ -222,3 +222,4 @@ THUMBNAIL_PROCESSORS = (
 )
 
 VALID_REGISTRATION = config("VALID_REGISTRATION", default="tabor2022")
+ADVANCE_PMT_DUE = config("ADVANCE_PMT_DUE", default=14, cast=int)

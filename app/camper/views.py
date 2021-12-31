@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from django.template import loader
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
@@ -62,6 +63,29 @@ def profile_view(request):
             child_id = request.POST["delete-btn"]
             msg = "Záznam vymazaný"
             Child.objects.filter(id=child_id).delete()
+            form = ProfileForm(None, request=request)
+        elif 'delete-part-btn' in request.POST:
+            part_id = request.POST["delete-part-btn"]
+            msg = "Záznam vymazaný"
+            Participant.objects.filter(id=part_id).delete()
+            form = ProfileForm(None, request=request)
+        elif 'register-btn' in request.POST:
+            child_id = request.POST["register-btn"]
+            msg = "Účastník zaregistrovaný"
+            registration = Registration.objects.get(
+                label=settings.VALID_REGISTRATION
+            )
+            child = Child.objects.get(id=child_id)
+            particip = Participant.objects.get_or_create(
+                registration=registration,
+                child=child,
+                defaults={
+                    "price": registration.price,
+                    "advance_price": registration.advance_price
+                }
+            )
+            due_dt = datetime.now() + timedelta(settings.ADVANCE_PMT_DUE) # +day
+            particip.generate_qr(due_dt)
             form = ProfileForm(None, request=request)
         elif form.is_valid():
             p = form.parent
@@ -134,6 +158,7 @@ def register_child_view(request):
             # vytvorenie rodica ak rovnaky email priradit dieta k tomu istemu
             # prihlasenie do platnej registracie
             try:
+                due_dt = datetime.now() + timedelta(settings.ADVANCE_PMT_DUE)  # +days
                 registration = Registration.objects.get(
                     label=settings.VALID_REGISTRATION
                 )
@@ -215,11 +240,15 @@ def register_child_view(request):
                         parent=parent,
                         child=child
                     )
-                    Participant.objects.get_or_create(
+                    participation = Participant.objects.get_or_create(
                         registration=registration,
                         child=child,
-                        price=registration.price
+                        defaults={
+                            "price": registration.price,
+                            "advance_price": registration.advance_price
+                        }
                     )
+                    participation.generate_qr(due_dt)
                     success_msg = '<div class="alert alert-success">Účastník úspešne zaregistrovaný</div>'
                     success = True
                     if p_created:
