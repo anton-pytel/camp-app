@@ -145,6 +145,9 @@
                           <span class="text-danger">{{ form.swim.errors }}</span>
 
                           <br />
+                          <button type="button" name="frm_next" id="frm_next1"
+                                  class="btn btn-primary pull-left">Ďalej</button>
+
                     </div>
                     <div class="tab-pane" id="parent">
                         <div class="row">
@@ -193,6 +196,8 @@
                             </div>
                           </div>
                           <span class="text-danger">{{ form.p_number.errors }}</span>
+                          <button type="button" name="frm_next" id="frm_next2"
+                                  class="btn btn-primary pull-left">Ďalej</button>
                     </div>
                     <div class="tab-pane" id="others">
                       <div class="row">
@@ -259,7 +264,9 @@
                     </div>
                 </div>
 
-              <button type="submit" name="frm_register" id="frm_register" class="btn btn-primary pull-left">Registruj</button>
+              <button type="submit" name="frm_register" id="frm_register" class="btn btn-primary pull-left" disabled>
+                  Registruj
+              </button>
 
               <!--&nbsp; &nbsp;
               <span class="pull-right">
@@ -317,6 +324,23 @@
                     }
                 });
                 mf.on("submit")
+                $('#frm_next1').on('click', function(){
+                    $('.nav-tabs a[href="#parent"]').tab('show')
+                })
+                $('#frm_next2').on('click', function(){
+                    $('.nav-tabs a[href="#others"]').tab('show')
+                })
+              $("#id_consent_agreement").change(function() {
+                    let $this = $(this)
+                    let reg_btn = $('#frm_register')
+
+                    if ($this.is(":checked")) {
+                        reg_btn.prop( "disabled", false );
+                    } else {
+                        reg_btn.prop( "disabled", true );
+                    }
+                })
+
 
             });
     </script>
