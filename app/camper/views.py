@@ -3,6 +3,18 @@ from django.template import loader
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import (
+    PasswordResetForm
+)
+from django.contrib.auth.views import (
+    PasswordChangeView
+)
+
+from django.core.mail import send_mail, BadHeaderError
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes
 from django.forms.utils import ErrorList
 from django.utils.safestring import mark_safe
 from django.http import HttpResponse
@@ -76,7 +88,7 @@ def profile_view(request):
                 label=settings.VALID_REGISTRATION
             )
             child = Child.objects.get(id=child_id)
-            particip = Participant.objects.get_or_create(
+            particip, is_new = Participant.objects.get_or_create(
                 registration=registration,
                 child=child,
                 defaults={
@@ -240,7 +252,7 @@ def register_child_view(request):
                         parent=parent,
                         child=child
                     )
-                    participation = Participant.objects.get_or_create(
+                    participation, is_new = Participant.objects.get_or_create(
                         registration=registration,
                         child=child,
                         defaults={
@@ -313,3 +325,34 @@ def register_user_view(request):
             "segment": "register"
         }
     )
+
+
+def password_reset_request(request):
+    if request.method == "POST":
+        password_reset_form = PasswordResetForm(request.POST)
+        if password_reset_form.is_valid():
+            data = password_reset_form.cleaned_data['email']
+            associated_users = User.objects.filter(email=data)
+            if associated_users.exists():
+                for user in associated_users:
+                    subject = "Žiadosť o zmenu hesla"
+                    email_template_name = "pass_reset/password_reset_email.txt"
+                    c = {
+                        "email": user.email,
+                        'domain': settings.EMAIL_DOMAIN,
+                        'site_name': 'Tábor 2022',
+                        "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                        "user": user,
+                        'token': default_token_generator.make_token(user),
+                        'protocol': 'https',
+                    }
+                    email = render_to_string(email_template_name, c)
+                    try:
+                        send_mail(subject, email, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+                    except BadHeaderError:
+                        return HttpResponse('Invalid header found.')
+                    return redirect("/password_reset/done/")
+    password_reset_form = PasswordResetForm()
+    return render(request=request, template_name="pass_reset/password_reset.html",
+                  context={"password_reset_form": password_reset_form})
+
