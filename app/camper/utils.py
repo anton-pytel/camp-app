@@ -2,7 +2,9 @@ import string
 import random
 import requests
 import json
+import smtplib
 from datetime import datetime
+from email.message import EmailMessage
 
 # characters to generate password from
 characters = list(string.ascii_letters + string.digits + "!")
@@ -57,3 +59,26 @@ def get_qr(iban, amount, due_date, vs='', ks='', ss='', msg=''):
     return ''
 
 
+def send_mail(server_config: dict, subject: str, text: str, mail_from: str, mail_to: list):
+    """
+    :param server_config: { 'host': '10.0.0.1', 'port': 587
+                            'username': 'user', 'password: 'pass'
+                          }
+    :param subject: mail subject
+    :param text: mail message
+    :param mail_from: sender
+    :param mail_to: recepients (array expected
+    """
+    msg = EmailMessage()
+    msg['Subject'] = subject
+    msg['From'] = mail_from
+    msg['To'] = ', '.join(mail_to)
+    msg.add_alternative(text, subtype='html')
+    sc = server_config
+
+    s = smtplib.SMTP(host=sc['host'], port=sc['port'])
+    s.starttls()
+    s.ehlo()
+    s.login(sc['username'], sc['password'])
+    s.send_message(msg, to_addrs=mail_to)
+    s.quit()
