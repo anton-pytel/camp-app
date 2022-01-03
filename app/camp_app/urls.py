@@ -21,10 +21,11 @@ from camper.views import index
 
 from camper.views import (
     login_view, register_user_view, register_child_view,
-    profile_view
+    profile_view, password_reset_request
 )
 from django.contrib.auth.views import (
-    LogoutView, PasswordChangeView, PasswordChangeDoneView
+    LogoutView, PasswordChangeView, PasswordChangeDoneView,
+    PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 )
 
 
@@ -36,10 +37,24 @@ urlpatterns = [
     path('register/', register_child_view, name="register-child"),
     path('profile/', profile_view, name="profile"),
     path("logout/", LogoutView.as_view(next_page='login'), name="logout"),
-    path('password_change/', PasswordChangeView.as_view(), name='password_change'),
-    path('password_change/done/', PasswordChangeDoneView.as_view(), name='password_change_done'),
-
-
+    path('password_change/',
+         PasswordChangeView.as_view(template_name='pass_reset/password_change.html'),
+         name='password_change'),
+    path('password_change/done/',
+         PasswordChangeDoneView.as_view(template_name='pass_reset/password_change_done.html'),
+         name='password_change_done'),
+    path('password_reset/',
+         password_reset_request,
+         name='password_reset'),
+    path('password_reset/done/',
+         PasswordResetDoneView.as_view(template_name='pass_reset/password_reset_done.html'),
+         name='password_reset_done'),
+    path('reset/<uidb64>/<token>/',
+         PasswordResetConfirmView.as_view(template_name='pass_reset/password_reset_confirm.html'),
+         name='password_reset_confirm'),
+    path('reset/done/',
+         PasswordResetCompleteView.as_view(template_name='pass_reset/password_reset_complete.html'),
+         name='password_reset_complete'),
     re_path(r'^cms/', include('cms.urls')),
 ] \
               + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
