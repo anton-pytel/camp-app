@@ -212,6 +212,15 @@ CMS_TEMPLATES = [
 
 ]
 
+EMAIL_HOST = config("EMAIL_HOST", default="secret")
+EMAIL_PORT = config("EMAIL_PORT", default=25, cast=int)
+EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="secret")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="secret")
+EMAIL_USE_SSL = config("EMAIL_USE_SSL", default=False, cast=bool)
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
+EMAIL_ENABLED = config("EMAIL_ENABLED", default=False, cast=bool)
+EMAIL_DOMAIN = config("EMAIL_DOMAIN", default="test.farapd.sk")
+
 THUMBNAIL_HIGH_RESOLUTION = True
 
 THUMBNAIL_PROCESSORS = (
