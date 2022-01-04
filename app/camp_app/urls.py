@@ -17,9 +17,8 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from camper.views import index
-
 from camper.views import (
+    index, pages,
     login_view, register_user_view, register_child_view,
     profile_view, password_reset_request
 )
@@ -32,6 +31,7 @@ from django.contrib.auth.views import (
 urlpatterns = [
     path('camp-admin/', admin.site.urls),
     path('', index, name='tabor home'),
+    re_path('gallery.html', pages, name='gallery'),
     path('login/', login_view, name="login"),
     path('register-user/', register_user_view, name="register"),
     path('register/', register_child_view, name="register-child"),
