@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from django import template
 from django.template import loader
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
@@ -6,16 +7,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import (
     PasswordResetForm
 )
-from django.contrib.auth.views import (
-    PasswordChangeView
-)
-
 from django.core.mail import send_mail, BadHeaderError
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
-from django.forms.utils import ErrorList
 from django.utils.safestring import mark_safe
 from django.http import HttpResponse
 from django.urls import reverse
@@ -40,6 +36,28 @@ def index(request):
 
     html_template = loader.get_template('index.html')
     return HttpResponse(html_template.render(context, request))
+
+
+def pages(request):
+    context = {}
+    # All resource paths end in .html.
+    # Pick out the html file name from the url. And load that template.
+    #try:
+
+    load_template = request.path.split('/')[-1]
+    context['segment'] = load_template
+
+    html_template = loader.get_template(load_template)
+    return HttpResponse(html_template.render(context, request))
+
+    #except template.TemplateDoesNotExist:
+
+    #    html_template = loader.get_template('page-404.html')
+    #    return HttpResponse(html_template.render(context, request))
+
+    #except:
+    #    html_template = loader.get_template('page-500.html')
+    #    return HttpResponse(html_template.render(context, request))
 
 
 def login_view(request):
@@ -350,7 +368,7 @@ def password_reset_request(request):
                     try:
                         send_mail(subject, email, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
                     except BadHeaderError:
-                        return HttpResponse('Invalid header found.')
+                        return HttpResponse('Nepodarilo sa poslať')
                     return redirect("/password_reset/done/")
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name="pass_reset/password_reset.html",
