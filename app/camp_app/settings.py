@@ -196,6 +196,24 @@ STATICFILES_DIRS = (
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "camper": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        }
+    }
+}
+
 LANGUAGES = [
     # ('en-us', _('English')),
     ('sk', _('Slovak')),
@@ -219,7 +237,7 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="secret")
 EMAIL_USE_SSL = config("EMAIL_USE_SSL", default=False, cast=bool)
 EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
 EMAIL_ENABLED = config("EMAIL_ENABLED", default=False, cast=bool)
-EMAIL_DOMAIN = config("EMAIL_DOMAIN", default="test.farapd.sk")
+PAGE_DOMAIN = config("PAGE_DOMAIN", default="test.farapd.sk")
 
 THUMBNAIL_HIGH_RESOLUTION = True
 
