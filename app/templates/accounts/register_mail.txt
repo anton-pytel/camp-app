@@ -1,0 +1,17 @@
+{% autoescape off %}
+Dobrý deň,
+
+vaše dieťa je úspešne registrované. V prípade otázok ohľadne tábora píšte na mail farapd.tabor@gmail.com
+alebo volajte na telefónne číslo vedúcej tábora Kristíny Kevickej +421 918 306 241
+alebo spoluvedúcej Veroniky Ševčíkovej +421 917 070 692.
+
+Stav pripísania finančných prostriedkov na naše konto môžete sledovať vo svojom účte
+na webovej stránke {{ profile_page }}.
+
+Vaše prihlasovacie meno je {{ user_name }}
+a heslo si môžete zmeniť na {{ reset_pwd_link }}.
+
+S pozdravom,
+Tím tábora Cesta do kráľovstva
+
+{% endautoescape %}

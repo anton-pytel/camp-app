@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import string
 import random
 import requests
@@ -50,7 +51,7 @@ def get_qr(iban, amount, due_date, vs='', ks='', ss='', msg=''):
         'Content-Type': 'application/x-www-form-urlencoded'
     }
 
-    res = requests.request("POST", url, headers=headers, data=payload)
+    res = requests.request("POST", url, headers=headers, data=payload.encode('utf-8'))
     if res.status_code == 200:
         pay_obj = json.loads(res.content)
         if 'Pay' in pay_obj:

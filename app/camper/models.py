@@ -1,10 +1,16 @@
+import logging
 from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
+from django.conf import settings
+from django.urls import reverse_lazy
 from .utils import get_qr
 
+logger = logging.getLogger("camper")
 
 
 def validate_rc(value):
@@ -122,6 +128,22 @@ class Participant(models.Model):
             msg=f'{self.child.user.last_name} {self.child.user.first_name} doplatok {self.registration.label}'
         )
         self.save()
+
+    def confirm_mail(self, domain):
+        try:
+            subject = f"Potvrdenie o registrácii na {self.registration.label}"
+            email_template_name = "accounts/register_mail.txt"
+            parent = self.child.childparent_set.all()[0].parent
+            c = {
+                "user_name": parent.user.username,
+                'profile_page': f'{domain}{reverse_lazy("profile")}',
+                'reset_pwd_link': f'{domain}{reverse_lazy("password_reset")}',
+            }
+            email = render_to_string(email_template_name, c)
+            if settings.EMAIL_ENABLED:
+                send_mail(subject, email, settings.EMAIL_HOST_USER, [parent.user.email], fail_silently=False)
+        except Exception:
+            logger.exception('Sending mail failed')
 
     class Meta:
         verbose_name = 'Participation'
