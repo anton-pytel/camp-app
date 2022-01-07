@@ -15,6 +15,8 @@ from django.utils.encoding import force_bytes
 from django.utils.safestring import mark_safe
 from django.http import HttpResponse
 from django.urls import reverse
+from django.conf import settings
+
 from camper.form import (
     LoginForm, RegisterUserForm, RegisterChildForm,
     ProfileForm
@@ -24,7 +26,6 @@ from camper.models import (
     Child, Parent, Participant, ChildHealth, ChildParent,
     Registration
 )
-from camp_app import settings
 
 # Create your views here.
 
@@ -114,6 +115,7 @@ def profile_view(request):
                     "advance_price": registration.advance_price
                 }
             )
+            particip.confirm_mail(settings.PAGE_DOMAIN)
             due_dt = datetime.now() + timedelta(settings.ADVANCE_PMT_DUE) # +day
             particip.generate_qr(due_dt)
             form = ProfileForm(None, request=request)
@@ -262,10 +264,11 @@ def register_child_view(request):
                     for key in form.data.items():
                         if 'disease_' in key[0]:
                             label = form.data.get(key[0])
-                            ChildHealth.objects.get_or_create(
-                                disease_name=label,
-                                child=child
-                            )
+                            if label:
+                                ChildHealth.objects.get_or_create(
+                                    disease_name=label,
+                                    child=child
+                                )
                     ChildParent.objects.get_or_create(
                         parent=parent,
                         child=child
@@ -279,6 +282,7 @@ def register_child_view(request):
                         }
                     )
                     participation.generate_qr(due_dt)
+                    participation.confirm_mail(settings.PAGE_DOMAIN)
                     success_msg = '<div class="alert alert-success">Účastník úspešne zaregistrovaný</div>'
                     success = True
                     if p_created:
@@ -357,7 +361,7 @@ def password_reset_request(request):
                     email_template_name = "pass_reset/password_reset_email.txt"
                     c = {
                         "email": user.email,
-                        'domain': settings.EMAIL_DOMAIN,
+                        'domain': settings.PAGE_DOMAIN,
                         'site_name': 'Tábor 2022',
                         "uid": urlsafe_base64_encode(force_bytes(user.pk)),
                         "user": user,
@@ -366,7 +370,8 @@ def password_reset_request(request):
                     }
                     email = render_to_string(email_template_name, c)
                     try:
-                        send_mail(subject, email, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+                        if settings.EMAIL_ENABLED:
+                            send_mail(subject, email, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
                     except BadHeaderError:
                         return HttpResponse('Nepodarilo sa poslať')
                     return redirect("/password_reset/done/")
