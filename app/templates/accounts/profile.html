@@ -70,13 +70,11 @@
             <div class="col-md-8">
                 <div class="card">
                     <h4 class="card-title alert alert-info">Stav registrácie dieťaťa/detí</h4>
-                </div>
-            </div>
-        </div>
+
+
         {% for child in form.get_children %}
 
-        <div class="row">
-            <div class="col-md-8">
+
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
@@ -246,11 +244,9 @@
                           <br />
                     </div>
                 </div>
-            </div>
-        </div>
+                <hr style="height:10px;border:none;color:#00cae3;background-color:#00cae3;" />
+
         {% endfor %}
-        <div class="row">
-            <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
                         <a href="/register" class="btn btn-primary pull-right" >Pridať dieťa</a>

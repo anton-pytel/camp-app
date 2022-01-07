@@ -141,7 +141,7 @@ class Participant(models.Model):
             }
             email = render_to_string(email_template_name, c)
             if settings.EMAIL_ENABLED:
-                send_mail(subject, email, settings.EMAIL_HOST_USER, [parent.user.email], fail_silently=False)
+                send_mail(subject, email, settings.EMAIL_HOST_USER, [parent.contact_email], fail_silently=False)
         except Exception:
             logger.exception('Sending mail failed')
 
