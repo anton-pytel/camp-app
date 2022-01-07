@@ -1,7 +1,7 @@
 {% autoescape off %}
 Dobrý deň,
 
-vaše dieťa je úspešne registrované. V prípade otázok ohľadne tábora píšte na mail farapd.tabor@gmail.com
+Vaše dieťa je úspešne registrované. V prípade otázok ohľadne tábora píšte na mail farapd.tabor@gmail.com
 alebo volajte na telefónne číslo vedúcej tábora Kristíny Kevickej +421 918 306 241
 alebo spoluvedúcej Veroniky Ševčíkovej +421 917 070 692.
 
