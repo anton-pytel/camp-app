@@ -8,10 +8,28 @@
       </div>
       <div class="sidebar-wrapper toggled">
          <ul class="nav">
-          <li class="nav-item {% if 'index' == segment %} active {% endif %}">
+          <li class="nav-item {% if 'domov' == segment %} active {% endif %}">
             <a class="nav-link" href="/">
-              <i class="material-icons">description</i>
-              <p>Základné informácie</p>
+              <i class="material-icons">home</i>
+              <p>Domov</p>
+            </a>
+          </li>
+          <li class="nav-item {% if 'kto-sme' == segment %} active {% endif %}">
+            <a class="nav-link" href="/kto-sme">
+              <i class="material-icons">help_center</i>
+              <p>Kto sme</p>
+            </a>
+          </li>
+          <li class="nav-item {% if 'dolezite-info' == segment %} active {% endif %}">
+            <a class="nav-link" href="/dolezite-info">
+              <i class="material-icons">priority_high</i>
+              <p>Dôležité info</p>
+            </a>
+          </li>
+          <li class="nav-item {% if 'kontakt' == segment %} active {% endif %}">
+            <a class="nav-link" href="/kontakt">
+              <i class="material-icons">contact_mail</i>
+              <p>Kontakt</p>
             </a>
           </li>
          <!--
@@ -21,13 +39,14 @@
               <p>Pripravujeme</p>
             </a>
           </li>
-          -->
+
           <li class="nav-item {% if 'gallery.html' == segment %} active {% endif %}">
             <a class="nav-link" href="/gallery.html">
               <i class="material-icons">collections</i>
               <p>Galéria</p>
             </a>
           </li>
+          -->
            <!--
            <li class="nav-item {% if 'join-us' == segment %} active {% endif %}">
             <a class="nav-link" href="/cms">

@@ -1,19 +1,22 @@
-{% extends "layouts/base.html" %}
+{% extends "base.html" %}
+{% load cms_tags static %}
 
 {% block title %} Login {% endblock %} 
 
 <!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+    <link href="{% static "assets/css/material-dashboard.css" %}" rel="stylesheet" />
+    <link href="{% static "assets/demo/demo.css" %}" rel="stylesheet" />
+{% endblock stylesheets %}
 
 {% block content %}
+<div class="app-container">
+    <div class="container">
 
-  <div class="row">
-    <div class="col-md-8">
       <div class="card">
         <div class="card-header card-header-tabs card-header-primary">
             <div class="nav-tabs-navigation">
               <div class="nav-tabs-wrapper">
-                <span class="nav-tabs-title">Registrácia na tábor</span>
                 <ul class="nav nav-tabs" data-tabs="tabs">
                   <li class="nav-item">
                     <a class="nav-link active" href="#child" data-toggle="tab">
@@ -39,11 +42,11 @@
         </div>
         <div class="card-body">
 
-          <h6 class="card-category">
+          <h2 class="card-category">
               {% if msg %}
                 <span class="text-danger">{{ msg }}</span>
               {% endif %}
-          </h6>
+          </h2>
           
           <br />
 
@@ -286,10 +289,12 @@
     </div>
   </div>
 
+
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
+    {% include 'includes/scripts.html' %}
  <script type="text/javascript">
             $(document).ready(function(){
                 // alergies adding new

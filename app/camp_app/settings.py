@@ -215,8 +215,8 @@ LOGGING = {
 }
 
 LANGUAGES = [
-    # ('en-us', _('English')),
     ('sk', _('Slovak')),
+    # ('en-us', _('English')),
 ]
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
@@ -224,7 +224,7 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 CMS_TEMPLATES = [
     # ('home.html', 'Home page template'),
     # ('base.html', 'Base'),
-    ('feature.html', 'Fullwidth'),
+    ('tabor.html', 'Home'),
     # ('menu.html', 'Menu'),
     # ('page.html', 'Page')
 
@@ -250,3 +250,4 @@ THUMBNAIL_PROCESSORS = (
 
 VALID_REGISTRATION = config("VALID_REGISTRATION", default="tabor2022")
 ADVANCE_PMT_DUE = config("ADVANCE_PMT_DUE", default=14, cast=int)
+VALID_IBAN = config("VALID_IBAN", default="SK31 8330 0000 0024 0188 0167")
