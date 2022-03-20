@@ -1,268 +1,282 @@
-{% extends "layouts/base.html" %}
+{% extends "base.html" %}
+{% load cms_tags static %}
 
 {% block title %} Profil {% endblock %}
 
 <!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+    <link href="{% static "assets/css/material-dashboard.css" %}" rel="stylesheet" />
+    <link href="{% static "assets/demo/demo.css" %}" rel="stylesheet" />
+{% endblock stylesheets %}
 
 {% block content %}
-    <form role="form" method="post" action="">
-      {% csrf_token %}
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header card-header-primary">
-                        <h4 class="card-title">Upraviť Profil Rodiča</h4>
-                          <h6 class="card-category">
-                              {% if msg %}
+    <div class="app-container ">
+        <div class="container">
+            <form role="form" method="post" action="">
+                {% csrf_token %}
+                <div class="row">
+
+                    <div class="card">
+                        <br />
+                        <h1>Upraviť Profil Rodiča</h1>
+                        <h2 class="card-category">
+                            {% if msg %}
                                 <span class="text-danger">{{ msg }}</span>
-                              {% endif %}
-                          </h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="bmd-label-floating">Prihlasovacie meno</label>
-                                    <input type="text" class="form-control" value="{{ request.user.username }}"
-                                           disabled="disabled"/>
+                            {% endif %}
+                        </h2>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Prihlasovacie meno</label>
+                                        <input type="text" class="form-control" value="{{ request.user.username }}"
+                                               disabled="disabled"/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="bmd-label-floating">E-mail</label>
-                                    {{ form.p_email }}
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">E-mail</label>
+                                        {{ form.p_email }}
+                                    </div>
                                 </div>
-                            </div>
-                            <span class="text-danger">{{ form.p_email.errors }}</span>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="bmd-label-floating">Telefón</label>
-                                    {{ form.p_number }}
+                                <span class="text-danger">{{ form.p_email.errors }}</span>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Telefón</label>
+                                        {{ form.p_number }}
+                                    </div>
                                 </div>
+                                <span class="text-danger">{{ form.p_number.errors }}</span>
                             </div>
-                            <span class="text-danger">{{ form.p_number.errors }}</span>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="bmd-label-floating">Meno</label>
-                                    {{ form.p_first_name }}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Meno</label>
+                                        {{ form.p_first_name }}
+                                    </div>
                                 </div>
-                            </div>
-                            <span class="text-danger">{{ form.p_first_name.errors }}</span>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="bmd-label-floating">Priezvisko</label>
-                                    {{ form.p_last_name }}
+                                <span class="text-danger">{{ form.p_first_name.errors }}</span>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="bmd-label-floating">Priezvisko</label>
+                                        {{ form.p_last_name }}
+                                    </div>
                                 </div>
-                            </div>
-                            <span class="text-danger">{{ form.p_last_name.errors }}</span>
-                        </div>
-
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card">
-                    <h4 class="card-title alert alert-info">Stav registrácie dieťaťa/detí</h4>
-
-
-        {% for child in form.get_children %}
-
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h4 class="card-title alert alert-success">
-                                    {{ child.field_first_name.value }} {{ child.field_last_name.value }}
-                                </h4>
-                            </div>
-                            <div>
-                                {% if child.part_len == 0 %}
-                                    <button type="submit" name="register-btn" value="{{ child.id }}"
-                                            class="btn btn-primary pull-right">
-                                        Zaregistrovať
-                                    </button>
-                                {% endif %}
-                                <button type="submit" name="delete-btn" value="{{ child.id }}"
-                                        class="btn btn-primary pull-right delete-btn">
-                                    Odstrániť záznam
+                                <span class="text-danger">{{ form.p_last_name.errors }}</span>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                    <a href="/password_change" class="btn btn-primary">Zmeniť heslo</a>
+                                        <button type="submit" class="btn btn-primary    ">Potvrdiť zmeny v profile
                                 </button>
+                                    </div>
+                                </div>
                             </div>
+
+
+
+
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <th>Názov registrácie</th>
-                                        <th>Celková cena</th>
-                                        <th>Zálohová platba</th>
-                                        <th>Stav zálohovej platby</th>
-                                        <th>Doplatok do celkovej ceny</th>
-                                        <th>Stav platby</th>
-                                        <th>Zrušiť registráciu</th>
-                                    </tr>
-                                    {% for particip in child.get_participation %}
-                                        <tr>
-                                            <td>{{ particip.registration.label }}</td>
-                                            <td>{{ particip.price }}€</td>
-                                            <td>{{ particip.advance_price }}€</td>
-                                            <td>
-                                                {% if particip.advance_paid %}
-                                                   <span class="material-icons">check</span>
-                                                {% else %}
-                                                    <img src="{{ particip.qr_advance }}" width="150" height="160" />
-                                                {% endif %}
-                                            </td>
-                                            <td>{{ particip.price_diff }}€</td>
-                                            <td>
-                                                {% if particip.paid %}
-                                                    <span class="material-icons">check</span>
-                                                {% elif particip.advance_paid %}
-                                                    <img src="{{ particip.qr_diff }}" width="150" height="160" />
-                                                {% else %}
-                                                    Čaká sa na zálohovú platbu
-                                                {% endif %}
-                                            </td>
-                                            <td class="td-actions">
-                                                <button type=submit" rel="tooltip" title="Zrušiť registráciu"
-                                                        class="btn btn-danger btn-link btn-sm delete-btn"
-                                                        name="delete-part-btn" value="{{ particip.id }}"
-                                                >
-                                                  <i class="material-icons">close</i>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="card">
+                        <br/>
+                        <h1>Stav registrácie dieťaťa/detí</h1>
+
+                        {% for child in form.get_children %}
+
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h3 class="card-title alert alert-success">
+                                                Meno: {{ child.field_first_name.value }} {{ child.field_last_name.value }}
+                                            </h3>
+                                        </div>
+                                        <div>
+                                            {% if child.part_len == 0 %}
+                                                <button type="submit" name="register-btn" value="{{ child.id }}"
+                                                        class="btn btn-primary pull-right">
+                                                    Zaregistrovať
                                                 </button>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                              </tbody>
-                            </table>
+                                            {% endif %}
+                                            <button type="submit" name="delete-btn" value="{{ child.id }}"
+                                                    class="btn btn-primary pull-right delete-btn">
+                                                Odstrániť záznam
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h3>V prípade problémov s úhradou pomocou QR kódu neváhajte využiť ručný prevod:
+                                        <ul>
+                                            <li><strong>IBAN:</strong> {{ iban }} </li>
+                                            <li><strong>Poznámka pre príjemcu:</strong> {{ child.field_first_name.value }} {{ child.field_last_name.value }} </li>
+                                            <li><strong>Suma:</strong> podľa tabuľky nižšie</li>
+                                        </ul>
+                                    </h3>
+                                    <div class="row">
+                                        <table class="table">
+                                            <tbody>
+                                            <tr>
+                                                <th>Názov registrácie</th>
+                                                <th>Celková cena</th>
+                                                <th>Zálohová platba</th>
+                                                <th>Stav zálohovej platby</th>
+                                                <th>Doplatok do celkovej ceny</th>
+                                                <th>Stav platby</th>
+                                                <th>Zrušiť registráciu</th>
+                                            </tr>
+                                            {% for particip in child.get_participation %}
+                                                <tr>
+                                                    <td>{{ particip.registration.label }}</td>
+                                                    <td>{{ particip.price }}€</td>
+                                                    <td>{{ particip.advance_price }}€</td>
+                                                    <td>
+                                                        {% if particip.advance_paid %}
+                                                            <span class="material-icons">check</span>
+                                                        {% else %}
+                                                            <img src="{{ particip.qr_advance }}" width="150"
+                                                                 height="160"/>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>{{ particip.price_diff }}€</td>
+                                                    <td>
+                                                        {% if particip.paid %}
+                                                            <span class="material-icons">check</span>
+                                                        {% elif particip.advance_paid %}
+                                                            <img src="{{ particip.qr_diff }}" width="150"
+                                                                 height="160"/>
+                                                        {% else %}
+                                                            Čaká sa na zálohovú platbu
+                                                        {% endif %}
+                                                    </td>
+                                                    <td class="td-actions">
+                                                        <button type=submit" rel="tooltip"
+                                                                title="Zrušiť registráciu"
+                                                                class="btn btn-danger btn-link btn-sm delete-btn"
+                                                                name="delete-part-btn" value="{{ particip.id }}"
+                                                        >
+                                                            <i class="material-icons">close</i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="bmd-label">Krstné meno</label>
+                                                <br/>
+                                                {{ child.field_first_name }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="bmd-label">Priezvisko</label>
+                                                <br/>
+                                                {{ child.field_last_name }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="bmd-label">Rodné číslo</label>
+                                                <br/>
+                                                {{ child.field_birth_number }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="text-danger">{{ child.field_first_name.errors }}</span>
+                                    <span class="text-danger">{{ child.field_last_name.errors }}</span>
+                                    <span class="text-danger">{{ child.field_birth_number.errors }}</span>
+
+                                    <br/>
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="bmd-label">Ulica a číslo </label>
+                                                <br/>
+                                                {{ child.field_address }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="bmd-label">Mesto </label>
+                                                <br/>
+                                                {{ child.field_city }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="bmd-label">Štát </label>
+                                                <br/>
+                                                {{ child.field_state }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="text-danger">{{ child.field_address.errors }}</span>
+                                    <span class="text-danger">{{ child.field_city.errors }}</span>
+                                    <span class="text-danger">{{ child.field_state.errors }}</span>
+
+                                    <br/>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="bmd-label">Schopnosť plávať</label>
+                                                <br/>
+                                                {{ child.field_swim }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="text-danger">{{ child.field_swim.errors }}</span>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="bmd-label">Alergie </label>
+                                                {% for disease in child.get_diseases %}
+                                                    <br/>
+                                                    {{ disease.field_label_name }}
+                                                {% endfor %}
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <br/>
+                                </div>
+                            </div>
+                            <hr style="height:10px;border:none;color:#d78117;background-color:#d78117;"/>
+
+                        {% endfor %}
+                        <div class="card">
+                            <div class="card-header">
+                                <a href="/register" class="btn btn-primary pull-right">Pridať dieťa</a>
+                                <button type="submit" class="btn btn-primary pull-right">Potvrdiť zmeny v profile
+                                </button>
+
+                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <label class="bmd-label">Krstné meno</label>
-                                  <br />
-                                {{ child.field_first_name }}
-                              </div>
-                            </div>
-                          </div>
-                          <span class="text-danger">{{ child.field_first_name.errors }}</span>
-
-
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <label class="bmd-label">Priezvisko</label>
-                                  <br />
-                                {{ child.field_last_name }}
-                              </div>
-                            </div>
-                          </div>
-                          <span class="text-danger">{{ child.field_last_name.errors }}</span>
-
-                          <br />
-
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <label class="bmd-label">Rodné číslo</label>
-                                  <br />
-                                {{ child.field_birth_number }}
-                              </div>
-                            </div>
-                          </div>
-                          <span class="text-danger">{{ child.field_birth_number.errors }}</span>
-
-                          <br />
-
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <label class="bmd-label">Ulica a číslo </label>
-                                  <br />
-                                {{ child.field_address }}
-                              </div>
-                            </div>
-                          </div>
-                          <span class="text-danger">{{ child.field_address.errors }}</span>
-
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <label class="bmd-label">Mesto </label>
-                                  <br />
-                                {{ child.field_city }}
-                              </div>
-                            </div>
-                          </div>
-                          <span class="text-danger">{{ child.field_city.errors }}</span>
-
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <label class="bmd-label">Štát </label>
-                                  <br />
-                                {{ child.field_state }}
-                              </div>
-                            </div>
-                          </div>
-                          <span class="text-danger">{{ child.field_state.errors }}</span>
-
-                          <br />
-
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <label class="bmd-label">Schopnosť plávať</label>
-                                  <br />
-                                {{ child.field_swim }}
-                              </div>
-                            </div>
-                          </div>
-                          <span class="text-danger">{{ child.field_swim.errors }}</span>
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <label class="bmd-label">Alergie </label>
-                                  {% for disease in child.get_diseases %}
-                                      <br />
-                                     {{ disease.field_label_name }}
-                                  {% endfor %}
-
-                              </div>
-                            </div>
-                          </div>
-
-                          <br />
                     </div>
-                </div>
-                <hr style="height:10px;border:none;color:#00cae3;background-color:#00cae3;" />
 
-        {% endfor %}
-                <div class="card">
-                    <div class="card-header">
-                        <a href="/register" class="btn btn-primary pull-right" >Pridať dieťa</a>
-                        <button type="submit" class="btn btn-primary pull-right">Potvrdiť zmeny v profile</button>
-
-                    </div>
                 </div>
-            </div>
+
+
+            </form>
         </div>
-
-
-    </form>
+    </div>
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
+    {% include 'includes/scripts.html' %}
     <!-- JavaScript -->
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
@@ -275,50 +289,50 @@
     <!-- Bootstrap theme -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
     <script type="text/javascript">
-            $(document).ready(function(){
-                // alergies adding new
-                $('.remove-empty').parent().attr('last_max', $(".remove-empty").length)
-                let remove_empty = function () {
-                    let $this = $(this)
-                    let last_value = $this.attr('last_value')
-                    if (last_value !== '' && $this.val() === '') {
-                        $this.remove()
-                    }
-                    $this.attr('last_value', $this.val())
+        $(document).ready(function () {
+            // alergies adding new
+            $('.remove-empty').parent().attr('last_max', $(".remove-empty").length)
+            let remove_empty = function () {
+                let $this = $(this)
+                let last_value = $this.attr('last_value')
+                if (last_value !== '' && $this.val() === '') {
+                    $this.remove()
                 }
-                $('.remove-empty').on('input', remove_empty)
+                $this.attr('last_value', $this.val())
+            }
+            $('.remove-empty').on('input', remove_empty)
 
-                $('.disease_new').on('input', function() {
-                    let $this = $(this)
-                    let $clone = $this.clone()
-                    let name = $clone.attr('name')
-                    let arr = name.split('_')
-                    let last_max = $this.parent().attr('last_max')
-                    let n = parseInt(last_max) + 1
-                    $this.parent().attr('last_max', n)
-                    name = [arr[0],arr[1], n.toString()].join('_')
-                    $clone.val('')
-                    $clone.attr('name', name)
-                    $clone.attr('id', name)
-                    $clone.appendTo($this.parent())
-                    $this.removeClass('disease_new')
-                    $this.off('input', arguments.callee)
-                    $clone.on('input', arguments.callee)
-                    $this.on('input', remove_empty)
-                })
-                $('.delete-btn').click(function(event) {
-                    event.preventDefault();
-                    var $this = $(this);
-                    alertify.confirm('', 'Naozaj chcete pokračovať?',
-                        function(){
-                            $this.unbind('click').click()
-                        },
-                        function(){
-                        },
-                    )
-                });
-
-
+            $('.disease_new').on('input', function () {
+                let $this = $(this)
+                let $clone = $this.clone()
+                let name = $clone.attr('name')
+                let arr = name.split('_')
+                let last_max = $this.parent().attr('last_max')
+                let n = parseInt(last_max) + 1
+                $this.parent().attr('last_max', n)
+                name = [arr[0], arr[1], n.toString()].join('_')
+                $clone.val('')
+                $clone.attr('name', name)
+                $clone.attr('id', name)
+                $clone.appendTo($this.parent())
+                $this.removeClass('disease_new')
+                $this.off('input', arguments.callee)
+                $clone.on('input', arguments.callee)
+                $this.on('input', remove_empty)
+            })
+            $('.delete-btn').click(function (event) {
+                event.preventDefault();
+                var $this = $(this);
+                alertify.confirm('', 'Naozaj chcete pokračovať?',
+                    function () {
+                        $this.unbind('click').click()
+                    },
+                    function () {
+                    },
+                )
             });
+
+
+        });
     </script>
 {% endblock javascripts %}

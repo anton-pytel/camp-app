@@ -160,6 +160,7 @@ def profile_view(request):
         {
             "form": form,
             "msg": msg,
+            "iban": settings.VALID_IBAN,
             "success": success,
             "segment": "profile"
         }
@@ -209,7 +210,7 @@ def register_child_view(request):
                 else:
                     c_pass = generate_random_password(8)
 
-                    u_child = User.objects.create(
+                    u_child = User.objects.create_user(
                         first_name=form.cleaned_data.get("first_name"),
                         last_name=form.cleaned_data.get("last_name"),
                         username=get_username(
@@ -226,19 +227,22 @@ def register_child_view(request):
                     p_pass = generate_random_password(8)
                     p_created = False
                     if not parent:
-                        u_parent, p_created = User.objects.get_or_create(
-                            email=form.cleaned_data.get("p_email"),
-                            defaults={
-                                "first_name": form.cleaned_data.get("p_first_name"),
-                                "last_name": form.cleaned_data.get("p_last_name"),
-                                "username": get_username(
+                        try:
+                            User.objects.get(email=form.cleaned_data.get("p_email"))
+                        except User.DoesNotExist:
+                            u_parent = User.objects.create_user(
+                                email=form.cleaned_data.get("p_email"),
+                                first_name=form.cleaned_data.get("p_first_name"),
+                                last_name=form.cleaned_data.get("p_last_name"),
+                                username=get_username(
                                     form.cleaned_data.get("p_first_name"),
                                     form.cleaned_data.get("p_last_name"),
                                     sfx2
                                 ),
-                                "password": p_pass,
-                            }
-                        )
+                                password=p_pass,
+                            )
+                            p_created = True
+
                         if p_created:
                             parent = Parent.objects.create(
                                 user=u_parent,

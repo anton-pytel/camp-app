@@ -10,6 +10,7 @@ from django.conf import settings
 from django.urls import reverse_lazy
 from .utils import get_qr
 
+
 logger = logging.getLogger("camper")
 
 
@@ -29,14 +30,14 @@ def validate_rc(value):
 
 
 class Registration(models.Model):
-    label = models.CharField(default="tabor2022", max_length=100)
+    label = models.CharField(default=settings.VALID_REGISTRATION, max_length=100)
     registration_start = models.DateField()
     registration_end = models.DateField()
     camp_start_date = models.DateField()
     camp_start_end = models.DateField()
     price = models.DecimalField(max_digits=4, decimal_places=2, default=5)
     advance_price = models.DecimalField(max_digits=4, decimal_places=2, default=3)
-    bank_account = models.CharField(default="SK31 8330 0000 0024 0188 0167", max_length=100)
+    bank_account = models.CharField(default=settings.VALID_IBAN, max_length=100)
 
     def __str__(self):
         return self.label

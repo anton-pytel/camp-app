@@ -1,77 +1,59 @@
-{% extends "layouts/base.html" %}
+{% extends "base.html" %}
+{% load cms_tags static %}
 
 {% block title %} Login {% endblock %} 
 
 <!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+    <link href="{% static "assets/css/material-dashboard.css" %}" rel="stylesheet" />
+    <link href="{% static "assets/demo/demo.css" %}" rel="stylesheet" />
+{% endblock stylesheets %}
 
 {% block content %}
 
-  <div class="row">
-    <div class="col-md-5">
+<div class="app-container">
+    <div class="container">
+    <div class="row">
       <div class="card">
         <div class="card-header card-header-primary">
-          <h4 class="card-title">
+          <h3 class="card-title">
             Prihlásenie
-          </h4>
+          </h3>
         </div>
-        <div class="card-body">
 
-          <h6 class="card-category">
+
+          <h2 class="card-category">
               {% if msg %}
                 <span class="text-danger">{{ msg }}</span>
-              {% endif %}  
-          </h6>
-          
+              {% endif %}
+          </h2>
+
           <br />
-
+      <div class="card-body">
           <form role="form" method="post" action="">
-              
-            {% csrf_token %} 
 
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label class="bmd-label-floating">Prihlasovacie meno</label>
+            {% csrf_token %}
+              <div class="form-group">
                   {{ form.username }}
-                </div>
               </div>
-            </div>
-
-            <br />
-
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label class="bmd-label-floating">Heslo</label>
+              <div class="form-group">
                   {{ form.password }}
-                </div>
               </div>
-            </div>
-
-              <br/>
-              <div class="row">
-                   <div class="col-md-12">
-                        <a href="/password_reset">Zabudnuté heslo?</a>
-                   </div>
+              <div class="form-group">
+                  <a href="/password_reset">Zabudnuté heslo?</a>
               </div>
               <button type="submit" name="login" class="btn btn-primary pull-left">Login</button>
 
-              &nbsp; <!--
-            <span class="pull-right">
-              Don't have an account? <a href="{% url 'register' %}" class="text-primary">Create</a>
-            </span>
-            -->
-
-            <div class="clearfix"></div>
-
           </form>
-        </div>
+      </div>
       </div>
     </div>
   </div>
+</div>
 
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+    {% include 'includes/scripts.html' %}
+{% endblock javascripts %}
