@@ -30,7 +30,7 @@ from django.contrib.auth.views import (
 
 urlpatterns = [
     path('camp-admin/', admin.site.urls),
-    path('', index, name='tabor home'),
+    # path('', index, name='tabor home'),
     re_path('gallery.html', pages, name='gallery'),
     path('login/', login_view, name="login"),
     path('register-user/', register_user_view, name="register"),
@@ -55,7 +55,8 @@ urlpatterns = [
     path('reset/done/',
          PasswordResetCompleteView.as_view(template_name='pass_reset/password_reset_complete.html'),
          name='password_reset_complete'),
-    re_path(r'^cms/', include('cms.urls')),
+    path('animatori/', profile_view, name="profile"),
+    re_path(r'^', include('cms.urls')),
 ] \
               + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
               + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

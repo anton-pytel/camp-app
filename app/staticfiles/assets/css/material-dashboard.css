@@ -17,7 +17,7 @@
 /*     brand Colors              */
 
 .card {
-  font-size: .875rem;
+   font-size: 1.6rem;
 }
 
 *,
@@ -62,9 +62,9 @@ body {
   color: #212529;
   text-align: left;
   background-color: #fafafa;
-  background-image: url(../img/bg.png);
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-image: url(../../tabor/images/bgb.jpg);
+  /* background-repeat: no-repeat;
+  background-size: cover; */
 }
 
 [tabindex="-1"]:focus {
@@ -8766,7 +8766,7 @@ a.text-dark:focus {
   position: relative;
   padding: 12px 30px;
   margin: 0.3125rem 1px;
-  font-size: .75rem;
+  /* font-size: .75rem; */
   font-weight: 400;
   line-height: 1.428571;
   text-decoration: none;
@@ -8791,24 +8791,24 @@ a.text-dark:focus {
 }
 
 .btn.btn-primary {
-  color: #fff;
-  background-color: #273eb0;
-  border-color: #3c27b0;
+  color: #000000;
+  background-color: #e0cf7c;
+  border-color: #d0ac00;
   box-shadow: 0 2px 2px 0 rgba(156, 39, 176, 0.14), 0 3px 1px -2px rgba(156, 39, 176, 0.2), 0 1px 5px 0 rgba(156, 39, 176, 0.12);
 }
 
 .btn.btn-primary:hover {
   color: #fff;
-  background-color: #273eb0;
-  border-color: #3c27b0;
+  background-color: #d0ac00;
+  border-color: #e0cf7c;
 }
 
 .btn.btn-primary:focus,
 .btn.btn-primary.focus,
 .btn.btn-primary:hover {
   color: #fff;
-  background-color: #273eb0;
-  border-color: #3c27b0;
+  background-color: #d0ac00;
+  border-color: #e0cf7c;
 }
 
 .btn.btn-primary:active,
@@ -8851,14 +8851,14 @@ a.text-dark:focus {
 .btn.btn-primary.disabled.focus,
 .btn.btn-primary:disabled:focus,
 .btn.btn-primary:disabled.focus {
-  background-color: #273eb0;
-  border-color: #3c27b0;
+  background-color: #d0ac00;
+  border-color: #d0ac00;
 }
 
 .btn.btn-primary.disabled:hover,
 .btn.btn-primary:disabled:hover {
-  background-color: #273eb0;
-  border-color: #3c27b0;
+  background-color: #d0ac00;
+  border-color: #d0ac00;
 }
 
 .btn.btn-primary:focus,
@@ -12618,7 +12618,7 @@ fieldset[disabled][disabled] .has-rose .form-control,
 .bmd-form-group .checkbox label,
 .bmd-form-group .radio label,
 .bmd-form-group label {
-  font-size: 0.875rem;
+  /* font-size: 0.875rem; */
 }
 
 .bmd-form-group .bmd-label-floating,
@@ -12636,7 +12636,7 @@ fieldset[disabled][disabled] .has-rose .form-control,
 .bmd-form-group .bmd-label-static {
   top: 0.35rem;
   left: 0;
-  font-size: 0.875rem;
+  /* font-size: 0.875rem; */
 }
 
 .bmd-form-group .bmd-help {
@@ -12858,13 +12858,13 @@ label {
 .is-filled .bmd-label-floating {
   top: -1rem;
   left: 0;
-  font-size: 0.6875rem;
+  /* font-size: 0.6875rem; */
 }
 
 .bmd-label-static {
   top: 0.35rem;
   left: 0;
-  font-size: 0.875rem;
+  /*font-size: 0.875rem; */
 }
 
 .bmd-help {
@@ -13790,7 +13790,7 @@ h2.title {
 
 .nav-tabs .nav-item .nav-link {
   position: relative;
-  color: #fff;
+  color: #000000;
   border: 0;
   margin: 0;
   border-radius: 3px;
@@ -13810,7 +13810,7 @@ h2.title {
 .nav-tabs .nav-item .nav-link:hover,
 .nav-tabs .nav-item .nav-link:focus {
   border: 0 !important;
-  color: #fff !important;
+  color: #000000 !important;
   font-weight: 500;
 }
 
@@ -16781,7 +16781,7 @@ label {
 .card.bg-primary,
 .card.card-rotate.bg-primary .front,
 .card.card-rotate.bg-primary .back {
-  background: linear-gradient(60deg, #4768bc, #2426aa);
+  background: linear-gradient(60deg, #e0cf7c, #d0ac00);
 }
 
 .card .card-header-info .card-icon,
