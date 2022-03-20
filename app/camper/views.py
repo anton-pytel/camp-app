@@ -160,6 +160,7 @@ def profile_view(request):
         {
             "form": form,
             "msg": msg,
+            "iban": settings.VALID_IBAN,
             "success": success,
             "segment": "profile"
         }

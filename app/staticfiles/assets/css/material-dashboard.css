@@ -13416,8 +13416,8 @@ fieldset[disabled] .form-group .form-control {
 }
 
 .alert.alert-success {
-  background-color: #55b559;
-  color: #ffffff;
+  background-color: #d0ac00;
+  color: #000000;
 }
 
 .alert.alert-success a,

@@ -86,7 +86,6 @@
                         <br/>
                         <h1>Stav registrácie dieťaťa/detí</h1>
 
-
                         {% for child in form.get_children %}
 
 
@@ -95,7 +94,7 @@
                                     <div class="row">
                                         <div class="col-md-8">
                                             <h3 class="card-title alert alert-success">
-                                                {{ child.field_first_name.value }} {{ child.field_last_name.value }}
+                                                Meno: {{ child.field_first_name.value }} {{ child.field_last_name.value }}
                                             </h3>
                                         </div>
                                         <div>
@@ -113,6 +112,13 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
+                                    <h3>V prípade problémov s úhradou pomocou QR kódu neváhajte využiť ručný prevod:
+                                        <ul>
+                                            <li><strong>IBAN:</strong> {{ iban }} </li>
+                                            <li><strong>Poznámka pre príjemcu:</strong> {{ child.field_first_name.value }} {{ child.field_last_name.value }} </li>
+                                            <li><strong>Suma:</strong> podľa tabuľky nižšie</li>
+                                        </ul>
+                                    </h3>
                                     <div class="row">
                                         <table class="table">
                                             <tbody>
@@ -247,7 +253,7 @@
                                     <br/>
                                 </div>
                             </div>
-                            <hr style="height:10px;border:none;color:#00cae3;background-color:#00cae3;"/>
+                            <hr style="height:10px;border:none;color:#d78117;background-color:#d78117;"/>
 
                         {% endfor %}
                         <div class="card">
@@ -271,7 +277,6 @@
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
     {% include 'includes/scripts.html' %}
-    <script src="{% static "tabor/js/menu.js" %}"></script>
     <!-- JavaScript -->
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
