@@ -220,6 +220,7 @@ LANGUAGES = [
 ]
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+XS_SHARING_ALLOWED_METHODS = ['POST', 'GET', 'OPTIONS', 'PUT', 'DELETE']
 
 CMS_TEMPLATES = [
     # ('home.html', 'Home page template'),
