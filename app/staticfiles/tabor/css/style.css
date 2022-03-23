@@ -58,22 +58,6 @@ main {
 	width: 80%;
 	
 }
-.app-container {
-	width: 100%;
-	padding: 60px;
-	min-height: calc(100vh - 3rem);
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-}
-
-.app-bg {
-	background-color: #ffffff;
-	padding: 20px;
-}
-
 .loginmenu {
 	display: flex;
 	display: none;
@@ -240,18 +224,18 @@ p {
 .home .datum,
 .home .miesto {
 	font-family: 'Courgette', cursive;
-	transform: rotate(30deg);
+	transform: rotate(-30deg);
 	position: absolute;
-	bottom: 70px;
+	top: 130px;
 	color: #e9833a;
 	font-size: 40px;
 }
 .home .datum {
-	left: 20px;
+	left: -40px;
 }
 .home .miesto {
-	right: 20px;
-	transform: rotate(-30deg);
+	right: -40px;
+	transform: rotate(30deg);
 }
 /* .home .datum,
 .home .miesto {
@@ -351,7 +335,12 @@ dt.info3.active+dd {
 .info4 dd ol li {
 	margin-bottom: 10px;
 }
-.info4 dd ol li span {
+.info4 dd ul li {
+	margin-bottom: 10px;
+	list-style-type: disc;
+	text-align: left;
+}
+.info2 dd ul li span {
 	font-weight: bold;
 }
 .about {
@@ -740,8 +729,62 @@ h3#nastimobal {
 .toggle.active span:nth-child(3) {
 	transform: translateX(60px);
 }
+.video-container {
+	position: fixed;
+	width: 100%;
+	height: 100vh;
+	/* display: none; */
+	/* visibility: hidden; */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	transform: scale(0);
+	transition: 1s;
+	/* transform: scale(0); */
+}
+.video-container.active {
 
+	/* overflow: hidden; */
+	/* position: fixed; */
+	background: rgba(255, 255, 255, .7);
+	top: 0;
+	left: 0;
+	/* visibility: visible; */
+	/* transform: translateX(-25%); */
+	display: flex;
+	
+	z-index: 10000;
+	transform: scale(1);
+	transition: 1s;
+}
+.video-container.active .zatvor-btn {
+	display: block;
+	position: relative;
+ 	width: 90%;
+/* 	height: 100vh; */
+	top: 0;
+	right: 0;
+	/* background: #0f0; */
+	color: rgba(0, 0, 0, 0.8);
+	font-weight: bold;
+	cursor: pointer;
+	font-size: 20px;
+	z-index: 20000;
+	text-align: right;
+	padding-right: 20px;
+}
+.video-container video {
+	visibility: hidden;
+	width: 90%;
+	transform: scale(0);
+}
+.video-container.active video {
+	visibility: visible;
+	transform: scale(1);
+	transition: 1.5s;
 
+}
 @media screen and (max-width: 900px){
 	body {
 		background-size: 100vh 100vw;
@@ -818,9 +861,11 @@ h3#nastimobal {
         display: flex;
     }
 	.home .datum {
-		left: -40px;
+		top: 70px;
+		/* left: -40px; */
 	}
 	.home .miesto {
-		right: -40px;
+		top: 70px;
+		/* right: -40px; */
 	}
 }
