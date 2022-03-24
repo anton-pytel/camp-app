@@ -1,4 +1,17 @@
-<h1>Hello {% if request.user.is_authenticated %}
-    {{ request.user.first_name }} {{ request.user.last_name}}{% else %}Guest{% endif %}
-</h1>
 <!-- https://djangocms.readthedocs.io/en/latest/introduction/plugins/ -->
+ {% for animator in animators %}
+        <div class="timitem">
+            <div class="itemfoto filter2">
+                {% if animator.main_img %}
+                    <img src="{{ animator.main_img.url }}" alt="">
+                {% endif %}
+                {% if animator.animation_img %}
+                    <img src="{{ animator.animation_img.url}}" alt="" class="postavicka">
+                {% endif %}
+            </div>
+            <div class="itembio">
+                <h3>{{ animator.label }}</h3>
+                <p>{{ animator.description }}</p>
+            </div>
+        </div>
+{% endfor %}

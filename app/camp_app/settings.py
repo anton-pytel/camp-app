@@ -91,6 +91,7 @@ INSTALLED_APPS = [
     'djangocms_bootstrap4.contrib.bootstrap4_tabs',
     'djangocms_bootstrap4.contrib.bootstrap4_utilities',
     'nested_inline',
+    'gallery',
 ]
 
 MIDDLEWARE = [
@@ -229,6 +230,12 @@ CMS_TEMPLATES = [
     # ('page.html', 'Page')
 
 ]
+
+GALLERY_LOGO_PATH = ""
+GALLERY_TITLE = "Galéria"
+GALLERY_FOOTER_INFO = ""
+GALLERY_FOOTER_EMAIL = ""
+GALLERY_IMAGE_MARGIN = 20
 
 EMAIL_HOST = config("EMAIL_HOST", default="secret")
 EMAIL_PORT = config("EMAIL_PORT", default=25, cast=int)

@@ -35,6 +35,7 @@ djangocms-snippet = "*"
 djangocms-style = "*"
 djangocms-bootstrap4 = "*"
 django-nested-inline = "*"
+django-starcross-gallery = "*"
 
 [requires]
 python_version = "3.9"

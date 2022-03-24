@@ -32,6 +32,10 @@ $ cd app
 $ python manage.py migrate # initialize database model (DDL)
 $ python manage.py createsuperuser # create admin user
 $ python manage.py runserver # access the url localhost:8000/admin
+
+# in order to run gallery  https://github.com/Starcross/django-starcross-gallery
+$ python manage.py makemigrations gallery
+$ python manage.py migrate gallery
 ```
 
 ### Development and run
@@ -47,5 +51,11 @@ $ pipenv install -d <> # <> replace with the development lib dependency
 $ python app/manage.py runserver
 # after changes in models
 $ python app/manage.py makemigrations   
-$ python app/manage.py migrate 
+$ python app/manage.py migrate
+
 ```
+
+
+### Deployment
+- migration
+- setup valid registration and prices

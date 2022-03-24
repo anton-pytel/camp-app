@@ -56,6 +56,7 @@ urlpatterns = [
          PasswordResetCompleteView.as_view(template_name='pass_reset/password_reset_complete.html'),
          name='password_reset_complete'),
     path('animatori/', profile_view, name="profile"),
+    path('gallery/', include('gallery.urls')),
     re_path(r'^', include('cms.urls')),
 ] \
               + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
