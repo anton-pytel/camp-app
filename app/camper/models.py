@@ -59,6 +59,12 @@ class Parent(models.Model):
 
 class Animator(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    registrations = models.ManyToManyField(Registration, blank=True)
+    label = models.CharField(max_length=128, blank=True, null=True)
+    description = models.CharField(max_length=1024, blank=True, null=True)
+    main_img = models.FileField(upload_to='animators', blank=True, null=True)
+    animation_img = models.FileField(upload_to='animators', blank=True, null=True)
+
 
     class Meta:
         verbose_name = 'Animator'
