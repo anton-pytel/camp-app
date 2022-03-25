@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from .models import Animator
 
 @plugin_pool.register_plugin
-class HelloPlugin(CMSPluginBase):
+class AnimatorPlugin(CMSPluginBase):
     model = CMSPlugin
     render_template = "tabor/animator.html"
     cache = False

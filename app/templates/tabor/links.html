@@ -6,6 +6,7 @@
     <li><a href="/#gallery">Galéria</a></li>
     <li><a href="/#kontakt">Kontakt</a></li>
     <li><a href="/register">Registrácia</a></li>
+    {% static_placeholder "links" %}
     {% if user.is_authenticated %}
         <li><a href="/profile">Profil</a></li>
         <li><a href="/logout">Odhlásiť</a></li>
@@ -15,4 +16,3 @@
     {% if request.user.is_staff or request.user.is_superuser %}
         <li><a href="/camp-admin">Admin</a></li>
     {% endif%}
-    {% static_placeholder "links" %}

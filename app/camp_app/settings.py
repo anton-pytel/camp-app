@@ -226,6 +226,7 @@ CMS_TEMPLATES = [
     # ('home.html', 'Home page template'),
     # ('base.html', 'Base'),
     ('tabor.html', 'Home'),
+    ('accounts/register_child.html', 'Register'),
     # ('menu.html', 'Menu'),
     # ('page.html', 'Page')
 
