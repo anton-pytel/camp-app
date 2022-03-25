@@ -1,0 +1,101 @@
+{% load cms_tags static %}
+
+<div class="info2" id="info">
+        {% placeholder "vseobecne_info" or %}
+            <h1>Informácie o tábore</h1>
+            <dl class="info4">
+                <dt>Všeobecné informácie</dt>
+                <dd>
+                    <ol>
+                        <li>Tábor sa koná od 17. do 23. júla 2022 v Kostoľanoch pod Tribečom a je určený pre deti od 6. do
+                            13. rokov.
+                        </li>
+                        <li>Cena tábora je 130€. Záloha 60€ sa platí vopred do 16.5. 2022.</li>
+                        <li><span>Záloha je nevratná!</span></li>
+                        <li>V prípade, že má vaše dieťa inú ako bezlepkovú diétu, bude potrebné dohodnúť sa na stravovaní
+                            dieťaťa. Zariadenie tábora totiž neponúka inú možnosť. Preto sa kontaktujte mailom alebo
+                            telefónnym číslom, ktoré Vám bude sprístupnené po registrácii dieťaťa.
+                        </li>
+                    </ol>
+                </dd>
+                <dt>Ako prihlásiť dieťa na tábor?</dt>
+                <dd>
+                    <ol>
+                        <li>V prípade, že chcete prihlásiť svoje dieťa na tábor kliknite sem, prípadne na tlačidlo
+                            „registrácia“.
+                        </li>
+                        <li>Objaví sa vám formulár, ktorý musíte pravdivo vyplniť. Na základe formulára prihlasujete svoje
+                            dieťa na tábor a zároveň vytvárate svoje rodičovské konto.
+                        </li>
+                        <li>Po odoslaní formuláru Vám príde potvrdzujúci mail. V ňom nájdete kontaktné údaje a link na zmenu
+                            hesla do Vášho rodičovského konta.
+                        </li>
+                        <li>Vo svojom rodičovskom konte nájdete QR kód (Pay by Sqare), ktorým zaplatíte zálohu a neskôr aj
+                            druhú čiastku.
+                        </li>
+                        <li>V rodičovskom konte môžete upravovať a meniť údaje, prípadne zrušiť registráciu.</li>
+                    </ol>
+                </dd>
+                <dt>Pred táborom</dt>
+                <dd>
+                    <ol>
+                        <li>Druhú splátku tábora bude možné zaplatiť po pripísaní zálohy na náš účet.</li>
+                        <li>Pred táborom bude nutné vyplniť dokumenty, ktoré nájdete tu. <span>Potvrdenie od lekára</span>
+                            musí byť vyplnené najskôr mesiac pred začatím tábora a je potrebné odovzdať ho do sakristie po
+                            detskej svätej omši v nedeľu o 10:30, <span>najneskôr do 3.7.2022</span>. Druhý dokument, <span>Prehlásenie o bezinfekčnosti dieťaťa</span>,
+                            s dátumom nie starším ako deň pred nástupom na tábor (teda 16.7.2022) sa odovzdáva v <span>deň nástupu na tábor do rúk zdravotníka</span>
+                            spolu s preukazom poistenca a nevyhnutnými liekmi, ktoré vyžaduje zdravotný stav dieťaťa!
+                        </li>
+
+                    </ol>
+                </dd>
+                <dt>Čo nezabudnúť pred táborom?</dt>
+                <dd>
+                    <ol>
+                        <li>Oblečenie (min. 3x krátke tričká, min. 1x krátke nohavice, min. 1x dlhé tričko, 1x dlhé
+                            nohavice/tepláky, 1x mikina, min. 5x spodné prádlo, pyžamo)
+                        </li>
+                        <li>Obuv (športová obuv - v areáli sa nachádza aj ihrisko s antukovým povrchom, odporúčame preto
+                            staršiu obuv, ktorá sa môže zašpiniť, obuv vhodná na turistiku, prezuvky, obuv vhodná k
+                            bazénu/do sprchy)
+                        </li>
+                        <li>Pokrývka hlavy (šiltovka/šatka/klobúk)!</li>
+                        <li>Hygienické potreby (zubná pasta a kefka, hrebeň/kefa, gumička do vlasov, 2x uterák, opaľovací
+                            krém)
+                        </li>
+                        <li>Plavky (prípadne plávacie koleso, rukávniky)</li>
+                        <li>Baterka</li>
+                        <li>Menší ruksak vhodný na výlet</li>
+                        <li>Fľaša na vodu</li>
+                        <li>Vypísané a podpísané Prehlásenie o bezinfekčnosti dieťaťa</li>
+                        <li>Preukaz poistenca</li>
+                        <li>Kinedryl (v prípade, že dieťaťu býva v zle v dopravných prostriedkoch)</li>
+                        <li>Lieky, ktoré dieťa užíva. Tie sa pri odchode na tábor spolu s preukazom poistenca a Prehlásením
+                            o bezinfekčnosti dieťaťa odovzdá zdravotníkovi!
+                        </li>
+                    </ol>
+                </dd>
+                <dt>Čo (ne)zbaliť na tábor?</dt>
+                <dd>
+                    <ol>
+                        <li>Mobilný telefón - pre deti je prichystaný bohatý program, v ktorom nebudú potrebovať mobilné
+                            zariadenia a v mieste pobytu je slabší signál, ak však budete chcieť svoje dieťa kontaktovať
+                            počas týždňa, k dispozícii budú čísla vedúcej tábora a vo vyhradenom čase od 19:00 môžete
+                            zavolať.
+                        </li>
+                        <li>Cenné veci - tablety, šperky… Za stratu nezodpovedáme</li>
+                    </ol>
+                </dd>
+                <dt>Dokumenty na stiahnutie</dt>
+                <dd>
+                    <ul>
+                        <li><a href="{% static "tabor/docs/Potvrdenie_od_lekara.pdf" %}" target="_blank">Potvrdenie od lekára</a></li>
+                        <li><a href="{% static "tabor/docs/Prehlasenie_o_bezinfekcnosti_dieta.pdf" %}" target="_blank">Prehlásenie o
+                            bezinfekčnosti dieťaťa</a></li>
+                    </ul>
+                </dd>
+                <dt>Po tábore</dt>
+                <dd>Po tábore sprístupníme link s fotografiami.</dd>
+            </dl>
+        {% endplaceholder %}
+    </div>
