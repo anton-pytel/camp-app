@@ -64,6 +64,7 @@ class Animator(models.Model):
     description = models.CharField(max_length=1024, blank=True, null=True)
     main_img = models.FileField(upload_to='animators', blank=True, null=True)
     animation_img = models.FileField(upload_to='animators', blank=True, null=True)
+    general_order = models.IntegerField(default=0)
 
 
     class Meta:
