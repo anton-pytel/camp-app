@@ -113,8 +113,8 @@ class ChildParent(models.Model):
 class Participant(models.Model):
     registration = models.ForeignKey(Registration, on_delete=models.CASCADE)
     child = models.ForeignKey(Child, on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=4, decimal_places=2)
-    advance_price = models.DecimalField(max_digits=4, decimal_places=2)
+    price = models.DecimalField(max_digits=20, decimal_places=2)
+    advance_price = models.DecimalField(max_digits=20, decimal_places=2)
     paid = models.BooleanField(default=False)
     advance_paid = models.BooleanField(default=False)
     valid_participant = models.BooleanField(default=True)
