@@ -6,6 +6,7 @@ import json
 import smtplib
 from datetime import datetime
 from email.message import EmailMessage
+from unidecode import unidecode
 
 # characters to generate password from
 characters = list(string.ascii_letters + string.digits + "!")
@@ -28,7 +29,7 @@ def generate_random_password(length):
 
 
 def get_username(p_name, l_name, sfx):
-    return f"{p_name.lower()}.{l_name.lower()}-{sfx}"
+    return f"{unidecode(p_name.lower())}.{unidecode(l_name.lower())}-{sfx}"
 
 
 def get_qr(iban, amount, due_date, vs='', ks='', ss='', msg=''):

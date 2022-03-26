@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "afbacc70059f8bfc5d5256f26f6d4add4be32d61fadf89d904f09696504577a7"
+            "sha256": "28b18ae28700e0bb1bdfe8e928689395252237bd42aabf7621f16d57a55d9e66"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -267,11 +267,11 @@
         },
         "djangocms-picture": {
             "hashes": [
-                "sha256:487b72f3c251745c062c052ef87a3e7f9ba458cf67534f13e92c684524e941ef",
-                "sha256:d6efc414f044ee373126dac81c14e5a95983b2fa76a85e91a7e1328d62f0e57c"
+                "sha256:88c931bab47403a8ebf3b74543f467ccd1dc934e37c0a185cae2cee361c14f9b",
+                "sha256:dfa691a5c759d84a9e1a14e1b67fd2562761347e9979c2092ec73e70d9220b82"
             ],
             "index": "pypi",
-            "version": "==3.0.0"
+            "version": "==4.0.0"
         },
         "djangocms-snippet": {
             "hashes": [
@@ -760,6 +760,7 @@
                 "sha256:4c9d15d2f73eb0d2649a151c566901f80a030da1ccb0a2043352e1dbf647586b",
                 "sha256:a039f89014245e0cad8858976293e23501accc9ff5a7bdbc739a14a2b7b85cdc"
             ],
+            "index": "pypi",
             "version": "==1.1.2"
         },
         "urllib3": {
@@ -984,7 +985,7 @@
                 "sha256:600d3aefecce26d48d97eee936fdb66e4bc27f934c3ab6dd1e292c4f43946d90",
                 "sha256:fecfcc8cca110fda9d561cb83f1e97ecbb93c613ff857f655818839dac74ce90"
             ],
-            "markers": "python_version >= '3.6' and python_version < '4.0'",
+            "markers": "python_version >= '3.6' and python_full_version < '4.0.0'",
             "version": "==1.10.0"
         },
         "termcolor": {
@@ -998,7 +999,7 @@
                 "sha256:cac4aeaff42f18fef6e07831c2c2689a51df76cf2ede07a6a4fa5fcb83558870",
                 "sha256:d99946c6aed3387c98b89d91fb9edff8f901bf9255901081266a84fb5604adcd"
             ],
-            "markers": "python_version >= '3.6' and python_version < '4.0'",
+            "markers": "python_version >= '3.6' and python_full_version < '4.0.0'",
             "version": "==0.10.0"
         },
         "typing-extensions": {
