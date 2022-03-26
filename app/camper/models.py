@@ -35,8 +35,8 @@ class Registration(models.Model):
     registration_end = models.DateField()
     camp_start_date = models.DateField()
     camp_start_end = models.DateField()
-    price = models.DecimalField(max_digits=4, decimal_places=2, default=5)
-    advance_price = models.DecimalField(max_digits=4, decimal_places=2, default=3)
+    price = models.DecimalField(max_digits=20, decimal_places=2, default=5)
+    advance_price = models.DecimalField(max_digits=20, decimal_places=2, default=3)
     bank_account = models.CharField(default=settings.VALID_IBAN, max_length=100)
 
     def __str__(self):
