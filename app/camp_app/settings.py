@@ -256,6 +256,8 @@ THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.filters'
 )
 
+TEXT_ADDITIONAL_ATTRIBUTES = ('onclick', )
+
 VALID_REGISTRATION = config("VALID_REGISTRATION", default="tabor2022")
 ADVANCE_PMT_DUE = config("ADVANCE_PMT_DUE", default=14, cast=int)
 VALID_IBAN = config("VALID_IBAN", default="SK31 8330 0000 0024 0188 0167")

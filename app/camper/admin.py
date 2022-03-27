@@ -79,16 +79,26 @@ class ChildGroupAdmin(NestedModelAdmin):
 
 class ParticipantAdmin(NestedModelAdmin):
     model = Participant
-    list_display = ["registration", "child", "price", "paid"]
+    list_display = ["registration", "child", "advance_price", "advance_paid", "price", "paid"]
     list_filter = ["registration", "paid"]
+
+
+class AnimatorAdmin(NestedModelAdmin):
+    model = Animator
+    list_display = ["label", "general_order"]
+
+
+class RegistrationAdmin(NestedModelAdmin):
+    model = Registration
+    list_display = ["label", "price", "advance_price", "registration_start", "registration_end" ]
 
 
 admin.site.unregister(User)
 admin.site.register(User, MyUserAdmin)
-admin.site.register(Registration)
+admin.site.register(Registration, RegistrationAdmin)
 admin.site.register(Participant, ParticipantAdmin)
 admin.site.register(Parent)
-admin.site.register(Animator)
+admin.site.register(Animator, AnimatorAdmin)
 admin.site.register(Child, ChildAdmin)
 admin.site.register(ChildGroup, ChildGroupAdmin)
 
