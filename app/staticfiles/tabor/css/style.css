@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&display=swap');
 * {
 	padding: 0;
 	margin: 0;
@@ -21,9 +22,6 @@ ul {
 }
 body {
 	width: 100%;
-	/* min-height: 100vh;
-	background: #f00; */
-	/* padding: 0 10%; */
 	position: relative;
 	display: flex;
 	justify-content: center;
@@ -34,7 +32,6 @@ body {
 	background-repeat: no-repeat;
 	background-size: 100%;
 	background-position: center -255px;
-	/* background-color: rgba(255, 255, 255, .5); */
 	color: #3e384f;
 }
 
@@ -75,7 +72,6 @@ main {
 	left: 50%;
 	transform: translateX(-50%);
 	border-bottom: 2px solid #e9833a;
-	/* margin-bottom: 20px; */
 	z-index: 1000;
 }
 .topmenu ul{
@@ -92,7 +88,6 @@ main {
 }
 .topmenu ul li {
 	padding-right: 20px;
-	/* border-right: 1px solid #e9833a;; */
 }
 .topmenu ul li:last-child {
 	border-right: none;
@@ -111,7 +106,6 @@ main {
 	display: none;
 }
 .home {
-	/* background: rgba(255, 255, 255, .5); */
 	width: 100%;
 	min-height: calc(100vh - 3rem);
 	position: relative;
@@ -120,16 +114,13 @@ main {
 	align-items: center;
 	flex-direction: column;
 	flex-wrap: wrap;
-	/* margin-top: 120px; */
 }
 .home a,
 h3#nastimobal,
 h3#nastimobalz {
-	/* border: 1px solid #e97110; */
 	border-radius: 5px;
 	transform: scale(1);
 	transition: .3s;
-	/* margin-bottom: 30px; */
 	padding: 7px 15px;
 	display: block;
 }
@@ -160,21 +151,20 @@ p {
 	font-size: 70px;
 }
 .home h1 {
-	/*animation-delay: 10s; */
 	animation: postupne 6s;
 }
 
 .home h2 {
 	margin: 20px;
-	font-family: 'Courgette', cursive;
-	font-size: 75px;
+	/* font-family: 'Courgette', cursive; */
+	font-family: 'Parisienne', cursive;
+	font-size: 100px;
 	color: #e9833a;
 	animation: postupne 8s;
 }
 .home h3 {
 	font-size: 34px;
 	margin: 20px;
-	/* opacity: 0; */
 	animation-delay: 2s;
 	animation: postupne 5s;
 }
@@ -214,15 +204,13 @@ p {
 	background: #d0ac00;
 }
 .home .videoarea {
-	/* position: absolute; */
 	width: 150px;
 	height: auto;
-	/* background: #000; */
 	transform: scale(0.9);
-	/* display: none; */
 }
 .home .datum,
 .home .miesto {
+	display: none;
 	font-family: 'Courgette', cursive;
 	transform: rotate(-30deg);
 	position: absolute;
@@ -234,47 +222,10 @@ p {
 	left: -40px;
 }
 .home .miesto {
-	right: -40px;
+	display: none;
+	right: -95px;
 	transform: rotate(30deg);
 }
-/* .home .datum,
-.home .miesto {
-	position: absolute;
-	top: 120px;
-	left: -40px;
-	width: 300px;
-	height: 80px;
-	background: #000;
-	font-family: 'Courgette', cursive;
-	color: #e9833a;
-	opacity: 0;
-	border-radius: 50%;
-	padding: 25px;
-	font-size: 40px;
-	transform: rotate(-30deg);
-	animation-duration: 10s;
-	animation-name: zobraz;
-	animation-iteration-count: infinite;
-	animation-delay: 2.5s;
-}
-.home .miesto {
-	top: 120px;
-	left: 600px;
-	opacity: 0;
-	transform: rotate(30deg);
-	animation-delay: 5s;
-}
-@keyframes zobraz {
-	from {
-	opacity: 0;
-}
- 	50% {
-	 opacity: .9;
- }
-	to {
-		opacity: 0;
-	}
-} */
 .info,
 .info2 {
 	width: 100%;
@@ -283,7 +234,6 @@ p {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	/* background: rgba(255, 255, 255, .5); */
 }
 .info li,
 .info2 dt {
@@ -305,18 +255,13 @@ p {
 	width: 100%;
 }
 .info2 dd {
-	/* display: none; */
 	text-align: center;
-	/* transform: scale(1); */
 	font-size: 22px;
-	/* background: #fff; */
 	border-radius: 10px;
-	padding: 25px;
+	padding: 30px;
 	transition: 1s;
-	/* height: 0; */
 }
 .info2.active dd {
-	/* transform: scale(1); */
 	height: 100%;
 	transition: .5s;
 }
@@ -346,7 +291,6 @@ dt.info3.active+dd {
 .about {
 	width: 100%;
 	min-height: calc(100vh - 3rem);
-	/* background: rgba(255, 255, 255, .5); */
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
@@ -361,8 +305,10 @@ dt.info3.active+dd {
 	border-radius: 10px;
 	margin-bottom: 20px;
 	border-radius: 10px;
-	/* background: rgba(255, 255, 255, 0); */
 	transition: 1s;
+}
+.about p.acenter {
+	text-align: center;
 }
 .about p:hover {
 	background: rgba(255, 255, 255, .9);
@@ -372,7 +318,6 @@ dt.info3.active+dd {
 	transform: scale(1);
 	transition: .3s;
 	padding: 7px 15px;
-	/* background: #0f0; */
 	border-radius: 5px;
 	border: 1px solid #000;
 
@@ -384,7 +329,6 @@ dt.info3.active+dd {
 .register {
 	width: 100%;
 	height: calc(100vh - 3rem);
-	/* background: rgba(255, 255, 255, .5); */
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -417,7 +361,6 @@ dt.info3.active+dd {
 .hymna {
 	width: 100%;
 	min-height: 100vh;
-	/* background: #fff; */
 	display: flex;
 	background: rgba(255, 255, 255, .6);
 	justify-content: center;
@@ -425,7 +368,7 @@ dt.info3.active+dd {
 }
 .hymna h2 {
 	text-align: center;
-	margin-left: 100px;
+	/* margin-left: 100px; */
 }
 .hymna h3 {
 	cursor: pointer;
@@ -446,7 +389,6 @@ dt.info3.active+dd {
 	justify-content: space-around;
 	align-items: center;
 	height: 50vh;
-	/* background: rgba(255, 255, 255, .6); */
 	flex-wrap: wrap;
 	flex-direction: column;
 	margin-top: 30px;
@@ -465,7 +407,6 @@ dt.info3.active+dd {
 	justify-content: space-evenly;
 	align-items: center;
 	flex-direction: column;
-	/* background: rgba(255, 255, 255, .5); */
 	width: 100%;
 	min-height: calc(100vh - 3rem);
 }
@@ -478,31 +419,90 @@ dt.info3.active+dd {
 	flex-wrap: wrap;
 }
 .galleryitem {
+	cursor: pointer;
+	background: transparent;
 	margin: 30px 30px;
 	transform: scale(1);
 	transition: .3s;
+	border-radius: 15px;
 }
 .galleryitem:hover {
 	transform: scale(1.2);
 	transition: .3s;
+	background: rgba(255, 255, 255, 0.8);
 }
 .galleryfoto {
 	width: 200px;
 	height: 200px;
-
 }
-
 .galleryfoto img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 	border-radius: 50%;
+	border: 3px solid black;
 }
 .gallerytext {
 	text-align: center;
 	margin-top: 30px;
 	font-weight: bold;
 	font-size: 24px;
+}
+.gallerylight {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	text-align: center;
+	position: relative;
+	width: 100%;
+	height: auto;
+}
+.gallery-inner {
+	/* display: none; */
+	transform: scale(0);
+	justify-content: center;
+	align-items: center;
+
+	transition: 1s;
+}
+.gallery-inner img {
+	width: auto;
+	height: 150px;
+	margin: 10px;
+	transform: scale(1);
+	cursor: pointer;
+	transition: .3s;
+	border-radius: 15px;
+	border: 2px solid black
+}
+.gallery-inner img:hover {
+	transform: scale(1.2);
+	transition: .3s;
+}
+.gallery-inner.active {
+	transform: scale(1);
+	position: absolute;
+	top: -100vh;
+	left: -10%;
+	width: 90vw;
+	height: 100vh;
+	/* display: block; */
+	background: #fff;
+	transition: 1s;
+}
+.zatvorgallery,
+.zatvorgallery21,
+.zatvorgallery20,
+.zatvorgallery19,
+.zatvorgallery18 {
+	cursor: pointer;
+	text-align: right;
+	display: block;
+	width: 100%;
+	margin-right: 100px;
+	font-size: 18px;
+	font-weight: bold;
 }
 .cisty {
 	width: 100%;
@@ -533,18 +533,20 @@ dt.info3.active+dd {
 .footer {
 	background: rgba(255, 255, 255, 1);
 	width: 100%;
-	/* min-height: 1000vh; */
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	justify-content: space-around;
+	justify-content: center;
 	align-items: center;
+	text-align: center;
 	padding: 20px;
+	margin: 0 auto;
 }
 .footer img{
-	width: 400px;
+	width: auto;
 	height: 105px;
 	margin-right: 20px;
+	margin-left: 20px;
 }
 .footer img.viki {
 	width: 105px;
@@ -576,15 +578,11 @@ h3#nastimobal {
 	overflow: hidden;
 	transform: scale(0);
 	transition: 1s;
-	
-	/* height: 0; */
 }
-
 .nastimobal.active {
 	height: auto;
 	transform: scale(1);
 	transition: 1s;
-	
 }
 .nastim {
 	display: flex;
@@ -597,7 +595,6 @@ h3#nastimobal {
 	justify-content: center;
 	align-items: center;
 	flex-direction: row;
-	/* border: 1px solid black; */
 	margin-bottom: 20px;
 	transition: 1s;
 }
@@ -619,11 +616,8 @@ h3#nastimobal {
 .itemfoto {
 	width: 250px;
 	height: 250px;
-	/* object-fit: cover; */
 	position: relative;
 	border-radius: 50%;
-	/* border: 3px solid black; */
-
 }
 .itemfoto img.postavicka {
 	width: 120px;
@@ -668,13 +662,11 @@ h3#nastimobal {
 	transition: 1s;
 }
 .timitem:nth-child(2n):hover .itembio h3 {
-	/* text-align: center; */
 	transform: translateX(25%);
 	letter-spacing: 3px;
 	transition: 1s;
 }
 .timitem:nth-child(2n+1):hover .itembio h3 {
-	/* text-align: center; */
 	transform: translateX(-25%);
 	letter-spacing: 3px;
 	transition: 1s;
@@ -686,7 +678,6 @@ h3#nastimobal {
 	position: absolute;
 	width: 50px;
 	height: 50px;
-	/* ackground: #fff; */
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
 	border-radius: 10px;
 	display: flex;
@@ -733,27 +724,18 @@ h3#nastimobal {
 	position: fixed;
 	width: 100%;
 	height: 100vh;
-	/* display: none; */
-	/* visibility: hidden; */
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
 	transform: scale(0);
 	transition: 1s;
-	/* transform: scale(0); */
 }
 .video-container.active {
-
-	/* overflow: hidden; */
-	/* position: fixed; */
 	background: rgba(255, 255, 255, .7);
 	top: 0;
 	left: 0;
-	/* visibility: visible; */
-	/* transform: translateX(-25%); */
 	display: flex;
-	
 	z-index: 10000;
 	transform: scale(1);
 	transition: 1s;
@@ -762,10 +744,8 @@ h3#nastimobal {
 	display: block;
 	position: relative;
  	width: 90%;
-/* 	height: 100vh; */
 	top: 0;
 	right: 0;
-	/* background: #0f0; */
 	color: rgba(0, 0, 0, 0.8);
 	font-weight: bold;
 	cursor: pointer;
@@ -774,9 +754,16 @@ h3#nastimobal {
 	text-align: right;
 	padding-right: 20px;
 }
+.zatvor-btn span {
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 3px 7px;
+	margin-bottom: 5px;
+}
 .video-container video {
 	visibility: hidden;
 	width: 90%;
+	/* height: 90%; */
 	transform: scale(0);
 }
 .video-container.active video {
@@ -797,7 +784,6 @@ h3#nastimobal {
 		display: block;
 		position: fixed;
 		width: 55px;
-		/* width: 50vw; */
 		height: 55px;
 		right: 25px;
 		top: 25px;
@@ -826,22 +812,13 @@ h3#nastimobal {
 		font-size: 18px;
 		letter-spacing: 2px;
 		padding: 20px;
-		/* text-align: center; */
 	}
 	.hammenu.active ul {
-		
-		/* position: absolute; */
-		/* top: 75px; */
-		/* right: 0; */
-		/* width: 100vw; */
-		/* height: 50vh; */
 		background: #fff;
 		transform: translateX(15%);
 		transition: 1s;
 	}
 	.hammenu .toggle.active ul {
-		/* position: absolute; */
-		
 		right: 0;
 		display: block;
 		width: 100vw;
@@ -861,11 +838,10 @@ h3#nastimobal {
         display: flex;
     }
 	.home .datum {
+		display: none;
 		top: 70px;
-		/* left: -40px; */
 	}
 	.home .miesto {
 		top: 70px;
-		/* right: -40px; */
 	}
 }
