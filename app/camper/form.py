@@ -48,6 +48,15 @@ class RegisterChildForm(forms.ModelForm):
             }
         ))
 
+    # birth_date = forms.DateField(
+    #     widget=forms.DateInput(
+    #         attrs={
+    #             "class": "form-control datetimepicker",
+    #             "type": "text",
+    #             "placeholder": "dd.mm.yyyy",
+    #         }
+    #     ))
+
     address = forms.CharField(
         widget=forms.TextInput(
             attrs={
@@ -78,9 +87,8 @@ class RegisterChildForm(forms.ModelForm):
                 "class": "form-control"
             },
             choices=(
-                (Child.SwimStatus.NO, "Nie"),
-                (Child.SwimStatus.YES, "Áno"),
-                (Child.SwimStatus.ABIT, "Trochu")
+                (Child.SwimStatus.NO, "Neviem"),
+                (Child.SwimStatus.YES, "Viem"),
             ),
         ),
     )

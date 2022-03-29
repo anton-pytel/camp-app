@@ -256,6 +256,7 @@ THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.filters'
 )
 
+
 TEXT_ADDITIONAL_ATTRIBUTES = ('onclick', )
 
 VALID_REGISTRATION = config("VALID_REGISTRATION", default="tabor2022")

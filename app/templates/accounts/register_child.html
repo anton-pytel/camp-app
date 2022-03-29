@@ -98,7 +98,18 @@
                             </div>
                           </div>
                           <span class="text-danger">{{ form.birth_number.errors }}</span>
-
+                          <!--
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label">Dátum narodenia</label>
+                                  <br />
+                                {{ form.birth_date }}
+                              </div>
+                            </div>
+                          </div>
+                          <span class="text-danger">{{ form.birth_date.errors }}</span>
+                          -->
                           <br />
 
                           <div class="row">
@@ -316,6 +327,19 @@
     {% include 'includes/scripts.html' %}
  <script type="text/javascript">
             $(document).ready(function(){
+                $('.datetimepicker').datetimepicker({
+                    format: 'DD/MM/YYYY',
+                    icons: {
+                        date: "fa fa-calendar",
+                        up: "fa fa-chevron-up",
+                        down: "fa fa-chevron-down",
+                        previous: 'fa fa-chevron-left',
+                        next: 'fa fa-chevron-right',
+                        today: 'fa fa-screenshot',
+                        clear: 'fa fa-trash',
+                        close: 'fa fa-remove'
+                    }
+                });
                 // alergies adding new
                 $('.remove-empty').parent().attr('last_max', $(".remove-empty").length)
                  let remove_empty = function () {

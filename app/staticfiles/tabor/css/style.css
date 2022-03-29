@@ -576,6 +576,12 @@ footer p {
 	height: 75px;
 	margin-top: 25px;
 }
+
+.cookie {
+	border-top: 1px solid black;
+	margin-top: 10px;
+}
+
 img.zksm {
 	display: block;
 	width: auto;
