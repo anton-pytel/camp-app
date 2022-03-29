@@ -1,0 +1,63 @@
+{% load cms_tags static %}
+<div class="hymna" id="hymna">
+    {% placeholder "hymna" or %}
+        <h1>Hymna 2021</h1>
+        <h2>Tábor táborov</h2>
+        <h3>Hymna detského farského tábora Buďte silní a odvážni 2021</h3><br>
+        <h4>Hudba a text: Peter Švec</h4>
+        <h4>Spev: Mirka Danišovičová</h4>
+        <div class="hymnatext">
+            <p>
+                Intro<br>
+                R1: Toto je tábor táborov,<br>
+                kde si splním veľa snov.<br>
+                Slnko, tráva, voda, les,<br>
+                my dnes budeme mať ples. R1
+            </p>
+            <p>
+                1: Slnko svieti, voda láka,<br>
+                mami, oci, tábor čaká.<br>
+                Zbalení sme raz dva tri,<br>
+                toto leto využi.
+            </p>
+            <p>
+                2: Cesta super, je tu krásne,<br>
+                prvý večer, skladám básne.<br>
+                Ťažké ráno, budík zvoní,<br>
+                len rozcvička, nás zobudí. R1:<br>
+            </p>
+            <p>
+                3: Cez deň v športe bodujeme,<br>
+                večer párty, tancujeme.<br>
+                My však sily máme dosť,<br>
+                spievame si pre radosť.<br>
+            </p>
+            <p>
+                4: Kamaráti poďte sem,<br>
+                bavíme sa každý deň.<br>
+                Tablet ticho leží doma,<br>
+                nechýba mi ani škola. R1:<br>
+            </p>
+            <p>
+                Medzihra<br>
+                B: Sme ako dvanásti okolo stola,<br>
+                dobre jedlo dupla volá.<br>
+                Pitný režim fľašku nosím,<br>
+                po obede siestu hodím. R1,R2:<br>
+            </p>
+            <p>
+                R2: Toto je tábor táborov,<br>
+                kde si idem svoju show.<br>
+                Vďaka všetkým priatelia,<br>
+                o rok zas dovidenia.<br>
+            </p>
+
+            <h3 onclick="play()"><i class="glyphicon glyphicon-play-circle b-play" id="play" onclick="play()"></i>Prehraj
+            </h3>
+
+            <audio id="audio" src="{% static "tabor/media/hymna.mp3" %}"></audio>
+
+        </div>
+
+    {% endplaceholder %}
+</div>

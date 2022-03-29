@@ -35,8 +35,8 @@ class Registration(models.Model):
     registration_end = models.DateField()
     camp_start_date = models.DateField()
     camp_start_end = models.DateField()
-    price = models.DecimalField(max_digits=4, decimal_places=2, default=5)
-    advance_price = models.DecimalField(max_digits=4, decimal_places=2, default=3)
+    price = models.DecimalField(max_digits=20, decimal_places=2, default=5)
+    advance_price = models.DecimalField(max_digits=20, decimal_places=2, default=3)
     bank_account = models.CharField(default=settings.VALID_IBAN, max_length=100)
 
     def __str__(self):
@@ -59,6 +59,13 @@ class Parent(models.Model):
 
 class Animator(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    registrations = models.ManyToManyField(Registration, blank=True)
+    label = models.CharField(max_length=128, blank=True, null=True)
+    description = models.CharField(max_length=1024, blank=True, null=True)
+    main_img = models.FileField(upload_to='animators', blank=True, null=True)
+    animation_img = models.FileField(upload_to='animators', blank=True, null=True)
+    general_order = models.IntegerField(default=0)
+
 
     class Meta:
         verbose_name = 'Animator'
@@ -107,8 +114,8 @@ class ChildParent(models.Model):
 class Participant(models.Model):
     registration = models.ForeignKey(Registration, on_delete=models.CASCADE)
     child = models.ForeignKey(Child, on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=4, decimal_places=2)
-    advance_price = models.DecimalField(max_digits=4, decimal_places=2)
+    price = models.DecimalField(max_digits=20, decimal_places=2)
+    advance_price = models.DecimalField(max_digits=20, decimal_places=2)
     paid = models.BooleanField(default=False)
     advance_paid = models.BooleanField(default=False)
     valid_participant = models.BooleanField(default=True)

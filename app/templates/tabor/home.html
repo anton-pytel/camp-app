@@ -1,0 +1,31 @@
+{% load cms_tags static %}
+
+<div class="home" id="home">
+    {% placeholder "home" or %}
+        <h3>Farnosť Prievidza-mesto</h3>
+        <p>pripravuje</p>
+        <h1>Detský letný tábor 2022</h1>
+        <h2>Cesta do kráľovstva</h2>
+        <div class="h3links">
+            <a href="#" id="uputavka">Pozri video</a>
+            <a href="/register">Prihlás sa</a>
+
+        </div>
+        <div class="video-container" id="video-container">
+            <div class="zatvor-btn" id="zatvor-btn">
+                <span>Zatvoriť video</span>
+            </div>
+            <video controls id="playvideo">
+
+                <source src="{% static "tabor/media/ft2022.mp4" %}" type="video/mp4">
+            </video>
+
+        </div>
+        <div class="datum" id="datum">
+            17.7. - 23.7.
+        </div>
+        <div class="miesto">
+            Pohorie Tríbeč
+        </div>
+    {% endplaceholder %}
+</div>

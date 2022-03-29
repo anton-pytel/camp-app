@@ -228,7 +228,7 @@ def register_child_view(request):
                     p_created = False
                     if not parent:
                         try:
-                            User.objects.get(email=form.cleaned_data.get("p_email"))
+                            u_parent = User.objects.get(email=form.cleaned_data.get("p_email"))
                         except User.DoesNotExist:
                             u_parent = User.objects.create_user(
                                 email=form.cleaned_data.get("p_email"),

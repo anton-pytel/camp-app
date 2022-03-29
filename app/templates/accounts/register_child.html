@@ -233,7 +233,19 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <label class="bmd-label">Súhlas s fotením </label>
+                                            <label class="bmd-label">
+                                                {% placeholder 'fotenie' or %}
+
+                                                    Súhlasím so spracovaním osobných údajov maloletého dieťaťa v zmysle zákona č. 18/2018 Z. z. o ochrane osobných
+                                                    údajov a o zmene a doplnení niektorých zákonov za účelom vyhotovenia obrazových a obrazovo-zvukových
+                                                    záznamov z podujatia ako aj ich zverejnenia: <br/>
+                                                    1. na webovom sídle www.farapd.sk a tabor.farapd.sk, <br/>
+                                                    2. na sociálnych sieťach,<br/>
+                                                    3. v tlačenom médiu (časopis Bartolomej) vydávanom farnosťou Prievidza-mesto.<br/>
+                                                    Zároveň ako dotknutá osoba potvrdzujem, že som sa oboznámila s princípmi ochrany osobných údajov Rímskokatolíckej cirkvi v Slovenskej republike.
+
+                                                {% endplaceholder %}
+                                            </label>
                                         </td>
                                         <td>
                                             <span class="text-danger">{{ form.consent_photo.errors }}</span>
@@ -251,8 +263,15 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <label class="bmd-label">Súhlas so <a href="" target="_blank">
-                                                Všeobecnými podmienkami</a>
+                                            <label class="bmd-label">
+                                                {% placeholder 'podmienky' or %}
+                                                    Potvrdzujem, že som sa ako dotknutá osoba poučila o spracúvaní
+                                                    mojich osobných údajov a osobných údajov môjho dieťaťa prevádzkovateľom ZKSM, Dolný
+                                                    Šianec 1013/1, 911 01 Trenčín v súlade so zákonom č. 18/2018 Z. z. o ochrane osobných
+                                                    údajov pre účely organizovania tábora. Viac informácii o spracúvaní a ochrane osobných
+                                                    údajov: <a href="https://zksm.sk/pre-clenov/administrativa/#GDPR" target="_blank">
+                                                    https://zksm.sk/pre-clenov/administrativa/#GDPR</a>.
+                                                {% endplaceholder %}
                                             </label>
                                         </td>
                                         <td>
