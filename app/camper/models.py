@@ -81,7 +81,8 @@ class Child(models.Model):
         ABIT = "ABIT", _("a little bit")
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    birth_number = models.CharField(blank=False, unique=True, max_length=10, validators=[validate_rc])
+    birth_number = models.CharField(blank=True, null=True, max_length=10, validators=[validate_rc])
+    date_birth = models.DateField(blank=True,null=True)
     address = models.CharField(blank=False, max_length=100)
     city = models.CharField(blank=False, max_length=100)
     state = models.CharField(blank=False, max_length=100)
