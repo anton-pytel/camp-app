@@ -1,3 +1,4 @@
+from unidecode import unidecode
 from datetime import datetime, timedelta
 from django import template
 from django.template import loader
@@ -21,7 +22,7 @@ from camper.form import (
     LoginForm, RegisterUserForm, RegisterChildForm,
     ProfileForm
 )
-from camper.utils import generate_random_password, get_username
+from camper.utils import generate_random_password, get_username, filter_f_l_name
 from camper.models import (
     Child, Parent, Participant, ChildHealth, ChildParent,
     Registration
@@ -132,7 +133,8 @@ def profile_view(request):
                 idx = str(child.idx)
                 child.user.first_name = form.cleaned_data.get("first_name_"+idx)
                 child.user.last_name = form.cleaned_data.get("last_name_" + idx)
-                child.birth_number = form.cleaned_data.get("birth_number_" + idx)
+                # child.birth_number = form.cleaned_data.get("birth_number_" + idx)
+                child.date_birth = form.cleaned_data.get("date_birth_" + idx)
                 child.address = form.cleaned_data.get("address_" + idx)
                 child.city = form.cleaned_data.get("city_" + idx)
                 child.state = form.cleaned_data.get("state_" + idx)
@@ -177,7 +179,6 @@ def register_child_view(request):
             form.initial["p_last_name"] = parent.user.last_name
             form.initial["p_email"] = parent.contact_email
             form.initial["p_number"] = parent.contact_phone
-            form.initial["consent_photo"] = parent.consent_photo
         except Parent.DoesNotExist:
             pass
     msg = None
@@ -196,17 +197,25 @@ def register_child_view(request):
                     label=settings.VALID_REGISTRATION
                 )
                 child = Child.objects.filter(
-                    birth_number=form.cleaned_data.get("birth_number"),
+                    date_birth=form.cleaned_data.get("date_birth")
+                )
+                child = filter_f_l_name(
+                    child,
+                    form.cleaned_data.get("first_name"),
+                    form.cleaned_data.get("last_name")
                 )
                 sfx1 = generate_random_password(3).lower()
                 sfx2 = generate_random_password(3).lower()
                 participation = []
+                child_exists = False
                 if len(child) > 0:
+                    child = child[0]
                     participation = Participant.objects.filter(
-                        child=child[0],
+                        child=child,
                         registration=registration
                     )
-                    u_child = child[0].user
+                    u_child = child.user
+                    child_exists = True
                 else:
                     c_pass = generate_random_password(8)
 
@@ -246,8 +255,6 @@ def register_child_view(request):
                         if p_created:
                             parent = Parent.objects.create(
                                 user=u_parent,
-                                consent_photo=form.cleaned_data.get("consent_photo"),
-                                consent_agreement=form.cleaned_data.get("consent_agreement"),
                                 contact_phone=form.cleaned_data.get("p_number").as_international,
                                 contact_email=form.cleaned_data.get("p_email"),
                             )
@@ -255,16 +262,21 @@ def register_child_view(request):
                         else:
                             parent = Parent.objects.get(user=u_parent)
 
-                    child, _ = Child.objects.get_or_create(
-                        birth_number=form.cleaned_data.get("birth_number"),
-                        defaults={
-                            "user": u_child,
-                            "address": form.cleaned_data.get("address"),
-                            "city": form.cleaned_data.get("city"),
-                            "state": form.cleaned_data.get("state"),
-                            "swim": form.cleaned_data.get("swim"),
-                        }
-                    )
+                    if child_exists:
+                        child.address = form.cleaned_data.get("address")
+                        child.city = form.cleaned_data.get("city")
+                        child.state = form.cleaned_data.get("state")
+                        child.swim = form.cleaned_data.get("swim")
+                        child.save()
+                    else:
+                        child = Child.objects.create(
+                            date_birth=form.cleaned_data.get("date_birth"),
+                            user=u_child,
+                            address=form.cleaned_data.get("address"),
+                            city=form.cleaned_data.get("city"),
+                            state=form.cleaned_data.get("state"),
+                            swim=form.cleaned_data.get("swim"),
+                        )
                     for key in form.data.items():
                         if 'disease_' in key[0]:
                             label = form.data.get(key[0])
@@ -282,7 +294,9 @@ def register_child_view(request):
                         child=child,
                         defaults={
                             "price": registration.price,
-                            "advance_price": registration.advance_price
+                            "advance_price": registration.advance_price,
+                            "consent_photo": form.cleaned_data.get("consent_photo"),
+                            "consent_agreement": form.cleaned_data.get("consent_agreement"),
                         }
                     )
                     participation.generate_qr(due_dt)

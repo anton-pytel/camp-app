@@ -184,6 +184,7 @@
                                                 {{ child.field_last_name }}
                                             </div>
                                         </div>
+                                        <!--
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label class="bmd-label">Rodné číslo</label>
@@ -191,10 +192,20 @@
                                                 {{ child.field_birth_number }}
                                             </div>
                                         </div>
+                                        -->
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="bmd-label">Dátum narodenia</label>
+                                                <br/>
+                                                {{ child.field_date_birth }}
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <span class="text-danger">{{ child.field_first_name.errors }}</span>
                                     <span class="text-danger">{{ child.field_last_name.errors }}</span>
-                                    <span class="text-danger">{{ child.field_birth_number.errors }}</span>
+                                    <!--<span class="text-danger">{{ child.field_birth_number.errors }}</span>-->
+                                    <span class="text-danger">{{ child.date_birth.errors }}</span>
 
                                     <br/>
 
@@ -240,7 +251,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label class="bmd-label">Alergie </label>
+                                                <label class="bmd-label">Zdravotný stav </label>
                                                 {% for disease in child.get_diseases %}
                                                     <br/>
                                                     {{ disease.field_label_name }}
@@ -290,6 +301,19 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
     <script type="text/javascript">
         $(document).ready(function () {
+            $('.datetimepicker').datetimepicker({
+                    format: 'DD.MM.YYYY',
+                    icons: {
+                        date: "fa fa-calendar",
+                        up: "fa fa-chevron-up",
+                        down: "fa fa-chevron-down",
+                        previous: 'fa fa-chevron-left',
+                        next: 'fa fa-chevron-right',
+                        today: 'fa fa-screenshot',
+                        clear: 'fa fa-trash',
+                        close: 'fa fa-remove'
+                    }
+                });
             // alergies adding new
             $('.remove-empty').parent().attr('last_max', $(".remove-empty").length)
             let remove_empty = function () {

@@ -41,6 +41,7 @@ class RegisterChildForm(forms.ModelForm):
         ))
 
     birth_number = forms.CharField(
+        required=False,
         widget=forms.TextInput(
             attrs={
                 "placeholder": "0102031234",
@@ -48,14 +49,15 @@ class RegisterChildForm(forms.ModelForm):
             }
         ))
 
-    # birth_date = forms.DateField(
-    #     widget=forms.DateInput(
-    #         attrs={
-    #             "class": "form-control datetimepicker",
-    #             "type": "text",
-    #             "placeholder": "dd.mm.yyyy",
-    #         }
-    #     ))
+    date_birth = forms.DateField(
+        widget=forms.DateInput(
+            format='%d.%m.%Y',
+            attrs={
+                "class": "form-control datetimepicker",
+                "type": "text",
+                "placeholder": "dd.mm.yyyy",
+            }
+        ))
 
     address = forms.CharField(
         widget=forms.TextInput(
@@ -144,32 +146,74 @@ class RegisterChildForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        diseases = ChildHealth.objects.filter(
-            child=self.instance
+        diseases = []
+        for itm in self.data:
+            if itm.startswith('disease_'):
+               data = self.data[itm]
+               if data and len(data) > 0:
+                   diseases.append(ChildHealth(disease_name=data))
+        dis_i = 0
+        help_txt = "".join((
+            "Zadajte alergie, intolerancie, "
+            "prípadne iné dôležité informácie. ",
+            "Napíšte \"zdravý/á\", ak nie je nič, na čo by sme mali ",
+            "v jedálničku a pri aktivitách dávať pozor.")
         )
-        for i in range(len(diseases) + 1):
-            field_name = 'disease_%s' % (i,)
+        self.diseases = diseases
+        for dis in diseases:
+            field_name = f'disease_{dis_i}'
+
             self.fields[field_name] = forms.CharField(
                 required=False,
                 widget=forms.TextInput(
                     attrs={
-                        "class": "form-control disease_new",
+                        "class": "form-control remove-empty",
                     }
                 ),
-                help_text="".join((
-                    "Zadajte alergie, intolerancie, "
-                    "prípadne iné dôležité informácie. ",
-                    "Napíšte \"zdravý/á\", ak nie je nič, na čo by sme mali ",
-                    "v jedálničku a pri aktivitách dávať pozor.")
-                )
+                help_text=help_txt
+
             )
-            try:
-                self.initial[field_name] = diseases[i].disease_name
-            except IndexError:
-                self.initial[field_name] = ""
-                # create an extra blank field
-                field_name = 'disease_%s' % (i + 1,)
-                self.fields[field_name] = forms.CharField(required=False)
+            help_txt = ''
+            self.initial[field_name] = dis.disease_name
+            setattr(dis, 'field_label_name', self[field_name])
+            dis_i = dis_i + 1
+        field_name = f'disease_{dis_i}'
+        dis = ChildHealth()
+        self.fields[field_name] = forms.CharField(
+            required=False,
+            widget=forms.TextInput(
+                attrs={
+                    "class": "form-control disease_new remove-empty",
+                }
+            ),
+            help_text=help_txt
+        )
+        setattr(dis, 'field_label_name', self[field_name])
+        self.diseases.append(dis)
+
+        # for i in range(len(diseases) + 1):
+        #     field_name = 'disease_%s' % (i,)
+        #     self.fields[field_name] = forms.CharField(
+        #         required=False,
+        #         widget=forms.TextInput(
+        #             attrs={
+        #                 "class": "form-control disease_new",
+        #             }
+        #         ),
+        #         help_text="".join((
+        #             "Zadajte alergie, intolerancie, "
+        #             "prípadne iné dôležité informácie. ",
+        #             "Napíšte \"zdravý/á\", ak nie je nič, na čo by sme mali ",
+        #             "v jedálničku a pri aktivitách dávať pozor.")
+        #         )
+        #     )
+        #     try:
+        #         self.initial[field_name] = diseases[i].disease_name
+        #     except IndexError:
+        #         self.initial[field_name] = ""
+        #         # create an extra blank field
+        #         field_name = 'disease_%s' % (i + 1,)
+        #         self.fields[field_name] = forms.CharField(required=False)
 
     def clean(self):
         diseases = set()
@@ -199,6 +243,9 @@ class RegisterChildForm(forms.ModelForm):
                 disease_name=disease,
                     )
 
+    def get_diseases(self):
+        return self.diseases
+
     def get_disease_fields(self):
         for field_name in self.fields:
             if field_name.startswith('disease_'):
@@ -208,6 +255,7 @@ class RegisterChildForm(forms.ModelForm):
         model = Child
         fields = [
             "birth_number",
+            "date_birth",
             "address",
             "city",
             "state",
@@ -280,7 +328,7 @@ class ProfileForm(forms.ModelForm):
                         self.fields[itm + "_" +idx] = deepcopy(reg_form.fields[itm])
                         self.initial[itm + "_" + idx] = getattr(ch.user, itm)
                         setattr(ch, "field_" + itm, self[itm + "_" + idx])
-                    for itm in ["birth_number", "address", "city", "state", "swim"]:
+                    for itm in ["date_birth", "address", "city", "state", "swim"]:
                         self.fields[itm + "_" + idx] = deepcopy(reg_form.fields[itm])
                         self.initial[itm + "_" +idx] = getattr(ch, itm)
                         setattr(ch, "field_" + itm, self[itm + "_" + idx])
