@@ -87,7 +87,7 @@
                           <span class="text-danger">{{ form.last_name.errors }}</span>
 
                           <br />
-
+                          <!--
                           <div class="row">
                             <div class="col-md-12">
                               <div class="form-group">
@@ -98,18 +98,17 @@
                             </div>
                           </div>
                           <span class="text-danger">{{ form.birth_number.errors }}</span>
-                          <!--
+                          -->
                           <div class="row">
                             <div class="col-md-12">
                               <div class="form-group">
                                 <label class="bmd-label">Dátum narodenia</label>
                                   <br />
-                                {{ form.birth_date }}
+                                {{ form.date_birth }}
                               </div>
                             </div>
                           </div>
-                          <span class="text-danger">{{ form.birth_date.errors }}</span>
-                          -->
+                          <span class="text-danger">{{ form.date_birth.errors }}</span>
                           <br />
 
                           <div class="row">
@@ -220,7 +219,9 @@
 
                             <label class="bmd-label">Zdravotný stav </label>
                               <br />
-                             {{ form.disease_0 }}
+                             {% for disease in form.get_diseases %}
+                                {{ disease.field_label_name }}
+                            {% endfor %}
                           </div>
                           <div class="text-info"> {{ form.disease_0.help_text }} </div>
                           <span class="text-danger">{{ form.disease_0.errors }}</span>
@@ -328,7 +329,7 @@
  <script type="text/javascript">
             $(document).ready(function(){
                 $('.datetimepicker').datetimepicker({
-                    format: 'DD/MM/YYYY',
+                    format: 'DD.MM.YYYY',
                     icons: {
                         date: "fa fa-calendar",
                         up: "fa fa-chevron-up",

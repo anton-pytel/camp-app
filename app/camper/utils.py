@@ -12,6 +12,16 @@ from unidecode import unidecode
 characters = list(string.ascii_letters + string.digits + "!")
 
 
+def filter_f_l_name(objects, f_name, l_name):
+    result = []
+    for obj in objects:
+        if unidecode(obj.user.first_name.lower()) == unidecode(f_name.lower()) and \
+                unidecode(obj.user.last_name.lower()) == unidecode(l_name.lower()):
+            result.append(obj)
+    return result
+
+
+
 def generate_random_password(length):
     # shuffling the characters
     random.shuffle(characters)

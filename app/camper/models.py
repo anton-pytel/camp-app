@@ -45,10 +45,10 @@ class Registration(models.Model):
 
 class Parent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    consent_agreement = models.BooleanField(default=False)
-    consent_photo = models.BooleanField(default=False)
     contact_phone = models.CharField(max_length=17)
     contact_email = models.CharField(max_length=128)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = 'Parent'
@@ -65,6 +65,8 @@ class Animator(models.Model):
     main_img = models.FileField(upload_to='animators', blank=True, null=True)
     animation_img = models.FileField(upload_to='animators', blank=True, null=True)
     general_order = models.IntegerField(default=0)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
 
     class Meta:
@@ -82,11 +84,13 @@ class Child(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birth_number = models.CharField(blank=True, null=True, max_length=10, validators=[validate_rc])
-    date_birth = models.DateField(blank=True,null=True)
+    date_birth = models.DateField()
     address = models.CharField(blank=False, max_length=100)
     city = models.CharField(blank=False, max_length=100)
     state = models.CharField(blank=False, max_length=100)
     swim = models.CharField(max_length=4, choices=SwimStatus.choices, default=SwimStatus.NO)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = 'Child'
@@ -99,6 +103,8 @@ class Child(models.Model):
 class ChildHealth(models.Model):
     disease_name = models.CharField(blank=False, max_length=100)
     child = models.ForeignKey(Child, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ['disease_name', 'child']
@@ -107,6 +113,8 @@ class ChildHealth(models.Model):
 class ChildParent(models.Model):
     parent = models.ForeignKey(Parent, on_delete=models.CASCADE)
     child = models.ForeignKey(Child, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ['parent', 'child']
@@ -122,6 +130,10 @@ class Participant(models.Model):
     valid_participant = models.BooleanField(default=True)
     qr_diff = models.CharField(max_length=1000000, blank=True, null=True)
     qr_advance = models.CharField(max_length=1000000, blank=True, null=True)
+    consent_agreement = models.BooleanField(default=False)
+    consent_photo = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     def generate_qr(self, due_date=datetime.now()):
         self.qr_advance = get_qr(
