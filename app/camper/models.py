@@ -157,6 +157,7 @@ class Participant(models.Model):
             if not parent:
                 parent = self.child.childparent_set.all()[0].parent
             c = {
+                "child_name": f"{self.child.user.first_name} {self.child.user.last_name}",
                 "user_name": parent.user.username,
                 'profile_page': f'{domain}{reverse_lazy("profile")}',
                 'reset_pwd_link': f'{domain}{reverse_lazy("password_reset")}',
