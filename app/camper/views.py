@@ -236,7 +236,7 @@ def register_child_view(request):
                     p_pass = generate_random_password(8)
                     if not parent:
                         try:
-                            parent = Parent.objects.get(user__email=form.cleaned_data.get("p_email"))
+                            parent = Parent.objects.get(contact_email=form.cleaned_data.get("p_email"))
                         except Parent.DoesNotExist:
                             u_parent = User.objects.create_user(
                                 email=form.cleaned_data.get("p_email"),
