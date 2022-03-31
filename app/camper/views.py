@@ -234,28 +234,26 @@ def register_child_view(request):
                     msg = "Účastník je už registrovaný"
                 else:
                     p_pass = generate_random_password(8)
+                    p_created = False
                     if not parent:
-                        try:
-                            parent = Parent.objects.get(contact_email=form.cleaned_data.get("p_email"))
-                        except Parent.DoesNotExist:
-                            u_parent = User.objects.create_user(
-                                email=form.cleaned_data.get("p_email"),
-                                first_name=form.cleaned_data.get("p_first_name"),
-                                last_name=form.cleaned_data.get("p_last_name"),
-                                username=get_username(
-                                    form.cleaned_data.get("p_first_name"),
-                                    form.cleaned_data.get("p_last_name"),
-                                    sfx2
-                                ),
-                                password=p_pass,
-                            )
-                            parent = Parent.objects.create(
-                                user=u_parent,
-                                contact_phone=form.cleaned_data.get("p_number").as_international,
-                                contact_email=form.cleaned_data.get("p_email"),
-                            )
-                            login(request, u_parent)
-
+                        u_parent = User.objects.create_user(
+                            email=form.cleaned_data.get("p_email"),
+                            first_name=form.cleaned_data.get("p_first_name"),
+                            last_name=form.cleaned_data.get("p_last_name"),
+                            username=get_username(
+                                form.cleaned_data.get("p_first_name"),
+                                form.cleaned_data.get("p_last_name"),
+                                sfx2
+                            ),
+                            password=p_pass,
+                        )
+                        parent = Parent.objects.create(
+                            user=u_parent,
+                            contact_phone=form.cleaned_data.get("p_number").as_international,
+                            contact_email=form.cleaned_data.get("p_email"),
+                        )
+                        login(request, u_parent)
+                        p_created = True
                     if child_exists:
                         child.address = form.cleaned_data.get("address")
                         child.city = form.cleaned_data.get("city")
