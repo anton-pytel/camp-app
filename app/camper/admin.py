@@ -43,16 +43,10 @@ class ParticipantAdminInline(admin.StackedInline):
     extra = 0
 
 
-class ParentAdmin(admin.StackedInline):
-    model = Participant
+class ParentAdminInline(admin.StackedInline):
+    model = Parent
     extra = 0
     inlines = [ChildParentAdminInline]
-
-
-class ChildAdmin(admin.ModelAdmin):
-    model = Child
-    extra = 0
-    inlines = [ParticipantAdminInline, ChildParentAdminInline, ChildHealthInline]
 
 
 class AnimatorInline(NestedTabularInline):
@@ -77,6 +71,17 @@ class ChildGroupAdmin(NestedModelAdmin):
     inlines = [GroupAnimatorInline, GroupChildInline]
 
 
+class ParentAdmin(admin.ModelAdmin):
+    model = Parent
+    list_display = ["user", "contact_phone", "contact_email", "updated"]
+
+
+class ChildAdmin(admin.ModelAdmin):
+    model = Child
+    inlines = [ParticipantAdminInline, ChildParentAdminInline, ChildHealthInline]
+    list_display = ["user", "date_birth", "swim", "city", "state"]
+
+
 class ParticipantAdmin(NestedModelAdmin):
     model = Participant
     list_display = ["registration", "child", "advance_price", "advance_paid", "price", "paid"]
@@ -97,7 +102,7 @@ admin.site.unregister(User)
 admin.site.register(User, MyUserAdmin)
 admin.site.register(Registration, RegistrationAdmin)
 admin.site.register(Participant, ParticipantAdmin)
-admin.site.register(Parent)
+admin.site.register(Parent, ParentAdmin)
 admin.site.register(Animator, AnimatorAdmin)
 admin.site.register(Child, ChildAdmin)
 admin.site.register(ChildGroup, ChildGroupAdmin)
