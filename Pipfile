@@ -37,6 +37,7 @@ djangocms-bootstrap4 = "*"
 django-nested-inline = "*"
 django-starcross-gallery = "*"
 unidecode = "*"
+django-import-export = "*"
 
 [requires]
 python_version = "3.9"
