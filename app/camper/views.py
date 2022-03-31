@@ -234,11 +234,10 @@ def register_child_view(request):
                     msg = "Účastník je už registrovaný"
                 else:
                     p_pass = generate_random_password(8)
-                    p_created = False
                     if not parent:
                         try:
-                            u_parent = User.objects.get(email=form.cleaned_data.get("p_email"))
-                        except User.DoesNotExist:
+                            parent = Parent.objects.get(user__email=form.cleaned_data.get("p_email"))
+                        except Parent.DoesNotExist:
                             u_parent = User.objects.create_user(
                                 email=form.cleaned_data.get("p_email"),
                                 first_name=form.cleaned_data.get("p_first_name"),
@@ -250,17 +249,12 @@ def register_child_view(request):
                                 ),
                                 password=p_pass,
                             )
-                            p_created = True
-
-                        if p_created:
                             parent = Parent.objects.create(
                                 user=u_parent,
                                 contact_phone=form.cleaned_data.get("p_number").as_international,
                                 contact_email=form.cleaned_data.get("p_email"),
                             )
                             login(request, u_parent)
-                        else:
-                            parent = Parent.objects.get(user=u_parent)
 
                     if child_exists:
                         child.address = form.cleaned_data.get("address")
