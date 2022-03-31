@@ -150,11 +150,12 @@ class Participant(models.Model):
         )
         self.save()
 
-    def confirm_mail(self, domain):
+    def confirm_mail(self, domain, parent: None):
         try:
             subject = f"Potvrdenie o registrácii na {self.registration.label}"
             email_template_name = "accounts/register_mail.txt"
-            parent = self.child.childparent_set.all()[0].parent
+            if not parent:
+                parent = self.child.childparent_set.all()[0].parent
             c = {
                 "user_name": parent.user.username,
                 'profile_page': f'{domain}{reverse_lazy("profile")}',

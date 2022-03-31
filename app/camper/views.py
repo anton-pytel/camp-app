@@ -292,7 +292,7 @@ def register_child_view(request):
                         }
                     )
                     participation.generate_qr(due_dt)
-                    participation.confirm_mail(settings.PAGE_DOMAIN)
+                    participation.confirm_mail(settings.PAGE_DOMAIN, parent)
                     success_msg = '<div class="alert alert-success">Účastník úspešne zaregistrovaný</div>'
                     success = True
                     if p_created:
