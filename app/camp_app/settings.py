@@ -92,6 +92,7 @@ INSTALLED_APPS = [
     'djangocms_bootstrap4.contrib.bootstrap4_utilities',
     'nested_inline',
     'gallery',
+    'import_export',
 ]
 
 MIDDLEWARE = [

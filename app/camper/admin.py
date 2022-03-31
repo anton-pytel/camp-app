@@ -2,6 +2,29 @@ from django.contrib import admin
 from nested_inline.admin import NestedStackedInline, NestedTabularInline, NestedModelAdmin
 from camper.models import *
 from django.contrib.auth.admin import UserAdmin
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
+from import_export.fields import Field
+
+
+class ParticipantResource(resources.ModelResource):
+    healtstat = Field(attribute='healtstat', column_name='healtstat')
+    class Meta:
+        model = Participant
+        fields = [
+            "id", "child__user__last_name", "child__user__first_name",
+            "child__date_birth", "child__swim", "child__city", "consent_photo", "healtstat", "paid",
+        ]
+        export_order = (
+            "id", "child__user__last_name", "child__user__first_name",
+            "child__date_birth", "child__swim", "child__city", "consent_photo", "healtstat", "paid",
+        )
+
+    def dehydrate_healtstat(self, participation):
+        res = []
+        for dis in participation.child.childhealth_set.all():
+            res.append(dis.disease_name)
+        return ', '.join(res)
 
 
 class MyUserAdmin(UserAdmin):
@@ -82,8 +105,14 @@ class ChildAdmin(admin.ModelAdmin):
     list_display = ["user", "date_birth", "swim", "city", "state"]
 
 
-class ParticipantAdmin(NestedModelAdmin):
+class ChildHealthAdmin(admin.ModelAdmin):
+    model = ChildHealth
+    list_display = ["disease_name", "child", "updated"]
+
+
+class ParticipantAdmin(NestedModelAdmin, ImportExportModelAdmin):
     model = Participant
+    resource_class = ParticipantResource
     list_display = ["registration", "child", "advance_price", "advance_paid", "price", "paid"]
     list_filter = ["registration", "paid"]
 
@@ -105,5 +134,6 @@ admin.site.register(Participant, ParticipantAdmin)
 admin.site.register(Parent, ParentAdmin)
 admin.site.register(Animator, AnimatorAdmin)
 admin.site.register(Child, ChildAdmin)
+admin.site.register(ChildHealth, ChildHealthAdmin)
 admin.site.register(ChildGroup, ChildGroupAdmin)
 
