@@ -47,3 +47,20 @@ zatvorBtn.onclick = function () {
     videocontainer.classList.toggle('active');
     document.getElementById('playvideo').pause();
 };
+
+// postavičky
+
+(function($) {
+var otvorpostavicku = $('.nastim');
+var zatvorpostavicku = $('.nastim');
+otvorpostavicku.find('.postavicka');
+zatvorpostavicku.find('zatvorpostavicku');
+otvorpostavicku.find('.postavicka').on('click', function() {
+$(this).addClass('active');
+$(this).next().addClass('active');
+});
+zatvorpostavicku.find('.zatvorpostavicku').on('click', function() {
+$(this).removeClass('active');
+$(this).prev().removeClass('active');
+});
+})(jQuery);
