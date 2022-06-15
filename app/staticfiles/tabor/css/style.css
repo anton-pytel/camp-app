@@ -580,7 +580,9 @@ footer p {
 
 .cookie {
 	border-top: 1px solid black;
-	margin-top: 10px;
+    background: white;
+    width: 100%;
+    text-align: center;
 }
 
 img.zksm {
