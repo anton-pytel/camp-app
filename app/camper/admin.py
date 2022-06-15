@@ -144,7 +144,7 @@ class ParticipantAdmin(NestedModelAdmin, ImportExportModelAdmin):
     list_filter = ["registration", "paid"]
 
 
-class AnimatorAdmin(NestedModelAdmin, ImportExportModelAdmin):
+class AnimatorAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     model = Animator
     resource_class = AnimatorResource
     list_display = ["label", "get_username", "general_order", "consent_of_parent", "consent_photo"]
@@ -157,7 +157,7 @@ class AnimatorAdmin(NestedModelAdmin, ImportExportModelAdmin):
     get_username.admin_order_field = 'user__username'
 
 
-class RegistrationAdmin(NestedModelAdmin):
+class RegistrationAdmin(admin.ModelAdmin):
     model = Registration
     list_display = ["label", "price", "advance_price", "registration_start", "registration_end" ]
 
