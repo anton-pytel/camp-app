@@ -67,7 +67,12 @@ class Animator(models.Model):
     general_order = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
+    date_birth = models.DateField(blank=True, null=True)
+    address = models.CharField(blank=True, null=True, max_length=100)
+    city = models.CharField(blank=True, null=True, max_length=100)
+    state = models.CharField(blank=True, null=True, max_length=100)
+    consent_of_parent = models.BooleanField(default=False)
+    consent_photo = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Animator'
@@ -108,6 +113,18 @@ class ChildHealth(models.Model):
 
     class Meta:
         unique_together = ['disease_name', 'child']
+
+
+class AnimatorHealth(models.Model):
+    disease_name = models.CharField(blank=False, max_length=100)
+    animator = models.ForeignKey(Animator, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ['disease_name', 'animator']
+        verbose_name = 'Animator disease'
+        verbose_name_plural = 'Animator diseases'
 
 
 class ChildParent(models.Model):

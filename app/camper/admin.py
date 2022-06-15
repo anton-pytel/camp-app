@@ -8,21 +8,43 @@ from import_export.fields import Field
 
 
 class ParticipantResource(resources.ModelResource):
-    healtstat = Field(attribute='healtstat', column_name='healtstat')
+    health_stat = Field(attribute='health_stat', column_name='health_stat')
+
     class Meta:
         model = Participant
         fields = [
             "id", "child__user__last_name", "child__user__first_name",
-            "child__date_birth", "child__swim", "child__city", "consent_photo", "healtstat", "paid",
+            "child__date_birth", "child__swim", "child__city", "consent_photo", "health_stat", "paid",
         ]
         export_order = (
             "id", "child__user__last_name", "child__user__first_name",
-            "child__date_birth", "child__swim", "child__city", "consent_photo", "healtstat", "paid",
+            "child__date_birth", "child__swim", "child__city", "consent_photo", "health_stat", "paid",
         )
 
-    def dehydrate_healtstat(self, participation):
+    def dehydrate_health_stat(self, participation):
         res = []
         for dis in participation.child.childhealth_set.all():
+            res.append(dis.disease_name)
+        return ', '.join(res)
+
+
+class AnimatorResource(resources.ModelResource):
+    health_stat = Field(attribute='health_stat', column_name='health_stat')
+
+    class Meta:
+        model = Animator
+        fields = [
+            "user__id", "user__last_name", "user__first_name",
+            "date_birth", "consent_of_parent", "consent_photo", "health_stat",
+        ]
+        export_order = (
+            "user__id", "user__last_name", "user__first_name",
+            "date_birth", "consent_of_parent", "consent_photo", "health_stat",
+        )
+
+    def dehydrate_health_stat(self, animator):
+        res = []
+        for dis in animator.animatorhealth_set.all():
             res.append(dis.disease_name)
         return ', '.join(res)
 
@@ -43,6 +65,11 @@ class ChildParentAdminInline(admin.StackedInline):
 
 class ChildHealthInline(admin.StackedInline):
     model = ChildHealth
+    extra = 0
+
+
+class AnimatorHealthInline(admin.StackedInline):
+    model = AnimatorHealth
     extra = 0
 
 
@@ -117,9 +144,17 @@ class ParticipantAdmin(NestedModelAdmin, ImportExportModelAdmin):
     list_filter = ["registration", "paid"]
 
 
-class AnimatorAdmin(NestedModelAdmin):
+class AnimatorAdmin(NestedModelAdmin, ImportExportModelAdmin):
     model = Animator
-    list_display = ["label", "general_order"]
+    resource_class = AnimatorResource
+    list_display = ["label", "get_username", "general_order", "consent_of_parent", "consent_photo"]
+    list_filter = ["registrations"]
+    inlines = [AnimatorHealthInline]
+
+    def get_username(self, animator):
+        return animator.user.username
+    get_username.short_description = 'Username'
+    get_username.admin_order_field = 'user__username'
 
 
 class RegistrationAdmin(NestedModelAdmin):
