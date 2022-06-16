@@ -1,6 +1,21 @@
 {% load cms_tags static %}
 
 <div class="home" id="home">
+    <style type="text/css">
+    #defaultCountdown { width: 240px; height: 45px; }
+    </style>
+    <script src="{% static "tabor/js/jquery.plugin.min.js" %}"></script>
+    <script src="{% static "tabor/js/jquery.countdown.min.js" %}"></script>
+    <script src="{% static "tabor/js/jquery.countdown-sk.js" %}"></script>
+    <script>
+    $(function () {
+        var austDay = new Date('2022-07-17');
+        $('#defaultCountdown').countdown({
+            until: austDay
+        });
+
+    });
+    </script>
     {% placeholder "home" or %}
         <h3>Farnosť Prievidza-mesto</h3>
         <p>pripravuje</p>
