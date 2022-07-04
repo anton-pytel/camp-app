@@ -35,11 +35,13 @@ class AnimatorResource(resources.ModelResource):
         model = Animator
         fields = [
             "user__id", "user__last_name", "user__first_name",
-            "date_birth", "consent_of_parent", "consent_photo", "health_stat",
+            "date_birth", "address", "city", "state",
+            "consent_of_parent", "consent_photo", "health_stat",
         ]
         export_order = (
             "user__id", "user__last_name", "user__first_name",
-            "date_birth", "consent_of_parent", "consent_photo", "health_stat",
+            "date_birth", "address", "city", "state",
+            "consent_of_parent", "consent_photo", "health_stat",
         )
 
     def dehydrate_health_stat(self, animator):
