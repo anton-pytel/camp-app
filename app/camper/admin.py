@@ -106,19 +106,19 @@ class AnimatorInline(NestedTabularInline):
     extra = 0
 
 
-class GroupAnimatorInline(NestedTabularInline):
+class GroupAnimatorInline(admin.TabularInline):
     model = GroupAnimator
     extra = 0
-    inlines = [AnimatorInline]
+    # inlines = [AnimatorInline]
 
 
-class GroupChildInline(NestedTabularInline):
+class GroupChildInline(admin.TabularInline):
     model = GroupChild
     extra = 0
-    inlines = [Child4GroupInline]
+    # inlines = [Child4GroupInline]
 
 
-class ChildGroupAdmin(NestedModelAdmin):
+class ChildGroupAdmin(admin.ModelAdmin):
     model = ChildGroup
     inlines = [GroupAnimatorInline, GroupChildInline]
 

@@ -194,15 +194,24 @@ class ChildGroup(models.Model):
     label = models.CharField(max_length=100)
     registration = models.ForeignKey(Registration, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.label
+
 
 class GroupAnimator(models.Model):
     animator = models.ForeignKey(Animator, on_delete=models.CASCADE)
     group = models.ForeignKey(ChildGroup, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"{self.group.label} {self.animator.label}"
+
 
 class GroupChild(models.Model):
     child = models.ForeignKey(Child, on_delete=models.CASCADE)
     group = models.ForeignKey(ChildGroup, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.group.label} - {self.child.user.last_name} {self.child.user.first_name}"
 
     class Meta:
         verbose_name_plural = 'Group Children'
