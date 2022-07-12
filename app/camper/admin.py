@@ -9,16 +9,17 @@ from import_export.fields import Field
 
 class ParticipantResource(resources.ModelResource):
     health_stat = Field(attribute='health_stat', column_name='health_stat')
+    parents = Field(attribute='parents', column_name='parents')
 
     class Meta:
         model = Participant
         fields = [
             "id", "child__user__last_name", "child__user__first_name",
-            "child__date_birth", "child__swim", "child__city", "consent_photo", "health_stat", "paid",
+            "child__date_birth", "child__swim", "child__city", "consent_photo", "parents", "health_stat", "paid",
         ]
         export_order = (
             "id", "child__user__last_name", "child__user__first_name",
-            "child__date_birth", "child__swim", "child__city", "consent_photo", "health_stat", "paid",
+            "child__date_birth", "child__swim", "child__city", "consent_photo", "parents", "health_stat", "paid",
         )
 
     def dehydrate_health_stat(self, participation):
@@ -26,6 +27,13 @@ class ParticipantResource(resources.ModelResource):
         for dis in participation.child.childhealth_set.all():
             res.append(dis.disease_name)
         return ', '.join(res)
+
+    def dehydrate_parents(self, participation):
+        res = []
+        for parent_item in participation.child.childparent_set.all():
+            res.append(f"{parent_item.parent.user.last_name} {parent_item.parent.user.last_name} - "
+                       f"{parent_item.parent.contact_phone} - {parent_item.parent.contact_email}")
+        return '\n'.join(res)
 
 
 class AnimatorResource(resources.ModelResource):
