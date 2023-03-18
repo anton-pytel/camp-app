@@ -167,7 +167,7 @@ class Participant(models.Model):
         )
         self.save()
 
-    def confirm_mail(self, domain, parent: None):
+    def confirm_mail(self, domain, parent=None):
         try:
             subject = f"Potvrdenie o registrácii na {self.registration.label}"
             email_template_name = "accounts/register_mail.txt"
