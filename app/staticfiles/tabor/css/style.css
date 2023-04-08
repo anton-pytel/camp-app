@@ -20,6 +20,13 @@ a:hover {
 ul {
 	list-style: none;
 }
+
+/*
+  - color versions 2023: #386872 ; #519733
+  - do not forget to change material-dashboard.css as well (background image and colors)
+  - hr color of profile page
+ */
+
 body {
 	width: 100%;
 	position: relative;
@@ -27,11 +34,11 @@ body {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	background-image:url(../images/bgb.jpg);
+	background-image:url(../images/web_2023.jpg);
 	background-attachment: fixed;
 	background-repeat: no-repeat;
 	background-size: 100%;
-	background-position: center -255px;
+	background-position: center right;
 	color: #3e384f;
 }
 
@@ -88,7 +95,7 @@ main {
 	top: 0;
 	left: 50%;
 	transform: translateX(-50%);
-	border-bottom: 2px solid #e9833a;
+	border-bottom: 2px solid #386872;
 	z-index: 1000;
 }
 .topmenu ul{
@@ -111,12 +118,12 @@ main {
 	padding-right: 0;
 }
 .topmenu a {
-	color: #d0ac00;
+	color: #386872;
 	font-size: 22px;
 	transition: .3s;
 }
 .topmenu a:hover {
-	color: #e9833a;
+	color: #519733;
 	transition: .3s;
 }
 .hammenu {
@@ -142,12 +149,14 @@ h3#nastimobalz {
 	display: block;
 }
 .home a {
-	background-color: #d0ac00;
+	background-color: #386872;
+	color: white;
 }
 h3#nastimobalz {
 	display: inline-block;
-	background-color: #d0ac00;
+	background-color: #386872;
 	cursor: pointer;
+	color: white;
 }
 .home a:hover {
 	transform: scale(1.2);
@@ -176,7 +185,7 @@ p {
 	/* font-family: 'Courgette', cursive; */
 	font-family: 'Parisienne', cursive;
 	font-size: 100px;
-	color: #e9833a;
+	color: #386872;
 	animation: postupne 8s;
 }
 .home h3 {
@@ -218,7 +227,7 @@ p {
 	font-size: 30px;
 	font-weight: lighter;
 	background: rgba(255, 255, 255, .6);
-	background: #d0ac00;
+	background: #519733;
 }
 .home .videoarea {
 	width: 150px;
@@ -232,7 +241,7 @@ p {
 	transform: rotate(-30deg);
 	position: absolute;
 	top: 130px;
-	color: #e9833a;
+	color: #386872;
 	font-size: 40px;
 }
 .home .datum {
@@ -367,12 +376,12 @@ dt.info3.active+dd {
 }
 .register form input:focus {
 	background: #ebe4c2;
-	border: 1px solid #d0ac00;
+	border: 1px solid #519733;
 }
 .register form input[type="submit"] {
-	background: #d0ac00;
+	background: #519733;
 	border-radius: 10px;
-	border: 2px solid #d0ac00;;
+	border: 2px solid #519733;;
 	width: 50%;
 }
 .hymna {
@@ -592,11 +601,11 @@ img.zksm {
 }
 #nastimobal h3{
 	cursor: pointer;
-	background: #d0ac00;
+	background: #519733;
 }
 h3#nastimobal {
 	cursor: pointer;
-	background: #d0ac00;
+	background: #519733;
 }
 .nastimobal {
 	width: 100%;
@@ -772,7 +781,7 @@ h3#nastimobal {
 	position: absolute;
 	width: 40px;
 	height: 4px;
-	background: #e9833a;
+	background: #386872;
 	border-radius: 4px;
 	transition: .5s;
 
@@ -870,7 +879,7 @@ h3#nastimobal {
 		right: 25px;
 		top: 25px;
 		z-index: 100000;
-		border: 2px solid #e9833a;
+		border: 2px solid #386872;
 		border-radius: 7px;
 	}
 	.hammenu .toggle {
@@ -905,14 +914,14 @@ h3#nastimobal {
 		display: block;
 		width: 100vw;
 		height: 100vh;
-		background: #e9833a;
-		color: #e9833a;
+		background: #386872;
+		color: #386872;
 		z-index: 10000;
 	}
 	
 	.hammenu .toggle.active ul li {
-		background: #e9833a;
-		color: #e9833a;
+		background: #386872;
+		color: #386872;
 		z-index: 10000;
 		padding: 100px;
 	}

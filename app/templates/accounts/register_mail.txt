@@ -12,6 +12,6 @@ Vaše prihlasovacie meno je {{ user_name }}
 a heslo si môžete zmeniť na {{ reset_pwd_link }}.
 
 S pozdravom,
-Tím tábora Cesta do kráľovstva
+Tím tábora STOPA
 
 {% endautoescape %}
