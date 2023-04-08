@@ -62,7 +62,7 @@ body {
   color: #212529;
   text-align: left;
   background-color: #fafafa;
-  background-image: url(../../tabor/images/bgb.jpg);
+  background-image: url(../../tabor/images/web_2023.jpg.jpg);
   /* background-repeat: no-repeat;
   background-size: cover; */
 }
@@ -8792,23 +8792,23 @@ a.text-dark:focus {
 
 .btn.btn-primary {
   color: #000000;
-  background-color: #e0cf7c;
-  border-color: #d0ac00;
+  background-color: #519733;
+  border-color: #386872;
   box-shadow: 0 2px 2px 0 rgba(156, 39, 176, 0.14), 0 3px 1px -2px rgba(156, 39, 176, 0.2), 0 1px 5px 0 rgba(156, 39, 176, 0.12);
 }
 
 .btn.btn-primary:hover {
   color: #fff;
-  background-color: #d0ac00;
-  border-color: #e0cf7c;
+  background-color: #386872;
+  border-color: #519733;
 }
 
 .btn.btn-primary:focus,
 .btn.btn-primary.focus,
 .btn.btn-primary:hover {
   color: #fff;
-  background-color: #d0ac00;
-  border-color: #e0cf7c;
+  background-color: #386872;
+  border-color: #519733;
 }
 
 .btn.btn-primary:active,
@@ -8851,14 +8851,14 @@ a.text-dark:focus {
 .btn.btn-primary.disabled.focus,
 .btn.btn-primary:disabled:focus,
 .btn.btn-primary:disabled.focus {
-  background-color: #d0ac00;
-  border-color: #d0ac00;
+  background-color: #386872;
+  border-color: #386872;
 }
 
 .btn.btn-primary.disabled:hover,
 .btn.btn-primary:disabled:hover {
-  background-color: #d0ac00;
-  border-color: #d0ac00;
+  background-color: #386872;
+  border-color: #386872;
 }
 
 .btn.btn-primary:focus,
@@ -13416,8 +13416,8 @@ fieldset[disabled] .form-group .form-control {
 }
 
 .alert.alert-success {
-  background-color: #d0ac00;
-  color: #000000;
+  background-color: #386872;
+  color: white;
 }
 
 .alert.alert-success a,
@@ -16781,7 +16781,7 @@ label {
 .card.bg-primary,
 .card.card-rotate.bg-primary .front,
 .card.card-rotate.bg-primary .back {
-  background: linear-gradient(60deg, #e0cf7c, #d0ac00);
+    background: linear-gradient(60deg, #519733, #386872);
 }
 
 .card .card-header-info .card-icon,
