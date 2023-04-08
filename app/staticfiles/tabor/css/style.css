@@ -43,12 +43,12 @@ body {
 }
 
 .bodybg {
-	background: rgba(255, 255, 255, .7);
+	background: rgba(255, 255, 255, .6);
 	width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	animation: pozadie 5s;
+	/*animation: pozadie 5s; */
 }
 @keyframes pozadie {
 	from {
