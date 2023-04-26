@@ -655,11 +655,11 @@ h3#nastimobal {
 .timitem:nth-child(2n+1) {
 	flex-direction: row-reverse;
 }
-.timitem:nth-child(2n+1) h3 {
+.timitem:nth-child(2n) h3 {
 	text-align: right;
 	margin-right: 30px;
 }
-.timitem:nth-child(2n) h3 {
+.timitem:nth-child(2n+1) h3 {
 	text-align: left;
 }
 .itemfoto {
@@ -752,12 +752,12 @@ h3#nastimobal {
 	transition: 1s;
 }
 .timitem:nth-child(2n):hover .itembio h3 {
-	transform: translateX(25%);
+	transform: translateX(-25%);
 	letter-spacing: 3px;
 	transition: 1s;
 }
 .timitem:nth-child(2n+1):hover .itembio h3 {
-	transform: translateX(-25%);
+	transform: translateX(25%);
 	letter-spacing: 3px;
 	transition: 1s;
 }

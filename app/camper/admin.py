@@ -150,8 +150,52 @@ class ChildHealthAdmin(admin.ModelAdmin):
 class ParticipantAdmin(NestedModelAdmin, ImportExportModelAdmin):
     model = Participant
     resource_class = ParticipantResource
-    list_display = ["registration", "child", "advance_price", "advance_paid", "price", "paid"]
-    list_filter = ["registration", "paid"]
+    list_display = [
+        "registration", "advance_price", "advance_paid", "price", "paid", "get_date_birth",
+        "get_last_name", "get_first_name", "get_address", "get_city", "get_swim"
+    ]
+    list_filter = [
+        "registration", "paid", "child__user__first_name", "child__user__last_name",
+        "child__date_birth", "child__swim", "child__address",
+        "child__city"
+    ]
+
+    def get_first_name(self, obj):
+        return obj.child.user.first_name
+
+    get_first_name.admin_order_field = 'child__user__first_name'  # Allows column order sorting
+    get_first_name.short_description = 'First Name'
+
+    def get_last_name(self, obj):
+        return obj.child.user.last_name
+
+    get_last_name.admin_order_field = 'child__user__last_name'  # Allows column order sorting
+    get_last_name.short_description = 'Last Name'
+
+    def get_address(self, obj):
+        return obj.child.address
+
+    get_address.admin_order_field = 'child__address'  # Allows column order sorting
+    get_address.short_description = 'Address'
+
+    def get_city(self, obj):
+        return obj.child.city
+
+    get_city.admin_order_field = 'child__city'  # Allows column order sorting
+    get_city.short_description = 'City'
+
+    def get_date_birth(self, obj):
+        return obj.child.date_birth
+
+    get_date_birth.admin_order_field = 'child__date_birth'  # Allows column order sorting
+    get_date_birth.short_description = 'Date birth'
+
+    def get_swim(self, obj):
+        return obj.child.swim
+
+    get_swim.admin_order_field = 'child__swim'  # Allows column order sorting
+    get_swim.short_description = 'Swim'
+
 
 
 class AnimatorAdmin(ImportExportModelAdmin, admin.ModelAdmin):
@@ -169,7 +213,7 @@ class AnimatorAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
 class RegistrationAdmin(admin.ModelAdmin):
     model = Registration
-    list_display = ["label", "price", "advance_price", "registration_start", "registration_end" ]
+    list_display = ["label", "price", "advance_price", "registration_start", "registration_end"]
 
 
 admin.site.unregister(User)
