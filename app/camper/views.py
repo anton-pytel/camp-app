@@ -378,7 +378,7 @@ def password_reset_request(request):
                     c = {
                         "email": user.email,
                         'domain': settings.PAGE_DOMAIN,
-                        'site_name': 'Tábor 2022',
+                        'site_name': 'Tábor 2023',
                         "uid": urlsafe_base64_encode(force_bytes(user.pk)),
                         "user": user,
                         'token': default_token_generator.make_token(user),
