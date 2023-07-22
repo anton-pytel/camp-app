@@ -15,11 +15,13 @@ class ParticipantResource(resources.ModelResource):
         model = Participant
         fields = [
             "id", "child__user__last_name", "child__user__first_name",
-            "child__date_birth", "child__swim", "child__city", "consent_photo", "parents", "health_stat", "paid",
+            "child__date_birth", "child__swim", "child__city", "child__address",
+            "consent_photo", "parents", "health_stat", "paid",
         ]
         export_order = (
             "id", "child__user__last_name", "child__user__first_name",
-            "child__date_birth", "child__swim", "child__city", "consent_photo", "parents", "health_stat", "paid",
+            "child__date_birth", "child__swim", "child__city", "child__address",
+            "consent_photo", "parents", "health_stat", "paid",
         )
 
     def dehydrate_health_stat(self, participation):
