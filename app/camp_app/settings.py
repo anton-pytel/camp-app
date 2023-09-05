@@ -65,7 +65,7 @@ INSTALLED_APPS = [
     'sekizai',
     'filer',
     'easy_thumbnails',
-    'mptt',
+    # 'mptt',
     'djangocms_text_ckeditor',
     'djangocms_link',
     'djangocms_file',

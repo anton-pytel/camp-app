@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 django-jazzmin = "==2.4.*"
-psycopg2-binary = "==2.8.*"
+psycopg2-binary = "*"
 python-decouple = "==3.3.*"
 uuid = "==1.30.*"
 django-countries = "==7.0.*"
